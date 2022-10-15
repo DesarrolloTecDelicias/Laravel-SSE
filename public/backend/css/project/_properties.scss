@@ -1,0 +1,40 @@
+$WhiteColor: #ffffff;
+$TecColor: #1b396a;
+$GrayColor: #495057;
+
+@mixin WidthHeightValues($wValue, $hValue: "") {
+  @if ($hValue == "") {
+    width: $wValue;
+    height: $wValue;
+  } @else {
+    width: $wValue;
+    height: $hValue;
+  }
+}
+
+@mixin FlexWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin FlexColumn {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin FlexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin TRBL($topValue: "", $rightValue: "", $bottomValue: "", $leftValue: "") {
+  top: $topValue;
+  right: $rightValue;
+  bottom: $bottomValue;
+  left: $leftValue;
+}

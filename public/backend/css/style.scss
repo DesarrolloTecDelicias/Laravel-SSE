@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900&display=swap");
+@import "./properties";
+@import "./roboto";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+}
+
+.title-h1 {
+    font-size: 2.6rem;
+    line-height: 4rem;
+    font-weight: 800;
+}
+
+.btn-white {
+    border: 2px solid $WhiteColor;
+    border-radius: 2rem;
+    color: $WhiteColor;
+    font-weight: 600;
+    font-size: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    &:hover {
+        background-color: $WhiteColor;
+        color: $TecColor;
+        border: 2px solid $WhiteColor;
+    }
+}
+
+/* Section title */
+.section-title {
+    position: relative;
+}
+
+h2.section-title-heading {
+    padding-top: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    border-bottom: 2px solid $TecColor;
+    width: 8%;
+    top: 80px;
+}
+
+.section-title:hover::after {
+    width: 12%;
+    transition: all 0.6s ease-out;
+    -webkit-transition: all 0.6s ease-out;
+    -moz-transition: all 0.6s ease-out;
+    -o-transition: all 0.6s ease-out;
+}
+
+/* ============ NAVIGATION =============== */
+
+.navbar {
+    padding-top: 1.2rem;
+
+    &.active {
+        background-color: $TecColor;
+        // box-shadow: 1px 2px 10px white;
+    }
+}
+
+.navbar-light .navbar-nav {
+    & .nav-link {
+        color: $WhiteColor;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.85rem;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+/* ============ HERO =============== */
+
+#hero {
+    background-image: linear-gradient(to right, $TecColor, #282828);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+    position: relative;
+}
+
+.main-hero-content h1 {
+    color: $WhiteColor;
+    text-transform: uppercase;
+    letter-spacing: 0.11rem;
+}
+
+.main-hero-content p {
+    color: $WhiteColor;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    line-height: 1.7rem;
+    font-size: 1.2rem;
+}
+
+.image-box img {
+    position: absolute;
+    top: 4rem;
+    z-index: 1;
+}
+
+/* ============ ABOUT =============== */
+
+#about {
+    position: relative;
+    padding-bottom: 3rem;
+
+    & i {
+        color: $TecColor;
+        font-size: 55px;
+    }
+
+    & h3 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+
+    & p {
+        color: $GrayColor;
+        font-size: 1rem;
+        line-height: 1.7rem;
+    }
+}
+
+/* ============ FEATURES =============== */
+
+#features {
+    background-color: #fafafa;
+    padding-bottom: 4rem;
+    margin-top: 3rem;
+
+    & i {
+        color: $TecColor;
+        font-size: 35px;
+    }
+
+    & img {
+        display: block;
+        margin: 0 auto;
+    }
+
+    & .feature-block {
+        text-align: center;
+    }
+
+    & .feature-block h3 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+    }
+
+    & .feature-block img {
+        padding-bottom: 1rem;
+    }
+
+    & .feature-block p {
+        color: $GrayColor;
+        font-size: 1rem;
+        line-height: 1.7rem;
+    }
+}
+
+/* ============ Footer =============== */
+#footer {
+    background-color: #2b323f;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    position: relative;
+    font-size: 30px;
+
+    & .footer-logo img {
+        margin-top: -4.5rem;
+    }
+
+    & .social-icons {
+        margin-top: 0.5rem;
+    }
+
+    & .social-icons a {
+        margin-right: 10px;
+        color: white;
+    }
+}
+
+.copyright p {
+    margin-top: 1rem;
+    color: $WhiteColor;
+    font-size: 0.9rem;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: white;
+}

@@ -1,0 +1,123 @@
+@import "./properties";
+
+* {
+    font-family: "Roboto";
+}
+
+.TecColor {
+    color: $TecColor;
+}
+
+// Index animation start
+.swiper {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    @include WidthHeightValues(430px);
+    @include FlexCenter;
+    background-position: center;
+    background-size: cover;
+    background-color: transparent;
+    margin-bottom: 200px;
+}
+
+.container-image {
+    @include WidthHeightValues(100%);
+    @include FlexWrap;
+
+    & h5 {
+        margin-top: 5px;
+    }
+
+    & a {
+        @include WidthHeightValues(100%);
+        @include FlexWrap;
+        cursor: pointer;
+    }
+
+    & a img {
+        @include WidthHeightValues(70%, 100%);
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.swiper-pagination {
+    padding-top: 30px;
+}
+
+.container-loader {
+    @include FlexCenter;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container-text {
+    @include FlexCenter;
+    text-align: center;
+    width: 100%;
+}
+
+.loaderSquare {
+    @include WidthHeightValues(30px);
+    position: relative;
+
+    & span {
+        @include WidthHeightValues(10px);
+        position: absolute;
+        background-color: $TecColor;
+        border-radius: 4px;
+        animation: chase 2s linear infinite;
+    }
+
+    & span:nth-child(2) {
+        animation-delay: 0.7s;
+    }
+
+    & span:nth-child(3) {
+        animation-delay: 1.4s;
+    }
+}
+
+@keyframes chase {
+    0% {
+        @include TRBL($topValue: 0, $leftValue: 0);
+    }
+
+    12.5% {
+        @include TRBL($topValue: 0, $leftValue: 50%);
+    }
+
+    25% {
+        @include TRBL($topValue: 0, $leftValue: 50%);
+    }
+
+    37.5% {
+        @include TRBL($topValue: 50%, $leftValue: 50%);
+    }
+
+    50% {
+        @include TRBL($topValue: 50%, $leftValue: 50%);
+    }
+
+    62.5% {
+        @include TRBL($topValue: 50%, $leftValue: 0);
+    }
+
+    75% {
+        @include TRBL($topValue: 50%, $leftValue: 0);
+    }
+
+    87.5% {
+        @include TRBL($topValue: 0, $leftValue: 0);
+    }
+
+    100% {
+        @include TRBL($topValue: 0, $leftValue: 0);
+    }
+}
+// Index animation end
