@@ -184,11 +184,12 @@
         <div class="container">
             <div class="row d-flex flex-column align-items-center">
                 <div class="social-icons text-light">
-                    <a title="Facebook del ITD" href="{{ env('SCHOOL_FACEBOOK') }}"><i
+                    <a title="Facebook" href="{{ env('SCHOOL_FACEBOOK') }}"><i
                             class="lni lni-facebook-original"></i></a>
-                    <a title="Sitio oficial del ITD" href="{{ env('SCHOOL_WEB') }}"><i class="lni lni-website"></i></a>
-                    <a title="Linkedin del ITD" href="{{ env('SCHOOL_LINKEDIN') }}"><i
-                            class="lni lni-linkedin-original"></i></a>
+                    <a title="Sitio oficial" href="{{ env('SCHOOL_WEB') }}"><i class="lni lni-website"></i></a>
+                    @if (env('SCHOOL_LINKEDIN'))
+                        <a title="Linkedin" href="{{ env('SCHOOL_LINKEDIN') }}"><i class="lni lni-linkedin-original"></i></a>
+                    @endif
                 </div>
                 <div class="copyright text-center">
                     <p>Sitios de interés para el Tecnológico</p>

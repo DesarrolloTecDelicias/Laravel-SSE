@@ -53,6 +53,21 @@ class DatabaseSeeder extends Seeder
         "TURCO"
     ];
 
+    protected $careers = [
+        "CONTADOR PÚBLICO",
+        "INGENIERÍA SISTEMAS COMPUTACIONALES",
+        "INGENIERÍA ELÉCTRICA",
+        "INGENIERÍA ELECTRÓNICA",
+        "INGENIERÍA ENERGÍAS RENOVABLES",
+        "INGENIERÍA GESTIÓN EMPRESARIAL",
+        "INGENIERÍA INDUSTRIAL",
+        "INGENIERÍA LOGÍSTICA",
+        "INGENIERÍA MATERIALES",
+        "INGENIERÍA MECATRÓNICA",
+        "INGENIERÍA MECÁNICA",
+        "INGENIERÍA QUÍMICA",
+    ];
+
     /**
      * Seed the application's database.
      *
@@ -62,13 +77,20 @@ class DatabaseSeeder extends Seeder
     {
         foreach ($this->business as $business) {
             \App\Models\Business::create([
-                'name' => $business
+                'name' => mb_strtoupper($business, 'UTF-8')
             ]);
         }
 
         foreach ($this->languages as $language) {
             \App\Models\Language::create([
-                'name' => $language
+                'name' => mb_strtoupper($language, 'UTF-8')
+            ]);
+        }
+
+        //create a career with property
+        foreach ($this->careers as $career) {
+            $career = \App\Models\Career::create([
+                'name' => mb_strtoupper($career, 'UTF-8')
             ]);
         }
 
