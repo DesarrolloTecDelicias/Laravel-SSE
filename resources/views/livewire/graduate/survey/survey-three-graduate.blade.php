@@ -288,7 +288,7 @@
                     <option value="" selected="" disabled="">
                         Selecciona año de egreso
                     </option>
-                    @for ($i = 1990; $i < Date('Y'); $i++) <option value="{{ $i }}">{{ $i }}
+                    @for ($i = 1990; $i <= Date('Y'); $i++) <option value="{{ $i }}">{{ $i }}
                         </option>
                         @endfor
                 </select>

@@ -30,7 +30,7 @@ class CreateSurveyOnesTable extends Migration
             $table->string('state', 100);
             $table->string('city', 100);
             $table->string('municipality', 100);
-            $table->string('phone', 15);
+            $table->string('phone', 15)->nullable();
             $table->string('cellphone', 15);
             $table->string('email');
             $table->string('career', 100);

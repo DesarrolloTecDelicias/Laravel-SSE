@@ -21,10 +21,27 @@ class SurveyThreeGraduate extends Component
     public $schoolVisibility = false, $workVisibility = false;
     public $state = [
         'do_for_living' => '', 'speciality' => '', 'long_take_job' => '',
+        'competence1' => 0, 'competence2' => 0, 'competence3' => 0, 'competence4' => 0,
+        'competence5' => 0, 'competence6' => 0,
         'hear_about' => '', 'language_most_spoken' => '', 'speak_percent' => 0,
         'write_percent' => 0, 'read_percent' => 0, 'listen_percent' => 0,
         'seniority' => '', 'year' => '', 'salary' => '',
-        'management_level' => '', 'job_condition' => '', 'job_relationship' => ''
+        'management_level' => '', 'job_condition' => '', 'job_relationship' => '',
+        'business_structure' => '',
+        'company_size' => '',
+        'business_name' => '',
+        'business_activity' => '',
+        'address' => '',
+        'zip' => '',
+        'suburb' => '',
+        'state' => '',
+        'city' => '',
+        'municipality' => '',
+        'phone' => '',
+        'fax' => '',
+        'web_page' => '',
+        'boss_email' => '',
+        'business_activity_selector' => '',
     ];
     public $percentValues = array("speak_percent", "write_percent", "read_percent", "listen_percent");
 
@@ -40,7 +57,7 @@ class SurveyThreeGraduate extends Component
             $this->state = $userInfo->toArray();
             $this->changeActivity();
             foreach ($this->state as $key => $value) {
-                if (is_null($value) && in_array($key, $this->percentValues)){
+                if (is_null($value) && in_array($key, $this->percentValues)) {
                     $this->state[$key] = 0;
                     continue;
                 }
@@ -188,7 +205,7 @@ class SurveyThreeGraduate extends Component
             'business_name' => 'required',
             'business_activity' => 'required',
             'address' => 'required',
-            'zip' => 'required|digits',
+            'zip' => 'required',
             'suburb' => 'required',
             'state' => 'required',
             'city' => 'required',
@@ -219,7 +236,6 @@ class SurveyThreeGraduate extends Component
             'business_activity.required' => GlobalFunctions::requiredMessage('giro o actividad'),
             'address.required' => GlobalFunctions::requiredMessage('domicilio'),
             'zip.required' => GlobalFunctions::requiredMessage('código postal'),
-            'zip.digits' => GlobalFunctions::formatMessage('código postal'),
             'suburb.required' => GlobalFunctions::requiredMessage('colonia'),
             'state.required' => GlobalFunctions::requiredMessage('estado'),
             'city.required' => GlobalFunctions::requiredMessage('ciudad'),
