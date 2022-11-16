@@ -275,11 +275,15 @@
                 placeholder: 'Seleccione una opción',
             });
 
+            //Reports and statistics
+            $("#print_button").click(() => {
+                window.print();
+            });
         })
 
         const validateNumbers = (e) => {
             if (e.keyCode < 45 || e.keyCode> 57) e.returnValue = false;
-        };    
+        };  
     </script>
 
     {{-- Own scripts --}}

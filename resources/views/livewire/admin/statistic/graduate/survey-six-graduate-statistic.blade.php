@@ -1,10 +1,10 @@
 <div>
     <x-slot name="title">
-        Desempeño profesional Estadísticas
+        Participación Social Estadísticas
     </x-slot>
 
     <x-slot name="header">
-        Estadísticas Desempeño profesional de los egresados
+        Estadísticas Participación social de los egresados
     </x-slot>
 
     <div>

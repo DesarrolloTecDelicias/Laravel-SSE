@@ -53,7 +53,7 @@ class ResetPassword extends Component
             Mail::to(strval($this->email))->send($correo);
 
             $this->dispatchBrowserEvent('message', [
-                'message' => "Se envió el correo correctamente",
+                'message' => "Se envió el correo correctamente, en caso no obtenerlo puedes revisar en la bandeja de SPAM.",
                 'type' => 'success'
             ]);
 
