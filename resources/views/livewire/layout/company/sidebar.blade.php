@@ -97,7 +97,7 @@
                 </li>-->
                 <li class="nav-item">
                     <a href="{{ route('company.profile') }}"
-                        class="nav-link {{ $routeName == 'graduate.profile' ? 'active' : '' }}">
+                        class="nav-link {{ $routeName == 'company.profile' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>Perfil</p>
                     </a>

@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="resolve_conflicts">Habilidad para resolver conflictos</label>
+                <label for="resolve_conflicts">Habilidad para resolver conflictos *</label>
                 <div class="controls">
                     <select id="resolve_conflicts" wire:model.defer="state.resolve_conflicts"
                         class="form-control @error('resolve_conflicts') is-invalid @enderror"
@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="orthography">Ortografía y redacción de documentos</label>
+                <label for="orthography">Ortografía y redacción de documentos *</label>
                 <div class="controls">
                     <select id="orthography" wire:model.defer="state.orthography"
                         class="form-control @error('orthography') is-invalid @enderror"
@@ -53,7 +53,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="process_improvement">Mejora de procesos</label>
+                <label for="process_improvement">Mejora de procesos *</label>
                 <div class="controls">
                     <select id="process_improvement" wire:model.defer="state.process_improvement"
                         class="form-control @error('process_improvement') is-invalid @enderror"
@@ -72,7 +72,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="teamwork">Trabajo en equipo</label>
+                <label for="teamwork">Trabajo en equipo *</label>
                 <div class="controls">
                     <select id="teamwork" wire:model.defer="state.teamwork"
                         class="form-control @error('teamwork') is-invalid @enderror"
@@ -91,7 +91,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="time_management">Habilidad para administrar tiempo</label>
+                <label for="time_management">Habilidad para administrar tiempo *</label>
                 <div class="controls">
                     <select id="time_management" wire:model.defer="state.time_management"
                         class="form-control @error('time_management') is-invalid @enderror"
@@ -110,7 +110,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="security">Seguridad personal</label>
+                <label for="security">Seguridad personal *</label>
                 <div class="controls">
                     <select id="security" wire:model.defer="state.security"
                         class="form-control @error('security') is-invalid @enderror"
@@ -129,7 +129,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="ease_speech">Facilidad de palabra</label>
+                <label for="ease_speech">Facilidad de palabra *</label>
                 <div class="controls">
                     <select id="ease_speech" wire:model.defer="state.ease_speech"
                         class="form-control @error('ease_speech') is-invalid @enderror"
@@ -148,7 +148,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="project_management">Gestión de proyectos</label>
+                <label for="project_management">Gestión de proyectos *</label>
                 <div class="controls">
                     <select id="project_management" wire:model.defer="state.project_management"
                         class="form-control @error('project_management') is-invalid @enderror"
@@ -167,7 +167,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="puntuality">Puntualidad y asistencia</label>
+                <label for="puntuality">Puntualidad y asistencia *</label>
                 <div class="controls">
                     <select id="puntuality" wire:model.defer="state.puntuality"
                         class="form-control @error('puntuality') is-invalid @enderror"
@@ -186,7 +186,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="rules">Cumplimiento de las normas</label>
+                <label for="rules">Cumplimiento de las normas *</label>
                 <div class="controls">
                     <select id="rules" wire:model.defer="state.rules"
                         class="form-control @error('rules') is-invalid @enderror"
@@ -205,7 +205,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="integration_work">Integración al trabajo</label>
+                <label for="integration_work">Integración al trabajo *</label>
                 <div class="controls">
                     <select id="integration_work" wire:model.defer="state.integration_work"
                         class="form-control @error('integration_work') is-invalid @enderror"
@@ -224,7 +224,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="creativity">Creatividad e innovación</label>
+                <label for="creativity">Creatividad e innovación *</label>
                 <div class="controls">
                     <select id="creativity" wire:model.defer="state.creativity"
                         class="form-control @error('creativity') is-invalid @enderror" title=" Por favor
@@ -243,7 +243,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="bargaining">Capacidad de negociación</label>
+                <label for="bargaining">Capacidad de negociación *</label>
                 <div class="controls">
                     <select id="bargaining" wire:model.defer="state.bargaining"
                         class="form-control @error('bargaining') is-invalid @enderror"
@@ -262,7 +262,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="abstraction">Abstracción, análisis y síntesis</label>
+                <label for="abstraction">Abstracción, análisis y síntesis *</label>
                 <div class="controls">
                     <select id="abstraction" wire:model.defer="state.abstraction"
                         class="form-control @error('abstraction') is-invalid @enderror"
@@ -281,7 +281,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="leadership">Liderazgo y toma de decisión</label>
+                <label for="leadership">Liderazgo y toma de decisión *</label>
                 <div class="controls">
                     <select id="leadership" wire:model.defer="state.leadership"
                         class="form-control @error('leadership') is-invalid @enderror"
@@ -300,7 +300,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="changes">Adaptar al cambio</label>
+                <label for="changes">Adaptar al cambio *</label>
                 <div class="controls">
                     <select id="changes" wire:model.defer="state.changes"
                         class="form-control @error('changes') is-invalid @enderror"
@@ -322,8 +322,7 @@
     <hr>
 
     <label>Con base al desempeño laboral así como a las actividades laborales que realiza el egresado.
-        ¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el
-        porcentaje que corresponda.</label>
+        ¿Cómo considera su desempeño laboral respecto a su formación académica? *</label>
 
     <div class="row mt-2 d-flex justify-content-sm-center">
         <div class="col-lg-4 col-md-12 col-sm-12">
@@ -353,7 +352,7 @@
             <div class="form-group">
                 <label for="requirement">
                     De acuerdo con las necesidades de su empresa u organismo, ¿qué sugiere para
-                    mejorar la formación de los egresados del Instituto Tecnológico?
+                    mejorar la formación de los egresados del Instituto Tecnológico? *
                 </label>
                 <textarea id="requirement" wire:model.defer="state.requirement"
                     class="form-control @error('requirement') is-invalid @enderror" rows="4"

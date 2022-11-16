@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="business_name">Razón Social</label>
+                <label for="business_name">Razón Social *</label>
                 <input id="business_name" wire:model.defer="state.business_name" type="text"
                     class="form-control @error('business_name') is-invalid @enderror" placeholder="Razón Social"
                     title="Por favor escriba el nombre de la empresa" />
@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="email">Correo electrónico</label>
+                <label for="email">Correo electrónico *</label>
                 <input id="email" wire:model.defer="state.email" type="email"
                     class="form-control @error('email') is-invalid @enderror" readonly />
                 @error('email')
@@ -35,7 +35,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="address">Domicilio</label>
+                <label for="address">Domicilio *</label>
                 <input id="address" wire:model.defer="state.address" type="text"
                     class="form-control @error('address') is-invalid @enderror" placeholder="Calle #Número"
                     title="Por favor escribe tu dirección" />
@@ -48,7 +48,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="zip">Código Postal</label>
+                <label for="zip">Código Postal *</label>
                 <input id="zip" wire:model.defer="state.zip" type="text" onkeypress="validateNumbers(event);"
                     class="form-control @error('zip') is-invalid @enderror" placeholder="Código Postal"
                     title="Por favor escribe tu código postal" />
@@ -61,7 +61,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="suburb">Colonia</label>
+                <label for="suburb">Colonia *</label>
                 <input id="suburb" wire:model.defer="state.suburb" type="text"
                     class="form-control @error('suburb') is-invalid @enderror" placeholder="Colonia"
                     title="Por favor escribe tu colonia" />
@@ -74,7 +74,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="state">Estado</label>
+                <label for="state">Estado *</label>
                 <input id="state" wire:model.defer="state.state" type="text"
                     class="form-control @error('state') is-invalid @enderror" placeholder="Estado"
                     title="Por favor escribe tu estado" />
@@ -87,7 +87,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="city">Ciudad</label>
+                <label for="city">Ciudad *</label>
                 <input id="city" wire:model.defer="state.city" type="text"
                     class="form-control @error('city') is-invalid @enderror" placeholder="Ciudad"
                     title="Por favor escribe tu ciudad" />
@@ -100,7 +100,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="municipality">Municipio</label>
+                <label for="municipality">Municipio *</label>
                 <input id="municipality" wire:model.defer="state.municipality" type="text"
                     class="form-control @error('municipality') is-invalid @enderror" placeholder="Municipio"
                     title="Por favor escribe tu municipio" />
@@ -113,7 +113,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="phone">Teléfono</label>
+                <label for="phone">Teléfono *</label>
                 <input id="phone" wire:model.defer="state.phone" type="number" maxlength="10"
                     onkeypress="validateNumbers(event);" class="form-control @error('phone') is-invalid @enderror"
                     placeholder="Teléfono" title="Por favor escribe tu teléfono" />
@@ -126,7 +126,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="business_structure">Su empresa u organismo es</label>
+                <label for="business_structure">Su empresa u organismo es *</label>
                 <div class="controls">
                     <select id="business_structure" wire:model.defer="state.business_structure"
                         class="form-control @error('business_structure') is-invalid @enderror"
@@ -146,7 +146,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="company_size">Tamaño de la empresa u organismo</label>
+                <label for="company_size">Tamaño de la empresa u organismo *</label>
                 <div class="controls">
                     <select id="company_size" wire:model.defer="state.company_size"
                         class="form-control @error('company_size') is-invalid @enderror"
@@ -166,7 +166,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="business_activity_selector">Actividad económica de la empresa u organismo</label>
+                <label for="business_activity_selector">Actividad económica de la empresa u organismo *</label>
                 <div class="controls">
                     <select id="business_activity_selector" wire:model.defer="state.business_activity_selector"
                         class="form-control @error('business_activity_selector') is-invalid @enderror"

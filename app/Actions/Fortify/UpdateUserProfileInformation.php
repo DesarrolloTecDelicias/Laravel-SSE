@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use App\Constants\Constants;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -21,11 +22,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'career' => ['required', 'string'],
-            'income_year' => ['required', 'string'],
-            'income_month' => ['required', 'string'],
-            'year_graduated' => ['required', 'string'],
-            'month_graduated' => ['required', 'string'],
+            'career' => $user->role == Constants::ROLE['Graduate'] ? ['required', 'string'] : [],
+            'income_year' => $user->role == Constants::ROLE['Graduate'] ? ['required', 'string'] : [],
+            'income_month' => $user->role == Constants::ROLE['Graduate'] ? ['required', 'string'] : [],
+            'year_graduated' => $user->role == Constants::ROLE['Graduate'] ? ['required', 'string'] : [],
+            'month_graduated' => $user->role == Constants::ROLE['Graduate'] ? ['required', 'string'] : [],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
@@ -42,11 +43,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'career' => $input['career'],
-                'income_year' => $input['income_year'],
-                'income_month' => $input['income_month'],
-                'year_graduated' => $input['year_graduated'],
-                'month_graduated' => $input['month_graduated'],
+                'career' => $input['career'] ?? null,
+                'income_year' => $input['income_year'] ?? null,
+                'income_month' => $input['income_month'] ?? null,
+                'year_graduated' => $input['year_graduated'] ?? null,
+                'month_graduated' => $input['month_graduated'] ?? null,
             ])->save();
         }
     }

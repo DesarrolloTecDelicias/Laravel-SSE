@@ -8,7 +8,7 @@
     </x-slot>
 
     <div>
-        <label>Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo.</label>
+        <label>Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo. *</label>
         <div class="row mt-2 d-flex justify-content-sm-center">
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="form-group">
@@ -151,7 +151,7 @@
 
 
         <label>Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en
-            su empresa u organización. Del total de egresados anote el porcentaje que corresponda.</label>
+            su empresa u organización. Del total de egresados anote el porcentaje que corresponda. *</label>
         <div class="row mt-2 d-flex justify-content-center">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="form-group">
@@ -232,7 +232,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label>Carrera que demanda preferentemente su empresa u organismo.</label>
+                    <label>Carrera que demanda preferentemente su empresa u organismo. *</label>
                     <div class="controls">
                         <select id="most_demanded_career" name="most_demanded_career"
                             wire:model.defer="state.most_demanded_career" required

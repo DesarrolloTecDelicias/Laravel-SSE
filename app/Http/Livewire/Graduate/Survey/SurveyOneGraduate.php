@@ -23,6 +23,7 @@ class SurveyOneGraduate extends Component
         'marital_status' => '', 'qualified' => '', 'month' => '',
         'income_month' => '', 'income_year' => '', 'year' => '',
         'percent_english' => 0, 'another_language' => '', 'qualified_year' => '',
+        'phone' => '', 'cellphone'=> '',
         'percent_another_language' => 0
     ];
     public $qualifiedState = false;
@@ -46,6 +47,13 @@ class SurveyOneGraduate extends Component
         } else {
             $this->state['control_number'] = Auth::user()->control_number;
             $this->state['email'] = Auth::user()->email;
+            $this->state['income_month'] = Auth::user()->income_month ?? '';
+            $this->state['month'] = Auth::user()->month_graduated ?? '';
+            $this->state['year'] = Auth::user()->year_graduated ?? '';
+            $this->state['income_year'] = Auth::user()->income_year ?? '';
+            $career = Career::where('name', Auth::user()->career)->get()->first();
+            $this->state['career'] = $career->id;
+            $this->getSpecialties();
         }
 
         $this->careers = Career::all();
@@ -135,7 +143,7 @@ class SurveyOneGraduate extends Component
             'state' => 'required',
             'city' => 'required',
             'municipality' => 'required',
-            'phone' => 'digits:10',
+            'phone' => $this->state['phone'] != '' ? 'digits:10' : '',
             'cellphone' => 'required|digits:10',
             'career' => 'required',
             'specialty' => 'required',

@@ -32,7 +32,7 @@ class SurveySevenGraduate extends Component
         $validateData = Validator::make(
             $this->state,
             ['comments' => 'required'],
-            ['comments.required' => 'Si vas a comentario te pedimos de favor que no sea un texto vacío']
+            ['comments.required' => 'Si vas a realizar un comentario te pedimos de favor que no sea un texto vacío']
         )->validate();
 
         $user = User::find(Auth::user()->id);
