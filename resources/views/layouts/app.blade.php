@@ -80,7 +80,6 @@
 
         @endswitch
 
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -163,35 +162,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
     <script src="{{asset('template')}}/plugins/select2/js/select2.min.js"></script>
-    <script type="text/javascript">
-        var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-                });
-                
-            @if(Session::has('message'))
-        		var type = "{{ Session::get('alert-type', 'info') }}";
-        		switch(type){
-        			case 'info':
-        			toastr.info("{{ Session::get('message') }}");
-        			break;
-        
-        			case 'success':
-        			toastr.success("{{ Session::get('message') }}");
-        			break;		
-        
-        			case 'warning':
-        			toastr.warning("{{ Session::get('message') }}");
-        			break;
-        
-        			case 'error':
-        			toastr.error("{{ Session::get('message') }}");
-        			break;								
-        		}
-        		@endif
-    </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
