@@ -1,15 +1,17 @@
 <head>
     <title>Registro Egresado</title>
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset ("image/school/$school/favicon.ico")}}">
+    <link rel="icon" href="{{asset (" image/school/$school/favicon.ico")}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <a href="{{route('welcome')}}"><img style="width:190px; height:120px; margin-top: 10px;"
-                    src="{{asset('image/school/SSE2.png')}}" alt=""></a>
+            <a href="{{route('welcome')}}">
+                <img style="width:190px; height:120px; margin-top: 10px;" src="{{asset('image/school/SSE2.png')}}"
+                    alt="" />
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />

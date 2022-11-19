@@ -7,20 +7,15 @@
 
     <title>Sistema de Seguimiento de Egresados</title>
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset ("image/school/$school/favicon.ico")}}">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700;800&family=Roboto:wght@100;300;500;700;900&display=swap">
+    <link rel="icon" href="{{asset("image/school/$school/favicon.ico")}}">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-
+    
+    <link rel="stylesheet" href="{{asset('css/landing.min.css')}}">
     <!-- Styles -->
-    <link rel="stylesheet" href="{{asset('css')}}/landing.min.css">
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -184,11 +179,16 @@
         <div class="container">
             <div class="row d-flex flex-column align-items-center">
                 <div class="social-icons text-light">
-                    <a title="Facebook" href="{{ env('SCHOOL_FACEBOOK') }}"><i
-                            class="lni lni-facebook-original"></i></a>
-                    <a title="Sitio oficial" href="{{ env('SCHOOL_WEB') }}"><i class="lni lni-website"></i></a>
+                    <a class="text-decoration-none" title="Facebook" href="{{ env('SCHOOL_FACEBOOK') }}" target="_blank">
+                        <i class="lni lni-facebook-original"></i>
+                    </a>
+                    <a class="text-decoration-none" title="Sitio oficial" href="{{ env('SCHOOL_WEB') }}" target="_blank">
+                        <i class="lni lni-website"></i>
+                    </a>
                     @if (env('SCHOOL_LINKEDIN'))
-                        <a title="Linkedin" href="{{ env('SCHOOL_LINKEDIN') }}"><i class="lni lni-linkedin-original"></i></a>
+                    <a class="text-decoration-none" title="Linkedin" href="{{ env('SCHOOL_LINKEDIN') }}">
+                        <i class="lni lni-linkedin-original"></i>
+                    </a>
                     @endif
                 </div>
                 <div class="copyright text-center">

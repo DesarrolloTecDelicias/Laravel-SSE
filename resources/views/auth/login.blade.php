@@ -1,7 +1,7 @@
 <head>
     <title>Iniciar Sesión</title>
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset ("image/school/$school/favicon.ico")}}">
+    <link rel="icon" href="{{asset (" image/school/$school/favicon.ico")}}">
 </head>
 <x-guest-layout>
     <x-jet-authentication-card>
@@ -33,16 +33,11 @@
                     autocomplete="off" />
             </div>
 
-            {{-- <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div> --}}
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('forgot.password'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('forgot.password') }}">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                    href="{{ env('ENABLE_MAIL') ? route('password.request') : route('forgot.password') }}">
                     {{ __('¿Olvidaste tu contraseña?') }}
                 </a>
                 @endif

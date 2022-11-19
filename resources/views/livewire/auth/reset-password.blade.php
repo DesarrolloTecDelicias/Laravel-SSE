@@ -1,3 +1,7 @@
+@if (env('ENABLE_MAIL'))
+@php header("Location: " . URL::to('/login'), true, 302); exit(); @endphp
+@endif
+
 <div>
     <x-jet-authentication-card>
         <x-slot name="logo">
@@ -5,7 +9,7 @@
                     src="{{asset('image/school/logonew.png')}}" alt=""></a>
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm text-gray-600 text-justify">
             {{ __('¿Olvidaste tu contraseña? No hay problema. Simplemente háganos saber su dirección de correo
             electrónico y le enviaremos
             un enlace de restablecimiento de contraseña que le permitirá elegir una nueva.') }}

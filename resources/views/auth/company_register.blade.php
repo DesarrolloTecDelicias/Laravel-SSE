@@ -1,25 +1,16 @@
 <head>
     <title>Registro de Empresas</title>
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset ("image/school/$school/favicon.ico")}}">
-    <script src="{{asset ('backend/lib/adminlte/plugins/yearpicker/jquery.min.js')}}"></script>
-    <link rel='stylesheet' href="{{asset ('backend/lib/adminlte/plugins/yearpicker/yearpicker.css')}}" />
-    <script src="{{asset ('backend/lib/adminlte/plugins/yearpicker/yearpicker.js')}}"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <style>
-        * {
-            overflow-x: hidden;
-        }
-    </style>
+    <link rel="icon" href="{{asset (" image/school/$school/favicon.ico")}}">
 </head>
+
 <x-guest-layout>
-
-
     <x-jet-authentication-card>
 
         <x-slot name="logo">
-            <a href=" {{route('welcome')}} "><img style="width: 300px; height:150px;"
-                    src="{{asset('backend/img/school/SSECompany.png')}}" alt=""></a>
+            <a href=" {{route('welcome')}} ">
+                <img style="width: 300px; height:150px;" src="{{asset('backend/img/school/SSECompany.png')}}" alt="" />
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -88,12 +79,3 @@
 
     </x-jet-authentication-card>
 </x-guest-layout>
-
-<script type="application/javascript">
-    $(document).ready(function () {
-        $(".yearpicker").yearpicker({
-          startYear: 1990,
-          endYear: new Date().getFullYear(),
-        });
-    });
-</script>
