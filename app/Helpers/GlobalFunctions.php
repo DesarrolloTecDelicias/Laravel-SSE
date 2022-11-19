@@ -2,6 +2,9 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 class GlobalFunctions
 {
     public static function requiredMessage($value)
@@ -27,7 +30,8 @@ class GlobalFunctions
         );
     }
 
-    public static function generateArrayStats($array){
+    public static function generateArrayStats($array)
+    {
         $countArray = [];
         $c = 0;
 
@@ -38,5 +42,15 @@ class GlobalFunctions
         }
 
         return $countArray;
+    }
+
+    public static function getRouteValidate($route)
+    {
+        if (Auth::check())
+            return view($route);
+
+        Auth::logout();
+        Session::flush();
+        return Redirect()->route('login');
     }
 }

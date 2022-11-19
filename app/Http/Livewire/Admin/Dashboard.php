@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Constants\Constants;
+use App\Helpers\GlobalFunctions;
 use App\Models\User;
 use App\Models\SurveyOne;
 use App\Models\SurveyTwo;
@@ -19,7 +20,7 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.admin.dashboard');
+        return GlobalFunctions::getRouteValidate('livewire.admin.dashboard');
     }
 
     public function mount()
@@ -66,7 +67,7 @@ class Dashboard extends Component
             ->selectRaw('count(*) as total, career as label')
             ->orderBy('total', 'desc')
             ->get();
-            
+
         $this->career = $school[0]->label ?? '';
         $this->careerCount  = $school[0]->total ?? '';
     }
