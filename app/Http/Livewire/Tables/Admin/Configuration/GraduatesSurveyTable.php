@@ -116,28 +116,22 @@ class GraduatesSurveyTable extends LivewireDatatable
                     return '<span class="text-success">Encuestas Completadas</span>';
                 }
 
-                $schoolName = env('SCHOOL_NAME');
-                $projectURL = env('PROJECT_URL');
-                $message = "Hola egresado $name nos comunicamos contigo del departamento de vinculación del $schoolName, este correo es para informarle que en la plataforma de seguimiento de egresados no cuenta con registros en las siguientes encuestas:%0D%0A%0D%0A";
-
-                !$surveyOne ? $message .= "%20%20• Encuesta 1: Perfil del egresado. %0D%0A" : null;
-                !$surveyTwo ? $message .= "%20%20• Encuesta 2: Pertinencia y disponibilidad de medio y recursos para el aprendizaje. %0D%0A" : null;
-                !$surveyThree ? $message .= "%20%20• Encuesta 3: Ubicación laboral de los egresados. %0D%0A" : null;
-                !$surveyFour ? $message .= "%20%20• Encuesta 4: Desempeño profesional de los egresados. %0D%0A" : null;
-                !$surveyFive ? $message .= "%20%20• Encuesta 5: Expectativas de desarrollo, superación profesional y de actualización. %0D%0A" : null;
-                !$surveySix ? $message .= "%20%20• Encuesta 6: Participación social de los egresados. %0D%0A" : null;
-                !$surveySeven ? $message .= "%20%20• Encuesta 7: Comentarios y sugerencias. %0D%0A" : null;
-                $message .= "%0D%0ATe invitamos a contestarla(s) estos datos son muy importantes para el ITD. Esto lo puedes realizar mediante el siguiente enlace: $projectURL.%0D%0A";
-                $message .= "Pasos para darse de alta en el S.S.E:%0D%0A %20%20 1. Ingresar al siguiente enlace: $projectURL . %0D%0A";
-                $message .= "%20%20%20 2. En la parte principal, seleccionar la opción \"Registro Egresado\" . %0D%0A";
-                $message .= "%20%20%20 3. Llenar sus datos para llenar el registro y dar click en REGISTRARSE. %0D%0A";
-                $message .= "%20%20%20 4. Contestar las 7 encuestas, lo cual no tomará más de 10 minutos. %0D%0A";
-                $message .= "%0D%0ADe antemano, muchas gracias.%0D%0A%0D%0A-$schoolName, Departamento de Gestión y Vinculación.%0D%0A%0D%0A";
+                $userData = [
+                    'name' => $name,
+                    'email' => $email,
+                    'survey_one_done' => $surveyOne,
+                    'survey_two_done' => $surveyTwo,
+                    'survey_three_done' => $surveyThree,
+                    'survey_four_done' => $surveyFour,
+                    'survey_five_done' => $surveyFive,
+                    'survey_six_done' => $surveySix,
+                    'survey_seven_done' => $surveySeven,
+                ];
 
                 return view('table-actions.email-actions', [
-                    'email' => $email,
-                    'subject' => "Estado de encuestas $name",
-                    'body' => $message,
+                    'email' => 'sendEmail',
+                    'userData' => json_encode($userData),
+    
                 ]);
             })
                 ->label('Aviso')
