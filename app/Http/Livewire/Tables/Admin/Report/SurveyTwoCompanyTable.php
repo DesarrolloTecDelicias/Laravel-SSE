@@ -7,10 +7,12 @@ use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class SurveyTwoCompanyTable extends LivewireDatatable
-{    public $model = CompanySurveyTwo::class;
+{
+    public $model = CompanySurveyTwo::class;
     public $hideable = "select";
 
     public function builder()
@@ -41,16 +43,50 @@ class SurveyTwoCompanyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            // Column::name('requirements')
-            //     ->label('Requisito')
-            //     ->hideable()
-            //     ->filterable(),
+            BooleanColumn::name("competence1")
+                ->label('Área o campo de estudio')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence2")
+                ->label('Títulación')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence3")
+                ->label('Experiencia Laboral/Práctica (Antes de egresar)')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence4")
+                ->label('Posicionamiento de la institución de egreso')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence5")
+                ->label('Conocimiento de idiomas extranjeros')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence6")
+                ->label('Recomendaciones / Referencias')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence7")
+                ->label('Personalidad / Actitudes')
+                ->hideable()
+                ->filterable(),
+
+            BooleanColumn::name("competence8")
+                ->label('Capacidad de liderazgo')
+                ->hideable()
+                ->filterable(),
 
             Column::name('most_demanded_career')
                 ->label('Carrera Demandada')
                 ->hideable()
                 ->filterable(),
-
 
             DateColumn::name('created_at')
                 ->label('Contestada')
@@ -76,5 +112,4 @@ class SurveyTwoCompanyTable extends LivewireDatatable
             }),
         ];
     }
-
 }
