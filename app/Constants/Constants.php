@@ -183,11 +183,11 @@ class Constants
     ];
 
     const LEVEL_ACTIVITIES_NUMBERS = [
-        0 => '1: PÉSIMO',
-        1 => '2: MALO',
-        2 => '3: REGULAR',
-        3 => '4: BUENO',
-        4 => '5: EXCELENTE'
+        0 => '1: MUY POCO',
+        1 => '2: POCO',
+        2 => '3: MODERADO',
+        3 => '4: MUCHO',
+        4 => '5: MUCHÍSIMO'
     ];
 
     const COLORS = [

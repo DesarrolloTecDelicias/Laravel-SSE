@@ -256,6 +256,27 @@
         };  
     </script>
 
+    <script type="text/javascript">
+        @if(Session::has('message'))
+            const type = "{{ Session::get('alert-type', 'info') }}";
+            const message = "{{ Session::get('message') }}";
+                switch(type) {
+            		case 'info':
+            			toastr.info(message);
+            			break;
+            		case 'success':
+            			toastr.success(message);
+            			break;		
+            		case 'warning':
+            			toastr.warning(message);
+            			break;
+            		case 'error':
+            			toastr.error(message);
+            			break;								
+            	}
+        @endif
+    </script>
+
     {{-- Own scripts --}}
     @yield('scripts')
 </body>

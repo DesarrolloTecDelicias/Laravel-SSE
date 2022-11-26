@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Tables\Admin\Report;
 
 use App\Models\CompanySurveyTwo;
+use App\Constants\Constants;
+use App\Models\Career;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -17,7 +19,8 @@ class SurveyTwoCompanyTable extends LivewireDatatable
 
     public function builder()
     {
-        return CompanySurveyTwo::query()->join('users', 'users.id', 'company_survey_twos.user_id');
+        return CompanySurveyTwo::query()
+        ->join('users', 'users.id', 'company_survey_twos.user_id');
     }
 
     public function columns()
@@ -36,12 +39,12 @@ class SurveyTwoCompanyTable extends LivewireDatatable
             Column::name('number_graduates')
                 ->label('Número de Profesionistas')
                 ->hideable()
-                ->filterable(),
+                ->filterable(Constants::NUMBER_GRADUATES),
 
             Column::name('congruence')
                 ->label('Congruencia')
                 ->hideable()
-                ->filterable(),
+                ->filterable(Constants::CONGRUENCE),
 
             BooleanColumn::name("competence1")
                 ->label('Área o campo de estudio')
@@ -86,7 +89,7 @@ class SurveyTwoCompanyTable extends LivewireDatatable
             Column::name('most_demanded_career')
                 ->label('Carrera Demandada')
                 ->hideable()
-                ->filterable(),
+                ->filterable(Career::pluck('name')),
 
             DateColumn::name('created_at')
                 ->label('Contestada')

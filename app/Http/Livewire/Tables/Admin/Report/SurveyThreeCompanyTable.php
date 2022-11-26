@@ -117,7 +117,7 @@ class SurveyThreeCompanyTable extends LivewireDatatable
             Column::name('job_performance')
                 ->label('Desempeño laboral')
                 ->hideable()
-                ->filterable(),
+                ->filterable(Constants::GOOD_BAD_QUESTION),
 
             Column::name('requirement')
                 ->label('Sugerencias')
