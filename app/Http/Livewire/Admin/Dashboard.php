@@ -51,6 +51,7 @@ class Dashboard extends Component
 
         $this->newUsers = User::where('role', Constants::ROLE['Graduate'])
             ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
             ->get()->count() ?? '';
 
         $this->notUsers = StudentSurvey::where([

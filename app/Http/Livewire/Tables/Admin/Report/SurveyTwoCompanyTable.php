@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Tables\Admin\Report;
 
-use App\Models\CompanySurveyTwo;
-use App\Constants\Constants;
 use App\Models\Career;
+use App\Constants\Constants;
+use App\Models\CompanySurveyTwo;
+use App\Models\CompanyGraduatesWorking;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -20,7 +21,7 @@ class SurveyTwoCompanyTable extends LivewireDatatable
     public function builder()
     {
         return CompanySurveyTwo::query()
-        ->join('users', 'users.id', 'company_survey_twos.user_id');
+            ->join('users', 'users.id', 'company_survey_twos.user_id');
     }
 
     public function columns()
@@ -45,6 +46,26 @@ class SurveyTwoCompanyTable extends LivewireDatatable
                 ->label('Congruencia')
                 ->hideable()
                 ->filterable(Constants::CONGRUENCE),
+
+            Column::callback(['id'], function ($id) {
+                $graduates = CompanyGraduatesWorking::where('company_survey_id', $id)->get();
+                return
+                    view('table-actions.graduates-working', [
+                        'graduates' => $graduates,
+                    ]);;
+            })
+                ->label('Egresados trabajando en las empresas')
+                ->unsortable()
+                ->hideable()
+                ->exportCallback(function ($id) {
+                    $graduates = CompanyGraduatesWorking::where('company_survey_id', $id)->get();
+                    $result = "";
+                    foreach ($graduates as $graduate) {
+                        $result .= "Carrera: " . $graduate->career . ".  Nivel: " . $graduate->level . ".  Total: " . $graduate->total . "\n";
+                    }
+
+                    return (string) $result;
+                }),
 
             BooleanColumn::name("competence1")
                 ->label('Área o campo de estudio')
