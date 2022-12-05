@@ -119,19 +119,21 @@ class GraduatesSurveyTable extends LivewireDatatable
                 $userData = [
                     'name' => $name,
                     'email' => $email,
-                    'survey_one_done' => $surveyOne,
-                    'survey_two_done' => $surveyTwo,
-                    'survey_three_done' => $surveyThree,
-                    'survey_four_done' => $surveyFour,
-                    'survey_five_done' => $surveyFive,
-                    'survey_six_done' => $surveySix,
-                    'survey_seven_done' => $surveySeven,
+                    'surveys' => [
+                        'survey_one_done' => $surveyOne,
+                        'survey_two_done' => $surveyTwo,
+                        'survey_three_done' => $surveyThree,
+                        'survey_four_done' => $surveyFour,
+                        'survey_five_done' => $surveyFive,
+                        'survey_six_done' => $surveySix,
+                        'survey_seven_done' => $surveySeven,
+                    ]
                 ];
 
                 return view('table-actions.email-actions', [
                     'email' => 'sendEmail',
                     'userData' => json_encode($userData),
-    
+
                 ]);
             })
                 ->label('Aviso')

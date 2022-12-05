@@ -64,97 +64,21 @@
     <!-- Swiper -->
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
+            @foreach ($surveys as $key => $survey)
             <div class="swiper-slide">
                 <div class="container-image">
                     <div class="container-loader">
-                        {!! $this->checkSurvey('survey_one_done') !!}
+                        {!! $this->checkSurvey($key) !!}
                     </div>
-                    <a href="{{ route('graduate.survey.one') }}" title="Perfil del egresado">
-                        <img src="{{asset('image/school/sn1.png') }}" />
+                    <a href="{{ route($graduateRoutes[$key]) }}" title="{{ $survey }}">
+                        <img src="{{asset("image/school/sn$loop->iteration.png") }}" />
                     </a>
                     <div class="container-text">
-                        <h5>Perfil del egresado.</h5>
+                        <h5>{{ $survey }}</h5>
                     </div>
                 </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_two_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.two') }}" title="Pertinencia y disponibilidad">
-                        <img src="{{ asset('image/school/sn2.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Pertinencia y disponibilidad de medio y recursos para el aprendizaje.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_three_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.three') }}" title="Ubicación laboral de los egresados">
-                        <img src="{{ asset('image/school/sn3.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Ubicación laboral de los egresados.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_four_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.four') }}" title="Desempeño profesional de los egresados">
-                        <img src="{{ asset('image/school/sn4.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Desempeño profesional de los egresados.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_five_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.five') }}" title="Expectativas de desarrollo">
-                        <img src="{{ asset('image/school/sn5.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Expectativas de desarrollo, superación profesional y de actualización.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_six_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.six') }}" title="Participación social de los egresados">
-                        <img src="{{ asset('image/school/sn6.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Participación social de los egresados.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey('survey_seven_done') !!}
-                    </div>
-                    <a href="{{ route('graduate.survey.seven') }}" title="Comentarios y sugerencias">
-                        <img src="{{ asset('image/school/sn7.png') }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>Comentarios y sugerencias.</h5>
-                    </div>
-                </div>
-            </div>
+            </div>                
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>

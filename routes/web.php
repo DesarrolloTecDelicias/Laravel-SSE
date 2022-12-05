@@ -45,6 +45,10 @@ use App\Http\Livewire\Admin\Statistic\Company\SurveyOneCompanyStatistic;
 use App\Http\Livewire\Admin\Statistic\Company\SurveyTwoCompanyStatistic;
 use App\Http\Livewire\Admin\Statistic\Company\SurveyThreeCompanyStatistic;
 
+//Emails
+use App\Http\Livewire\Admin\Email\EmailTemplate;
+use App\Http\Livewire\Admin\Email\EmailCompanyTemplate;
+
 //Methodology components
 use App\Http\Livewire\Admin\Methodology\General;
 use App\Http\Livewire\Admin\Methodology\GeneralStatistic;
@@ -100,6 +104,12 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
             Route::get('/especialidad', SpecialtyComponent::class)->name('catalogue.specialty');
             Route::get('/lenguaje', LanguageComponent::class)->name('catalogue.language');
             Route::get('/actividad/economica', BusinessComponent::class)->name('catalogue.business');
+        });
+
+        /***************** Email ******************/
+        Route::prefix('correo')->group(function () {
+        Route::get('/aviso', EmailTemplate::class)->name('email.advice');
+        Route::get('/aviso-empresa', EmailCompanyTemplate::class)->name('email.advice.company');
         });
 
         /***************** Configuration ******************/

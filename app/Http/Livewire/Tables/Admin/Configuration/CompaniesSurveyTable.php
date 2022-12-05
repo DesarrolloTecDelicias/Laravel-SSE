@@ -69,18 +69,21 @@ class CompaniesSurveyTable extends LivewireDatatable
                 if ($surveyOne && $surveyTwo && $surveyThree) {
                     return '<span class="text-success">Encuestas Completadas</span>';
                 }
-                $schoolName = env('SCHOOL_NAME');
-                $message = "Hola empleador $name nos comunicamos contigo del $schoolName, estamos para informarte que te hace falta las siguientes encuestas en la plataforma de seguimiento de egresados:%0D%0A%0D%0A";
 
-                !$surveyOne ? $message .= "%20%20• Encuesta 1: Datos generales de la empresa u organismo. %0D%0A" : null;
-                !$surveyTwo ? $message .= "%20%20• Encuesta 2: Ubicación laboral de los egresados. %0D%0A" : null;
-                !$surveyThree ? $message .= "%20%20• Encuesta 3: Competencias Laborales. %0D%0A" : null;
-                $message .= "%0D%0ATe pedimos de manera más atenta que puedas contestarla(s) lo más pronto posible.%0D%0ADe antemano, muchas gracias.%0D%0A%0D%0A-$schoolName, Departamento de Gestión y Vinculación.%0D%0A%0D%0A";
+                $userData = [
+                    'name' => $name,
+                    'email' => $email,
+                    'surveys' => [
+                        'survey_one_company_done' => $surveyOne,
+                        'survey_two_company_done' => $surveyTwo,
+                        'survey_three_company_done' => $surveyThree
+                    ]
+                ];
 
                 return view('table-actions.email-actions', [
-                    'email' => $email,
-                    'subject' => "Estado de encuestas $name",
-                    'body' => $message,
+                    'email' => 'sendEmail',
+                    'userData' => json_encode($userData),
+
                 ]);
             })
                 ->label('Aviso')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Graduate;
 
+use App\Constants\SurveyConstants;
 use Livewire\Component;
 use App\Models\StudentSurvey;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class DashboardGraduate extends Component
 {
     public $graduateSurvey;
+    public $surveys = [];
+    public $graduateRoutes = [];
 
     public function render()
     {
@@ -18,6 +21,8 @@ class DashboardGraduate extends Component
     public function mount()
     {
         $this->graduateSurvey = StudentSurvey::where('user_id', Auth::user()->id)->get()->first();
+        $this->surveys = SurveyConstants::$GRADUATE_SURVEY_NAME_BY_SURVEY_DONE;
+        $this->graduateRoutes = SurveyConstants::$GRADUATE_ROUTES;
     }
 
     function checkSurvey($userSurveyCheck)

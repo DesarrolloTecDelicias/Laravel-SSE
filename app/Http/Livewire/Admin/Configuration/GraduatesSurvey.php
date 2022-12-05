@@ -2,14 +2,17 @@
 
 namespace App\Http\Livewire\Admin\Configuration;
 
+use App\Models\Email;
+use Livewire\Component;
+use App\Constants\EmailConstant;
 use App\Constants\SurveyConstants;
 use App\Mail\SurveyStatusMailable;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Component;
 
 class GraduatesSurvey extends Component
 {
     protected $listeners = ['sendEmail'];
+
     public function render()
     {
         return view('livewire.admin.configuration.graduates-survey');
@@ -17,21 +20,35 @@ class GraduatesSurvey extends Component
 
     public function sendEmail($userData)
     {
+        $emailTemplate = Email::where([
+            ['type_id', EmailConstant::$advice],
+            ['type_user_id', EmailConstant::$graduate]
+        ])->first()->body;
+
         $email = $userData['email'];
-        $userData['school'] = env('SCHOOL_NAME');
-        $userData['surveyDescription'] = SurveyConstants::$GRADUATE_SURVEY_NAME_BY_SURVEY_DONE;
+
+        $emailTemplate = str_replace("{{ \$email }}", $email, $emailTemplate);
+        $emailTemplate = str_replace("{{ \$egresado }}", $userData['name'], $emailTemplate);
+        $emailTemplate = str_replace("{{ \$escuela }}", env('SCHOOL_NAME'), $emailTemplate);
+        $emailTemplate = str_replace("{{ \$enlace }}", env('PROJECT_URL'), $emailTemplate);
+        $surveyDescription = SurveyConstants::$GRADUATE_SURVEY_NAME_BY_SURVEY_DONE;
+        $message = "<ul>";
 
         $newArray =  array_filter(
-            $userData,
+            $userData['surveys'],
             function ($val) {
                 return $val == 0;
             }
         );
 
-        $userData['surveys'] = $newArray;
-        $userData['url'] = env('PROJECT_URL');
+        foreach ($newArray as $key => $value) {
+            $message .= "<li>" . $surveyDescription[$key] . "</li>";
+        }
+        $message .= "</ul>";
 
-        $correo = new SurveyStatusMailable($userData);
+        $emailTemplate = str_replace("{{ \$encuestas }}", $message, $emailTemplate);
+
+        $correo = new SurveyStatusMailable($emailTemplate);
         Mail::to($email)->send($correo);
 
         $this->dispatchBrowserEvent('message', [

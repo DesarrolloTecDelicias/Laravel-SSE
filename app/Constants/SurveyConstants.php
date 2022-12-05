@@ -24,11 +24,27 @@ class SurveyConstants
         'survey_seven_done' => "Comentarios y sugerencias.",
     ];
 
+    public static $GRADUATE_ROUTES = [
+        'survey_one_done' => "graduate.survey.one",
+        'survey_two_done' => "graduate.survey.two",
+        'survey_three_done' => "graduate.survey.three",
+        'survey_four_done' => "graduate.survey.four",
+        'survey_five_done' => "graduate.survey.five",
+        'survey_six_done' => "graduate.survey.six",
+        'survey_seven_done' => "graduate.survey.seven",
+    ];
+
+    public static $COMPANY_SURVEY_NAME_BY_SURVEY_DONE = [
+        'survey_one_company_done' => "Datos generales de la empresa u organismo.",
+        'survey_two_company_done' => "Ubicación laboral de los egresados.",
+        'survey_three_company_done' => "Competencias laborales.",
+    ];
+
     public static $COMPANY_SURVEY_NAME = [
         1 => "Datos generales de la empresa u organismo.",
         2 => "Ubicación laboral de los egresados.",
         3 => "Competencias laborales.",
     ];
 
-    
+
 }

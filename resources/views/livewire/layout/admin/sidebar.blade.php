@@ -78,6 +78,34 @@
                     </ul>
                 </li>
 
+                <li class="nav-item {!! $this->openMenu('administrador/correo') !!}">
+                    <a href="#" class="nav-link {!! $segments[1] == 'correo' ? 'active' : '' !!}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>
+                            Correo
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('email.advice') }}"
+                                class="nav-link {!! $routeName == 'email.advice' ? 'active' : '' !!}">
+                                <i class="far {!! $routeName == 'email.advice' ? 'fa-dot-circle'
+                                            : 'fa-circle' !!} nav-icon"></i>
+                                <p>Aviso egresados</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('email.advice.company') }}"
+                                class="nav-link {!! $routeName == 'email.advice.company' ? 'active' : '' !!}">
+                                <i class="far {!! $routeName == 'email.advice.company' ? 'fa-dot-circle'
+                                            : 'fa-circle' !!} nav-icon"></i>
+                                <p>Aviso empresas</p>
+                            </a>
+                        </li>                        
+                    </ul>
+                </li>
+
                 <li class="nav-item {!! $this->openMenu('administrador/configuracion') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'configuracion' ? 'active' : '' !!}">
                         <i class="nav-icon fas fa-cog"></i>
