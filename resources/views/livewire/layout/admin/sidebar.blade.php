@@ -412,7 +412,7 @@
                                 class="nav-link {!! $routeName == 'methodology.general' ? 'active' : '' !!}">
                                 <i class="far {!! $routeName == 'methodology.general' ? 'fa-dot-circle'
                                                             : 'fa-circle' !!} nav-icon"></i>
-                                <p>Fecha corte</p>
+                                <p>Fecha cohorte</p>
                             </a>
                         </li>
                         {{-- <li class="nav-item">

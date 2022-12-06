@@ -120,7 +120,7 @@ return "<td class=\"align-middle\" colspan=\"$colspan\">
                 <div class="row d-flex justify-content-between my-3 px-3">
                     <div class="d-flex justify-content-center flex-column w-75">
                         <h2 class="my-auto">{{ ucwords(env('SCHOOL_NAME')) }}</h2>
-                        <h5 class="mt-2">Fecha de corte: <span class="text-bold">{{ $state['dataFilterStart']
+                        <h5 class="mt-2">Fecha de cohorte: <span class="text-bold">{{ $state['dataFilterStart']
                                 }}</span> a:
                             <span class="text-bold">{{ $state['dataFilterEnd'] }}</span>
                         </h5>
