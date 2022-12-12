@@ -66,12 +66,12 @@ class Dashboard extends Component
 
         $school = SurveyOne::groupBy('career_id')
         ->join('careers', 'careers.id', 'survey_ones.career_id')
-            ->selectRaw('count(*) as total, careers.name as label')
-            ->orderBy('total', 'desc')
+            ->selectRaw('count(*) as totalLabel, careers.name as label')
+            ->orderBy('totalLabel', 'desc')
             ->get();
 
         $this->career = $school[0]->label ?? '';
-        $this->careerCount  = $school[0]->total ?? '';
+        $this->careerCount  = $school[0]->totalLabel ?? '';
     }
 
     public function getChartInfo()

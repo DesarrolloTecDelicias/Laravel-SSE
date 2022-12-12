@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Career;
+use App\Models\Language;
+use App\Models\Business;
+use App\Models\Specialty;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,110 +18,15 @@ abstract class SurveyBase extends Model
     public $options;
     public $total;
 
-    public $externProperties =  [
+    public $external =  [
         'career_id',
         'specialty_id',
         'language_id',
-        'user_id'
+        'user_id',
+        'business_id',
     ];
 
     use HasFactory;
-
-
-
-    public function getReportInstance($start, $end, $career)
-    {
-        $yearStart = date('Y', strtotime($start));
-        $monthStart = date('m', strtotime($start));
-        $yearEnd = date('Y', strtotime($end));
-        $monthEnd = date('m', strtotime($end));
-
-        $subtraction = $yearEnd - $yearStart;
-        $array = array(0, 1);
-        $regexStart = $monthStart <= 6 ? 'ENERO-JUNIO|AGOSTO-DICIEMBRE' : 'AGOSTO-DICIEMBRE';
-        $regexEnd = $monthEnd < 6
-            ? '^(?!(ENERO-JUNIO|AGOSTO-DICIEMBRE)$).+$'
-            : ($monthEnd ==  12
-                ? 'ENERO-JUNIO|AGOSTO-DICIEMBRE'
-                : 'ENERO-JUNIO');
-
-        if (!in_array($subtraction, $array)) {
-
-            //Start date
-            $a = $this->survey == 'survey_ones'
-                ? self::where('career', $career == "TODAS" ? '<>' : 'like', $career)
-                ->whereBetween('year', [$yearStart + 1, $yearEnd - 1])
-                ->get()
-
-                : self::join('survey_ones', 'survey_ones.user_id', "{$this->survey}.user_id")
-                ->where('survey_ones.career', $career == "TODAS" ? '<>' : 'like', $career)
-                ->whereBetween('survey_ones.year', [$yearStart + 1, $yearEnd - 1])
-                ->get();
-
-            //Date Start
-            $b = $this->survey == 'survey_ones'
-                ?
-                self::where([
-                    ['career', $career == "TODAS" ? '<>' : 'like', $career],
-                    ['year', '=', $yearStart],
-                    ['month', 'REGEXP', $regexStart]
-                ])
-                ->get()
-                ->merge($a)
-                :
-                self::join('survey_ones', 'survey_ones.user_id', "{$this->survey}.user_id")
-                ->where([
-                    ['survey_ones.career', $career == "TODAS" ? '<>' : 'like', $career],
-                    ['survey_ones.year', '=', $yearStart],
-                    ['survey_ones.month', 'REGEXP', $regexStart]
-                ])
-                ->get()
-                ->merge($a);
-        } else {
-
-            //Date Start
-            $b = $this->survey == 'survey_ones'
-                ? self::where([
-                    ['career', $career == "TODAS" ? '<>' : 'like', $career],
-                    ['year', '=', $yearStart],
-                    ['month', 'REGEXP', $regexStart]
-                ])
-                ->get()
-                : self::join('survey_ones', 'survey_ones.user_id', "{$this->survey}.user_id")
-                ->where([
-                    ['survey_ones.career', $career == "TODAS" ? '<>' : 'like', $career],
-                    ['survey_ones.year', '=', $yearStart],
-                    ['survey_ones.month', 'REGEXP', $regexStart]
-                ])
-                ->get();
-        }
-
-        //Date end
-        $c = $this->survey == 'survey_ones'
-            ? self::where([
-                ['career', $career == "TODAS" ? '<>' : 'like', $career],
-                ['year', '=', $yearEnd],
-                ['month', 'REGEXP', $regexEnd]
-            ])
-            ->get()
-            ->merge($b)
-
-            : self::join('survey_ones', 'survey_ones.user_id', "{$this->survey}.user_id")
-            ->where([
-                ['survey_ones.career', $career == "TODAS" ? '<>' : 'like', $career],
-                ['survey_ones.year', '=', $yearEnd],
-                ['survey_ones.month', 'REGEXP', $regexEnd]
-            ])
-            ->get()
-            ->merge($b);
-
-        return $c;
-    }
-
-
-
-
-
 
     public function getGeneralReport($start, $end, $careers)
     {
@@ -152,6 +61,26 @@ abstract class SurveyBase extends Model
         return $a;
     }
 
+    protected function getName($key, $value){
+        switch ($key) {
+            case 'career_id':
+                return Career::find($value)->name;
+                break;
+            case 'specialty_id':
+                return Specialty::find($value)->name;
+                break;
+            case 'language_id':
+                return Language::find($value)->name;
+                break;
+            case 'user_id':
+                return User::find($value)->name;
+                break;
+            case 'business_id':
+                return Business::find($value)->name;
+                break;
+        }
+    }
+
     public function getAllPropertiesCount($start, $end, $careers)
     {
         $yearStart = date('Y', strtotime($start));
@@ -166,6 +95,7 @@ abstract class SurveyBase extends Model
         $a = self::join('users', 'users.id', "{$this->survey}.user_id")
             ->where('users.role', 'graduate')
             ->whereIn("users.career_id", $careersIn)
+            ->whereNotNull('users.income_year')
             ->whereBetween('users.income_year', [$yearStart, $yearEnd])
             ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
             ->get();
@@ -183,16 +113,41 @@ abstract class SurveyBase extends Model
         }
 
         $count = $a->count();
-
+        $c1 = $a->where('do_for_living', 'TRABAJA')->count();
+        $c2 = $a->where('do_for_living', 'ESTUDIA Y TRABAJA')->count();
+        $countWork = $c1 + $c2;
         $this->total = $count;
 
         foreach ($this->properties as $key => $property) {
+
             $options = $a->pluck($key)->unique()->values()->all();
+            //ignore emptys or null values
+            $options = array_filter($options, function ($value) {
+                return $value !== null && $value !== '';
+            });
+            
             $values = array();
             foreach ($options as $option) {
                 $optionCount = $a->where($key, $option)->count();
-                $values[$option]['quantity'] = $optionCount;
-                $values[$option]['percentage'] = round($optionCount / $count * 100, 2);
+                //check if key is in external array
+                if (in_array($key, $this->external)) {
+                    $newOption = $this->getName($key, $option);
+                    $values[$newOption]['quantity'] = $optionCount;
+
+                    if ($key != 'do_for_living' && $this->survey == 'survey_threes') {
+                        $values[$newOption]['percentage'] = round($optionCount / $countWork * 100, 2);
+                    } else {
+                        $values[$newOption]['percentage'] = round($optionCount / $count * 100, 2);
+                    }
+                }else{
+                    $values[$option]['quantity'] = $optionCount;
+
+                    if ($key != 'do_for_living' && $this->survey == 'survey_threes') {
+                        $values[$option]['percentage'] = round($optionCount / $countWork * 100, 2);
+                    } else {
+                        $values[$option]['percentage'] = round($optionCount / $count * 100, 2);
+                    }
+                }
             }
             $this->options[$property] = $values;
         }

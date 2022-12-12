@@ -79,6 +79,11 @@ class SurveyThreeGraduate extends Component
         $this->businessStructure = Constants::BUSINESS_STRUCTURE;
     }
 
+    public function validateValues($key, $validator)
+    {
+        $this->state[$key] = $validator ? ($this->state[$key] ? null : $this->state[$key]) : null;
+    }
+
     public function save()
     {
         $idValidator = array_key_exists('id', $this->state) ? $this->state['id'] : '';
@@ -108,45 +113,46 @@ class SurveyThreeGraduate extends Component
             )->validate();
         }
 
+        $school = $this->schoolVisibility;
+        $work = $this->workVisibility;
+        $this->validateValues('speciality', $school);
+        $this->validateValues('school', $school);
+        $this->validateValues('long_take_job', $work);
+        $this->validateValues('hear_about', $work);
+        $this->validateValues('competence1', $work);
+        $this->validateValues('competence2', $work);
+        $this->validateValues('competence3', $work);
+        $this->validateValues('competence4', $work);
+        $this->validateValues('competence5', $work);
+        $this->validateValues('competence6', $work);
+        $this->validateValues('language_id', $work);
+        $this->validateValues('speak_percent', $work);
+        $this->validateValues('write_percent', $work);
+        $this->validateValues('read_percent', $work);
+        $this->validateValues('listen_percent', $work);
+        $this->validateValues('seniority', $work);
+        $this->validateValues('year', $work);
+        $this->validateValues('salary', $work);
+        $this->validateValues('management_level', $work);
+        $this->validateValues('job_condition', $work);
+        $this->validateValues('job_relationship', $work);
+        $this->validateValues('business_name', $work);
+        $this->validateValues('business_activity', $work);
+        $this->validateValues('address', $work);
+        $this->validateValues('zip', $work);
+        $this->validateValues('suburb', $work);
+        $this->validateValues('state', $work);
+        $this->validateValues('city', $work);
+        $this->validateValues('municipality', $work);
+        $this->validateValues('phone', $work);
+        $this->validateValues('fax', $work);
+        $this->validateValues('web_page', $work);
+        $this->validateValues('boss_email', $work);
+        $this->validateValues('business_structure', $work);
+        $this->validateValues('company_size', $work);
+        $this->validateValues('business_id', $work);
+        
         $validateData = $this->state;
-
-        $validateData['speciality'] = $this->schoolVisibility ? $validateData['speciality'] : null;
-        $validateData['school'] = $this->schoolVisibility ? $validateData['school'] : null;
-        $validateData['long_take_job'] = $this->workVisibility ? $validateData['long_take_job'] : null;
-        $validateData['hear_about'] = $this->workVisibility ? $validateData['hear_about'] : null;
-        $validateData['competence1'] = $this->workVisibility ? $validateData['competence1'] : 0;
-        $validateData['competence2'] = $this->workVisibility ? $validateData['competence2'] : 0;
-        $validateData['competence3'] = $this->workVisibility ? $validateData['competence3'] : 0;
-        $validateData['competence4'] = $this->workVisibility ? $validateData['competence4'] : 0;
-        $validateData['competence5'] = $this->workVisibility ? $validateData['competence5'] : 0;
-        $validateData['competence6'] = $this->workVisibility ? $validateData['competence6'] : 0;
-        $validateData['language_id'] = $this->workVisibility ? $validateData['language_id'] : null;
-        $validateData['speak_percent'] = $this->workVisibility ? $validateData['speak_percent'] : 0;
-        $validateData['write_percent'] = $this->workVisibility ? $validateData['write_percent'] : 0;
-        $validateData['read_percent'] = $this->workVisibility ? $validateData['read_percent'] : 0;
-        $validateData['listen_percent'] = $this->workVisibility ? $validateData['listen_percent'] : 0;
-        $validateData['seniority'] = $this->workVisibility ? $validateData['seniority'] : null;
-        $validateData['year'] = $this->workVisibility ? $validateData['year'] : null;
-        $validateData['salary'] = $this->workVisibility ? $validateData['salary'] : null;
-        $validateData['management_level'] = $this->workVisibility ? $validateData['management_level'] : null;
-        $validateData['job_condition'] = $this->workVisibility ? $validateData['job_condition'] : null;
-        $validateData['job_relationship'] = $this->workVisibility ? $validateData['job_relationship'] : null;
-        $validateData['business_name'] = $this->workVisibility ? $validateData['business_name'] : null;
-        $validateData['business_activity'] = $this->workVisibility ? $validateData['business_activity'] : null;
-        $validateData['address'] = $this->workVisibility ? $validateData['address'] : null;
-        $validateData['zip'] = $this->workVisibility ? $validateData['zip'] : null;
-        $validateData['suburb'] = $this->workVisibility ? $validateData['suburb'] : null;
-        $validateData['state'] = $this->workVisibility ? $validateData['state'] : null;
-        $validateData['city'] = $this->workVisibility ? $validateData['city'] : null;
-        $validateData['municipality'] = $this->workVisibility ? $validateData['municipality'] : null;
-        $validateData['phone'] = $this->workVisibility ? $validateData['phone'] : null;
-        $validateData['fax'] = $this->workVisibility ? $validateData['fax'] : null;
-        $validateData['web_page'] = $this->workVisibility ? $validateData['web_page'] : null;
-        $validateData['boss_email'] = $this->workVisibility ? $validateData['boss_email'] : null;
-        $validateData['business_structure'] = $this->workVisibility ? $validateData['business_structure'] : null;
-        $validateData['company_size'] = $this->workVisibility ? $validateData['company_size'] : null;
-        $validateData['business_id'] = $this->workVisibility ? $validateData['business_id'] : null;
-
         $user = User::find(Auth::user()->id);
         $validateData['user_id'] = $user->id;
         $user->updateUserState();
