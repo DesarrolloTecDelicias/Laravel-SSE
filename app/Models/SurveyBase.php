@@ -24,6 +24,12 @@ abstract class SurveyBase extends Model
         'language_id',
         'user_id',
         'business_id',
+        'competence1',
+        'competence2',
+        'competence3',
+        'competence4',
+        'competence5',
+        'competence6'
     ];
 
     use HasFactory;
@@ -61,7 +67,8 @@ abstract class SurveyBase extends Model
         return $a;
     }
 
-    protected function getName($key, $value){
+    protected function getName($key, $value)
+    {
         switch ($key) {
             case 'career_id':
                 return Career::find($value)->name;
@@ -77,6 +84,9 @@ abstract class SurveyBase extends Model
                 break;
             case 'business_id':
                 return Business::find($value)->name;
+                break;
+            case str_contains($key, 'competence'):
+                return $value ? 'Sí' : 'No';
                 break;
         }
     }
@@ -125,10 +135,11 @@ abstract class SurveyBase extends Model
             $options = array_filter($options, function ($value) {
                 return $value !== null && $value !== '';
             });
-            
+
             $values = array();
             foreach ($options as $option) {
-                $optionCount = $a->where($key, $option)->count();
+                $optionCount = $a->where($key, $option)
+                ->whereNotNull($key)->count();
                 //check if key is in external array
                 if (in_array($key, $this->external)) {
                     $newOption = $this->getName($key, $option);
@@ -139,7 +150,7 @@ abstract class SurveyBase extends Model
                     } else {
                         $values[$newOption]['percentage'] = round($optionCount / $count * 100, 2);
                     }
-                }else{
+                } else {
                     $values[$option]['quantity'] = $optionCount;
 
                     if ($key != 'do_for_living' && $this->survey == 'survey_threes') {
