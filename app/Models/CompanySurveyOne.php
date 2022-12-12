@@ -20,12 +20,17 @@ class CompanySurveyOne extends Model
         'email',
         'business_structure',
         'company_size',
-        'business_activity_selector'
+        'business_id'
     ];
 
     public function company()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
     }
 
     use HasFactory;

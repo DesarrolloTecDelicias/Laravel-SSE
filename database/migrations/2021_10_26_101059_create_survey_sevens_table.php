@@ -15,7 +15,7 @@ class CreateSurveySevensTable extends Migration
     {
         Schema::create('survey_sevens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->longText('comments');
             $table->timestamps();
         });

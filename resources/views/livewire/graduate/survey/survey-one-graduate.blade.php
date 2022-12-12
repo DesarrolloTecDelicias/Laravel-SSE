@@ -312,10 +312,10 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="form-group">
-                <label for="career">Carrera de egreso *</label>
+                <label for="career_id">Carrera de egreso *</label>
                 <div class="controls">
-                    <select id="career" wire:model.defer="state.career"
-                        class="form-control @error('career') is-invalid @enderror" title="Selecciona tu carrera"
+                    <select id="career_id" wire:model.defer="state.career_id"
+                        class="form-control @error('career_id') is-invalid @enderror" title="Selecciona tu carrera"
                         wire:change="getSpecialties">
                         <option value="" selected="" disabled="">
                             Selecciona tu carrera
@@ -327,7 +327,7 @@
                         @endforeach
                     </select>
                 </div>
-                @error('career')
+                @error('career_id')
                 <div class="text-danger">
                     {{ $message }}
                 </div>
@@ -336,22 +336,22 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="form-group">
-                <label for="specialty">Especialidad *</label>
+                <label for="specialty_id">Especialidad *</label>
                 <div class="controls">
-                    <select id="specialty" wire:model.defer="state.specialty"
-                        class="form-control @error('specialty') is-invalid @enderror"
+                    <select id="specialty_id" wire:model.defer="state.specialty_id"
+                        class="form-control @error('specialty_id') is-invalid @enderror"
                         title="Selecciona tu especialidad">
                         <option value="" selected="" disabled="">
                             Selecciona tu especialidad
                         </option>
                         @foreach ($specialties as $specialty)
-                        <option value="{{ $specialty->name }}">
+                        <option value="{{ $specialty->id }}">
                             {{ $specialty->name }}
                         </option>
                         @endforeach
                     </select>
                 </div>
-                @error('specialty')
+                @error('specialty_id')
                 <div class="text-danger">
                     {{ $message }}
                 </div>
@@ -480,22 +480,22 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="form-group">
-                <label for="another_language">Otro Idioma *</label>
+                <label for="language_id">Otro Idioma *</label>
                 <div class="controls">
-                    <select id="another_language" wire:model.defer="state.another_language"
-                        class="form-control @error('another_language') is-invalid @enderror"
+                    <select id="language_id" wire:model.defer="state.language_id"
+                        class="form-control @error('language_id') is-invalid @enderror"
                         title="Seleccione alguna otra lengua si es hablador de esa lengua">
                         <option value="" selected="" disabled="">
                             Selecciona una lengua
                         </option>
                         @foreach ($languages as $language)
-                        <option value="{{ $language->name }}">
+                        <option value="{{ $language->id }}">
                             {{ $language->name }}
                         </option>
                         @endforeach
                     </select>
                 </div>
-                @error('another_language')
+                @error('language_id')
                 <div class="text-danger">
                     {{ $message }}
                 </div>

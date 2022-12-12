@@ -82,16 +82,16 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="career" value="{{ __('Carrera') }}" />
-                <select id="career" name="career" title="Por favor selecciona tu carrera"
+                <x-jet-label for="career_id" value="{{ __('Carrera') }}" />
+                <select id="career_id" name="career_id" title="Por favor selecciona tu carrera"
                     title="Por favor selecciona tu carrera"
                     class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    value="{{ old('career') }}" required>
+                    value="{{ old('career_id') }}" required>
                     <option value="" selected="" disabled="">
                         Selecciona tu carrera
                     </option>
                     @foreach ($careers as $career)
-                    <option value="{{ $career->name }}" @if (old('career')==$career->name)
+                    <option value="{{ $career->id }}" @if (old('career_id')==$career->name)
                         {{ 'selected' }} @endif>{{ $career->name }}</option>
                     @endforeach
                 </select>

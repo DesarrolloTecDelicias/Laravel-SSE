@@ -21,7 +21,7 @@ class SurveyTwoCompany extends Component
     public $levelsArray = [0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '', 9 => '', 10 => ''];
     public $totalsArray = [0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '', 7 => '', 8 => '', 9 => '', 10 => ''];
     public $state = [
-        'number_graduates' => '', 'congruence' => '', 'most_demanded_career' => '',
+        'number_graduates' => '', 'congruence' => '', 'career_id' => '',
         'competence1' => 0, 'competence2' => 0, 'competence3' => 0,
         'competence4' => 0, 'competence5' => 0, 'competence6' => 0,
         'competence7' => 0, 'competence8' => 0,
@@ -129,7 +129,7 @@ class SurveyTwoCompany extends Component
             'competence6' => '',
             'competence7' => '',
             'competence8' => '',
-            'most_demanded_career' => 'required',
+            'career_id' => 'required',
 
         ];
     }
@@ -139,7 +139,7 @@ class SurveyTwoCompany extends Component
         return [
             'number_graduates.required' => GlobalFunctions::requiredMessage('número de profesionistas'),
             'congruence.required' => GlobalFunctions::requiredMessage('congruencia entre perfil profesional y función que desarrollan'),
-            'most_demanded_career.required' => GlobalFunctions::requiredMessage('carrera que demanda'),
+            'career_id.required' => GlobalFunctions::requiredMessage('carrera que demanda'),
         ];
     }
 }

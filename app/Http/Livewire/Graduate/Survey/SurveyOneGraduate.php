@@ -19,10 +19,10 @@ class SurveyOneGraduate extends Component
     public $career;
     public $careers = [], $specialties = [], $languages = [], $sexes, $maritalStatus, $yesNoOptions, $months;
     public $state = [
-        'career' => '', 'specialty' => '', 'sex' => '',
+        'career_id' => '', 'specialty_id' => '', 'sex' => '',
         'marital_status' => '', 'qualified' => '', 'month' => '',
         'income_month' => '', 'income_year' => '', 'year' => '',
-        'percent_english' => 0, 'another_language' => '', 'qualified_year' => '',
+        'percent_english' => 0, 'language_id' => '', 'qualified_year' => '',
         'phone' => '', 'cellphone'=> '',
         'percent_another_language' => 0
     ];
@@ -37,22 +37,24 @@ class SurveyOneGraduate extends Component
     {
         $userInfo = SurveyOne::where('user_id', Auth::user()->id)->get()->first();
         if ($userInfo) {
-            $career = Career::where('name', $userInfo->career)->get()->first();
-            $this->specialties = Specialty::where('id_career', $career->id)->get();
+            $this->specialties = Specialty::where('career_id', $userInfo->career_id)->get();
             $this->state = $userInfo->toArray();
             $this->state['qualified_year'] = $this->state['qualified_year'] ?? '';
             $this->state['income_month'] = $this->state['income_month'] ?? '';
             $this->state['income_year'] = $this->state['income_year'] ?? '';
             $this->handleQualified();
         } else {
-            $this->state['control_number'] = Auth::user()->control_number;
-            $this->state['email'] = Auth::user()->email;
-            $this->state['income_month'] = Auth::user()->income_month ?? '';
-            $this->state['month'] = Auth::user()->month_graduated ?? '';
-            $this->state['year'] = Auth::user()->year_graduated ?? '';
-            $this->state['income_year'] = Auth::user()->income_year ?? '';
-            $career = Career::where('name', Auth::user()->career)->get()->first();
-            $this->state['career'] = $career->id;
+            $user = Auth::user();
+            $this->state['first_name'] = $user->name;
+            $this->state['fathers_surname'] = $user->fathers_surname;
+            $this->state['mothers_surname'] = $user->mothers_surname;
+            $this->state['email'] = $user->email;
+            $this->state['control_number'] = $user->control_number;
+            $this->state['income_month'] = $user->income_month ?? '';
+            $this->state['month'] = $user->month_graduated ?? '';
+            $this->state['year'] = $user->year_graduated ?? '';
+            $this->state['income_year'] = $user->income_year ?? '';
+            $this->state['career_id'] = $user->career_id ?? '';
             $this->getSpecialties();
         }
 
@@ -67,7 +69,7 @@ class SurveyOneGraduate extends Component
     public function getSpecialties()
     {
         $this->specialties = [];
-        $this->specialties = Specialty::where('id_career', $this->state['career'])->get();
+        $this->specialties = Specialty::where('career_id', $this->state['career_id'])->get();
     }
 
     public function save()
@@ -83,13 +85,10 @@ class SurveyOneGraduate extends Component
         $validateData['first_name'] = mb_strtoupper($validateData['first_name'], 'UTF-8');
         $validateData['fathers_surname'] = mb_strtoupper($validateData['fathers_surname'], 'UTF-8');
         $validateData['mothers_surname'] = mb_strtoupper($validateData['mothers_surname'], 'UTF-8');
-        $validateData['career'] = is_numeric($validateData['career'])
-            ? Career::find($validateData['career'])->name
-            : $validateData['career'];
         $validateData['email'] = Auth::user()->email;
         $validateData['control_number'] = Auth::user()->control_number;
         $anotherLanguage = Language::all()->sortBy('id')->first();
-        $validateData['percent_another_language'] = $anotherLanguage->name == $validateData['another_language'] ? '0' : $validateData['percent_another_language'];
+        $validateData['percent_another_language'] = $anotherLanguage->id == $validateData['language_id'] ? '0' : $validateData['percent_another_language'];
 
         $user = User::find(Auth::user()->id);
         $validateData['user_id'] = $user->id;
@@ -145,8 +144,8 @@ class SurveyOneGraduate extends Component
             'municipality' => 'required',
             'phone' => $this->state['phone'] != '' ? 'digits:10' : '',
             'cellphone' => 'required|digits:10',
-            'career' => 'required',
-            'specialty' => 'required',
+            'career_id' => 'required',
+            'specialty_id' => 'required',
             'qualified' => 'required',
             'qualified_year' => $this->state['qualified'] == 'SÍ' ? 'required|digits:4' : '',
             'income_month' => 'required',
@@ -154,7 +153,7 @@ class SurveyOneGraduate extends Component
             'month' => 'required',
             'year' => 'required|digits:4',
             'percent_english' => 'required',
-            'another_language' => 'required',
+            'language_id' => 'required',
             'percent_another_language' => 'required',
             'software' => 'required',
         ];
@@ -182,8 +181,8 @@ class SurveyOneGraduate extends Component
             'phone.digits' => GlobalFunctions::formatMessage('teléfono'),
             'cellphone.required' => GlobalFunctions::requiredMessage('teléfono celular'),
             'cellphone.digits' => GlobalFunctions::formatMessage('teléfono celular'),
-            'career.required' => GlobalFunctions::requiredMessage('carerra'),
-            'specialty.required' => GlobalFunctions::requiredMessage('especialidad'),
+            'career_id.required' => GlobalFunctions::requiredMessage('carerra'),
+            'specialty_id.required' => GlobalFunctions::requiredMessage('especialidad'),
             'qualified.required' => GlobalFunctions::requiredMessage('titulado'),
             'qualified_year.required' => GlobalFunctions::requiredMessage('año de titulado'),
             'income_month.required' => GlobalFunctions::requiredMessage('período de ingreso'),
@@ -191,7 +190,7 @@ class SurveyOneGraduate extends Component
             'month.required' => GlobalFunctions::requiredMessage('período de egreso'),
             'year.required' => GlobalFunctions::requiredMessage('año de egreso'),
             'percent_english.required' => GlobalFunctions::requiredMessage('porcentaje de inglés'),
-            'another_language.required' => GlobalFunctions::requiredMessage('otro idioma'),
+            'language_id.required' => GlobalFunctions::requiredMessage('otro idioma'),
             'percent_another_language.required' => GlobalFunctions::requiredMessage('porcentaje otro idioma'),
         ];
     }

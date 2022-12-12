@@ -1,10 +1,10 @@
 <div>
     <x-slot name="title">
-        Resultados Generales Corte
+        Resultados Generales Cohorte
     </x-slot>
 
     <x-slot name="header">
-        Reporte de resultados generales corte
+        Reporte de resultados generales cohorte
     </x-slot>
 
     <div class="py-4">
@@ -34,19 +34,21 @@
                     </div>
                 </div>
 
-
                 <div class="col-6" wire:ignore>
                     <div class="form-group">
                         <label for="careerSelected">Carrera</label>
                         <select id="careerSelected" class="select2-class form-control" title="Mencionar carrera"
                             multiple="multiple">
                             @foreach ($careers as $career)
-                            <option @if(array_key_exists($career, $careerSelected))selected @endif value="{{ $career }}">{{ $career }}</option>
+                            <option @if(array_key_exists($career->id, $careerSelected))selected @endif
+                                value="{{ $career->id }}">
+                                {{ $career->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-2">
                     <div class="form-group text-center">
                         <label>Aplicar filtros</label>

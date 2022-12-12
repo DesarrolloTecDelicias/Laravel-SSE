@@ -19,12 +19,17 @@ class CompanySurveyTwo extends Model
         'competence6',
         'competence7',
         'competence8',
-        'most_demanded_career'
+        'career_id'
     ];
 
     public function company()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
     }
 
     use HasFactory;

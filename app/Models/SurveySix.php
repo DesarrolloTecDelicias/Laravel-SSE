@@ -10,6 +10,13 @@ class SurveySix extends SurveyBase
     public function __construct()
     {
         $this->survey = 'survey_sixes';
+        $this->title = 'Expectativas de desarrollo, superación profesional y de actualización.';
+        $this->properties =
+            [
+                'organization_yes_no' => '¿Pertenece a organizaciones sociales?',
+                'agency_yes_no' => '¿Pertenece a organismos de profesionistas?',
+                'association_yes_no' => '¿Pertenece a asociaciones de egresados?',
+            ];
     }
 
     protected $fillable = [
@@ -20,7 +27,13 @@ class SurveySix extends SurveyBase
         'agency',
         'association_yes_no',
         'association',
+
     ];
 
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

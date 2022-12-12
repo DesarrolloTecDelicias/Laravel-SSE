@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Configuration;
 
-use Livewire\Component;
 use App\Models\User;
 use App\Models\Career;
+use Livewire\Component;
+use App\Constants\Constants;
 use App\Helpers\ModelHelper;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class AdministratorsConfigurationComponent extends Component
 {
     protected $listeners = ['editAdministrator', 'deleteAdministrator', 'callConfirmationAdministrator'];
     public $modal = false;
-    public $state = [];
+    public $state = ['career_id' => ''];
 
     public function render()
     {
@@ -38,7 +39,7 @@ class AdministratorsConfigurationComponent extends Component
 
         $validateData['name'] = mb_strtoupper($validateData['name'], 'UTF-8');
         $validateData['password'] = Hash::make($validateData['password']);
-        
+        $validateData['role'] = Constants::ROLE['Committee'];
         User::updateOrCreate(['id' => $idValidator], $validateData);
 
         $this->launchModal();
@@ -63,7 +64,14 @@ class AdministratorsConfigurationComponent extends Component
 
     public function deleteAdministrator(int $id)
     {
-        ModelHelper::delete(Administrator::class, $id);
+        if ($id == 1) {
+            $this->dispatchBrowserEvent('message', [
+                'message' => "No se puede eliminar el administrador principal",
+                'type' => 'error'
+            ]);
+            return;
+        }
+        ModelHelper::delete(User::class, $id);
         $this->sendMessage('eliminado');
     }
 
@@ -93,7 +101,7 @@ class AdministratorsConfigurationComponent extends Component
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $idValidator,
             'password' => 'required',
-            'career' => 'required',
+            'career_id' => 'required',
         ];
     }
 
@@ -104,7 +112,7 @@ class AdministratorsConfigurationComponent extends Component
             'email.required' => GlobalFunctions::requiredMessage('email'),
             'email.unique' => GlobalFunctions::uniqueMessage('email'),
             'password.required' => GlobalFunctions::requiredMessage('contraseña'),
-            'career.required' => GlobalFunctions::requiredMessage('carrera'),
+            'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
         ];
     }
 }

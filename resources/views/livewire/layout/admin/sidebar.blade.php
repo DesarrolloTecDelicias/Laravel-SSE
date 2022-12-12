@@ -12,8 +12,8 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ empty(Auth::user()->profile_photo_path) 
-                ? Auth::user()->profile_photo_url 
-                : url("storage/".Auth::user()->profile_photo_path)}}"
+                    ? Auth::user()->profile_photo_url 
+                    : url("storage/".Auth::user()->profile_photo_path)}}"
                 class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -46,8 +46,9 @@
                         <li class="nav-item">
                             <a href="{{ route('catalogue.business') }}"
                                 class="nav-link {!! $routeName == 'catalogue.business' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'catalogue.business' ? 'fa-dot-circle'
-                                            : 'fa-circle' !!} nav-icon"></i>
+                                <i class="far nav-icon {!! $routeName == 'catalogue.business' 
+                                        ? 'fa-dot-circle'
+                                        : 'fa-circle' !!}"></i>
                                 <p>Actividad económica</p>
                             </a>
                         </li>
@@ -102,7 +103,7 @@
                                             : 'fa-circle' !!} nav-icon"></i>
                                 <p>Aviso empresas</p>
                             </a>
-                        </li>                        
+                        </li>
                     </ul>
                 </li>
 
@@ -174,8 +175,8 @@
                         style="display: {!! str_contains($prefix, 'administrador/reporte') ? 'block' : 'none' !!};">
                         <li class="nav-item {!! $this->openMenu('reporte/egresado') !!}">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-user-graduate nav-icon"></i>
-                                <p class="ml-1">
+                                <i class="fas fa-user-graduate nav-icon pl-2"></i>
+                                <p>
                                     Egresado
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
@@ -186,7 +187,7 @@
                                     <a href="{{ route('report.graduate.survey.one') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'perfil', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'perfil', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'perfil', 'icon') !!} nav-icon pl-2"></i>
                                         <p>1. Perfil</p>
                                     </a>
                                 </li>
@@ -194,7 +195,7 @@
                                     <a href="{{ route('report.graduate.survey.two') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'pertinencia', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'pertinencia', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'pertinencia', 'icon') !!} nav-icon pl-2"></i>
                                         <p>2. Pertinencia</p>
                                     </a>
                                 </li>
@@ -202,7 +203,7 @@
                                     <a href="{{ route('report.graduate.survey.three') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'ubicacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'ubicacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'ubicacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>3. Ubicación laboral</p>
                                     </a>
                                 </li>
@@ -210,7 +211,7 @@
                                     <a href="{{ route('report.graduate.survey.four') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'desempeno', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'desempeno', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'desempeno', 'icon') !!} nav-icon pl-2"></i>
                                         <p>4. Desempeño</p>
                                     </a>
                                 </li>
@@ -218,7 +219,7 @@
                                     <a href="{{ route('report.graduate.survey.five') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'expectativas', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'expectativas', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'expectativas', 'icon') !!} nav-icon pl-2"></i>
                                         <p>5. Expectativas</p>
                                     </a>
                                 </li>
@@ -226,7 +227,7 @@
                                     <a href="{{ route('report.graduate.survey.six') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'participacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'participacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'participacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>6. Participación</p>
                                     </a>
                                 </li>
@@ -234,7 +235,7 @@
                                     <a href="{{ route('report.graduate.survey.seven') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/egresado', 'comentarios', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'comentarios', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/egresado', 'comentarios', 'icon') !!} nav-icon pl-2"></i>
                                         <p>7. Comentarios</p>
                                     </a>
                                 </li>
@@ -246,8 +247,8 @@
                         style="display: {!! str_contains($prefix, 'administrador/reporte') ? 'block' : 'none' !!};">
                         <li class="nav-item {!! $this->openMenu('reporte/empresa') !!}">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-building nav-icon"></i>
-                                <p class="ml-1">
+                                <i class="fas fa-building nav-icon pl-2"></i>
+                                <p>
                                     Empresas
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
@@ -258,7 +259,7 @@
                                     <a href="{{ route('report.company.survey.one') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/empresa', 'datos', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'datos', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'datos', 'icon') !!} nav-icon pl-2"></i>
                                         <p>1. Datos generales</p>
                                     </a>
                                 </li>
@@ -266,7 +267,7 @@
                                     <a href="{{ route('report.company.survey.two') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/empresa', 'ubicacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'ubicacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'ubicacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>2. Ubicación laboral</p>
                                     </a>
                                 </li>
@@ -274,7 +275,7 @@
                                     <a href="{{ route('report.company.survey.three') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('reporte/empresa', 'competencias', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'competencias', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('reporte/empresa', 'competencias', 'icon') !!} nav-icon pl-2"></i>
                                         <p>3. Competencias</p>
                                     </a>
                                 </li>
@@ -297,8 +298,8 @@
                         style="display: {!! str_contains($prefix, 'administrador/estadistica') ? 'block' : 'none' !!};">
                         <li class="nav-item {!! $this->openMenu('estadistica/egresado') !!}">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-user-graduate nav-icon"></i>
-                                <p class="ml-1">
+                                <i class="fas fa-user-graduate nav-icon pl-2"></i>
+                                <p>
                                     Egresado
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
@@ -309,7 +310,7 @@
                                     <a href="{{ route('statistic.graduate.survey.one') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'perfil', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'perfil', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'perfil', 'icon') !!} nav-icon pl-2"></i>
                                         <p>1. Perfil</p>
                                     </a>
                                 </li>
@@ -317,7 +318,7 @@
                                     <a href="{{ route('statistic.graduate.survey.two') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'pertinencia', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'pertinencia', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'pertinencia', 'icon') !!} nav-icon pl-2"></i>
                                         <p>2. Pertinencia</p>
                                     </a>
                                 </li>
@@ -325,7 +326,7 @@
                                     <a href="{{ route('statistic.graduate.survey.three') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'ubicacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'ubicacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'ubicacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>3. Ubicación laboral</p>
                                     </a>
                                 </li>
@@ -333,7 +334,7 @@
                                     <a href="{{ route('statistic.graduate.survey.four') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'desempeno', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'desempeno', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'desempeno', 'icon') !!} nav-icon pl-2"></i>
                                         <p>4. Desempeño</p>
                                     </a>
                                 </li>
@@ -341,7 +342,7 @@
                                     <a href="{{ route('statistic.graduate.survey.five') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'expectativas', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'expectativas', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'expectativas', 'icon') !!} nav-icon pl-2"></i>
                                         <p>5. Expectativas</p>
                                     </a>
                                 </li>
@@ -349,7 +350,7 @@
                                     <a href="{{ route('statistic.graduate.survey.six') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/egresado', 'participacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'participacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/egresado', 'participacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>6. Participación</p>
                                     </a>
                                 </li>
@@ -361,8 +362,8 @@
                         style="display: {!! str_contains($prefix, 'administrador/estadistica') ? 'block' : 'none' !!};">
                         <li class="nav-item {!! $this->openMenu('estadistica/empresa') !!}">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-building nav-icon"></i>
-                                <p class="ml-1">
+                                <i class="fas fa-building nav-icon pl-2"></i>
+                                <p>
                                     Empresas
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
@@ -373,7 +374,7 @@
                                     <a href="{{ route('statistic.company.survey.one') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/empresa', 'datos', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'datos', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'datos', 'icon') !!} nav-icon pl-2"></i>
                                         <p>1. Datos generales</p>
                                     </a>
                                 </li>
@@ -381,7 +382,7 @@
                                     <a href="{{ route('statistic.company.survey.two') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/empresa', 'ubicacion', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'ubicacion', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'ubicacion', 'icon') !!} nav-icon pl-2"></i>
                                         <p>2. Ubicación laboral</p>
                                     </a>
                                 </li>
@@ -389,7 +390,7 @@
                                     <a href="{{ route('statistic.company.survey.three') }}"
                                         class="nav-link {!! $this->thirdLevelValidation('estadistica/empresa', 'competencias', 'active') !!}">
                                         <i
-                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'competencias', 'icon') !!} nav-icon"></i>
+                                            class="far {!! $this->thirdLevelValidation('estadistica/empresa', 'competencias', 'icon') !!} nav-icon pl-2"></i>
                                         <p>3. Competencias</p>
                                     </a>
                                 </li>
@@ -415,6 +416,14 @@
                                 <p>Fecha cohorte</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('methodology.options') }}"
+                                class="nav-link {!! $routeName == 'methodology.options' ? 'active' : '' !!}">
+                                <i class="far {!! $routeName == 'methodology.options' ? 'fa-dot-circle'
+                                                            : 'fa-circle' !!} nav-icon"></i>
+                                <p>Por opciones</p>
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a href="{{ route('methodology.general.statistics') }}"
                                 class="nav-link {!! $routeName == 'methodology.general.statistics' ? 'active' : '' !!}">
@@ -424,24 +433,6 @@
                                 <p>Fecha corte gráficas</p>
                             </a>
                         </li> --}}
-                        <!--<li class="nav-item">
-                            <a href="{{ route('methodology.date') }}"
-                                class="nav-link {!! $routeName == 'methodology.date' ? 'active' : '' !!}">
-                                <i
-                                    class="far {!! $routeName == 'methodology.date' ? 'fa-dot-circle'
-                                                                                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Fecha contestación</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('methodology.date.statistics') }}"
-                                class="nav-link {!! $routeName == 'methodology.date.statistics' ? 'active' : '' !!}">
-                                <i
-                                    class="far {!! $routeName == 'methodology.date.statistics' ? 'fa-dot-circle'
-                                                                                                                                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Fecha contestación gráficas</p>
-                            </a>
-                        </li>-->
                     </ul>
                 </li>
 

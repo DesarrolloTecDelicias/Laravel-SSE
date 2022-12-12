@@ -23,7 +23,7 @@ class SurveyThreeGraduate extends Component
         'do_for_living' => '', 'speciality' => '', 'long_take_job' => '',
         'competence1' => 0, 'competence2' => 0, 'competence3' => 0, 'competence4' => 0,
         'competence5' => 0, 'competence6' => 0,
-        'hear_about' => '', 'language_most_spoken' => '', 'speak_percent' => 0,
+        'hear_about' => '', 'language_id' => '', 'speak_percent' => 0,
         'write_percent' => 0, 'read_percent' => 0, 'listen_percent' => 0,
         'seniority' => '', 'year' => '', 'salary' => '',
         'management_level' => '', 'job_condition' => '', 'job_relationship' => '',
@@ -41,7 +41,7 @@ class SurveyThreeGraduate extends Component
         'fax' => '',
         'web_page' => '',
         'boss_email' => '',
-        'business_activity_selector' => '',
+        'business_id' => '',
     ];
     public $percentValues = array("speak_percent", "write_percent", "read_percent", "listen_percent");
 
@@ -120,7 +120,7 @@ class SurveyThreeGraduate extends Component
         $validateData['competence4'] = $this->workVisibility ? $validateData['competence4'] : 0;
         $validateData['competence5'] = $this->workVisibility ? $validateData['competence5'] : 0;
         $validateData['competence6'] = $this->workVisibility ? $validateData['competence6'] : 0;
-        $validateData['language_most_spoken'] = $this->workVisibility ? $validateData['language_most_spoken'] : null;
+        $validateData['language_id'] = $this->workVisibility ? $validateData['language_id'] : null;
         $validateData['speak_percent'] = $this->workVisibility ? $validateData['speak_percent'] : 0;
         $validateData['write_percent'] = $this->workVisibility ? $validateData['write_percent'] : 0;
         $validateData['read_percent'] = $this->workVisibility ? $validateData['read_percent'] : 0;
@@ -145,7 +145,7 @@ class SurveyThreeGraduate extends Component
         $validateData['boss_email'] = $this->workVisibility ? $validateData['boss_email'] : null;
         $validateData['business_structure'] = $this->workVisibility ? $validateData['business_structure'] : null;
         $validateData['company_size'] = $this->workVisibility ? $validateData['company_size'] : null;
-        $validateData['business_activity_selector'] = $this->workVisibility ? $validateData['business_activity_selector'] : null;
+        $validateData['business_id'] = $this->workVisibility ? $validateData['business_id'] : null;
 
         $user = User::find(Auth::user()->id);
         $validateData['user_id'] = $user->id;
@@ -191,7 +191,7 @@ class SurveyThreeGraduate extends Component
             'competence4' => '',
             'competence5' => '',
             'competence6' => '',
-            'language_most_spoken' => 'required',
+            'language_id' => 'required',
             'speak_percent' => 'required',
             'write_percent' => 'required',
             'read_percent' => 'required',
@@ -216,7 +216,7 @@ class SurveyThreeGraduate extends Component
             'boss_email' => 'regex:/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/',
             'business_structure' => 'required',
             'company_size' => 'required',
-            'business_activity_selector' => 'required',
+            'business_id' => 'required',
         ];
     }
 
@@ -225,7 +225,7 @@ class SurveyThreeGraduate extends Component
         return [
             'long_take_job.required' => GlobalFunctions::requiredMessage('tiempo transcurrido para obtener el primer empleo'),
             'hear_about.required' => GlobalFunctions::requiredMessage('medio para obtener el empleo'),
-            'language_most_spoken.required' => GlobalFunctions::requiredMessage('idioma empleado'),
+            'language_id.required' => GlobalFunctions::requiredMessage('idioma empleado'),
             'seniority.required' => GlobalFunctions::requiredMessage('antigüedad de empleo'),
             'year.required' => GlobalFunctions::requiredMessage('año de ingreso'),
             'salary.required' => GlobalFunctions::requiredMessage('ingreso'),

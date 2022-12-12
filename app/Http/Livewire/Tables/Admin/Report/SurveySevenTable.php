@@ -19,7 +19,9 @@ class SurveySevenTable extends LivewireDatatable
     public function builder()
     {
         return SurveySeven::query()
-            ->join('users', 'users.id', 'survey_sevens.user_id');
+            ->join('users', 'users.id', 'survey_sevens.user_id')
+            ->join('careers', 'careers.id', 'users.career_id')
+            ->whereNotNull('users.income_year');
     }
 
     public function columns()
@@ -75,15 +77,34 @@ class SurveySevenTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::MONTH),
 
-            Column::name('users.career')
+            Column::name('careers.name')
                 ->label('Carrera de Egreso')
                 ->hideable()
                 ->filterable(Career::pluck('name')),
 
-            Column::name('comments')
-                ->label('Comentarios')
+            Column::callback(['comments'], function ($comments) {
+                return view('table-actions.long-text', [
+                    'text' => $comments
+                ]);
+            })
+                ->label('Comentario Corto')
+                ->unsortable()
                 ->hideable()
-                ->filterable(),
+                ->filterable()
+                ->exportCallback(function ($comments) {
+                    return (string) $comments;
+                }),
+
+            Column::callback(['id'], function ($id) {
+                return view('table-actions.open-text', [
+                    'show' => 'showComments',
+                    'id' => $id
+                ]);
+            })
+                ->label('Mostrar comentario')
+                ->unsortable()
+                ->hideable()
+                ->excludeFromExport(),
 
             DateColumn::name('created_at')
                 ->label('Contestada')

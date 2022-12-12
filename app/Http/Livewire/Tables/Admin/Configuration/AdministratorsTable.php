@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tables\Admin\Configuration;
 
 use App\Models\User;
+use App\Models\Career;
 use App\Constants\Constants;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
@@ -40,7 +41,10 @@ class AdministratorsTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::name('career')
+            Column::callback(['career_id'], function ($id) {
+                $career = Career::find($id);
+                return $career == null ? '' : $career->name;
+            })
                 ->label('Carrera perteneciente')
                 ->hideable()
                 ->filterable(),

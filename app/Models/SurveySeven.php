@@ -15,4 +15,9 @@ class SurveySeven extends SurveyBase
     protected $fillable = ['user_id', 'comments'];
     
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

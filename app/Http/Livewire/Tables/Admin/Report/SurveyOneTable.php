@@ -21,7 +21,11 @@ class SurveyOneTable extends LivewireDatatable
     public function builder()
     {
         return SurveyOne::query()
-            ->join('users', 'users.id', 'survey_ones.user_id');
+            ->join('users', 'users.id', 'survey_ones.user_id')
+            ->join('careers', 'careers.id', 'survey_ones.career_id')
+            ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
+            ->join('languages', 'languages.id', 'survey_ones.language_id')
+            ->whereNotNull('users.income_year');
     }
 
     public function columns()
@@ -116,12 +120,12 @@ class SurveyOneTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::name('career')
+            Column::name('careers.name')
                 ->label('Carrera')
                 ->hideable()
                 ->filterable(Career::pluck('name')),
 
-            Column::name('specialty')
+            Column::name('specialties.name')
                 ->label('Especialidad')
                 ->hideable()
                 ->filterable(Specialty::pluck('name')),
@@ -133,7 +137,8 @@ class SurveyOneTable extends LivewireDatatable
 
             NumberColumn::name('income_year')
                 ->label('Año de ingreso')
-                ->hideable(),
+                ->hideable()
+                ->filterable(),
 
             Column::name('month')
                 ->label('Período de Egreso')
@@ -160,7 +165,7 @@ class SurveyOneTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            NumberColumn::name('another_language')
+            Column::name('languages.name')
                 ->label('Otra lengua')
                 ->hideable()
                 ->filterable(Language::pluck('name')),

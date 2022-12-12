@@ -2,14 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SurveyBase extends Model
+abstract class SurveyBase extends Model
 {
     protected $survey;
+    public $title;
+    public $properties;
+    public $options;
+    public $total;
+
+    public $externProperties =  [
+        'career_id',
+        'specialty_id',
+        'language_id',
+        'user_id'
+    ];
 
     use HasFactory;
+
+
 
     public function getReportInstance($start, $end, $career)
     {
@@ -100,6 +114,11 @@ class SurveyBase extends Model
         return $c;
     }
 
+
+
+
+
+
     public function getGeneralReport($start, $end, $careers)
     {
         $yearStart = date('Y', strtotime($start));
@@ -113,7 +132,7 @@ class SurveyBase extends Model
 
         $a = self::join('users', 'users.id', "{$this->survey}.user_id")
             ->where('users.role', 'graduate')
-            ->whereIn("users.career", $careersIn)
+            ->whereIn("users.career_id", $careersIn)
             ->whereBetween('users.income_year', [$yearStart, $yearEnd])
             ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
             ->get();
@@ -133,16 +152,49 @@ class SurveyBase extends Model
         return $a;
     }
 
-    public function getGeneralReportByDate($start, $end, $career)
+    public function getAllPropertiesCount($start, $end, $careers)
     {
-        $from = date($start);
-        $to = date($end);
+        $yearStart = date('Y', strtotime($start));
+        $monthStart = date('m', strtotime($start));
+        $yearEnd = date('Y', strtotime($end));
+        $monthEnd = date('m', strtotime($end));
+        $careersIn = array();
+        foreach ($careers as $career) {
+            array_push($careersIn, $career);
+        }
 
         $a = self::join('users', 'users.id', "{$this->survey}.user_id")
-            ->where("users.career", $career == "TODAS" ? '<>' : 'like', $career)
-            ->whereBetween("{$this->survey}.created_at", [$from, $to])
+            ->where('users.role', 'graduate')
+            ->whereIn("users.career_id", $careersIn)
+            ->whereBetween('users.income_year', [$yearStart, $yearEnd])
+            ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
             ->get();
 
-        return $a;
+        foreach ($a as $key => $value) if ($value['income_year'] == $yearStart) {
+            if ($monthStart > 6) {
+                if ($value['income_month'] == 'ENERO-JUNIO') $a->forget($key);
+            }
+        }
+
+        foreach ($a as $key => $value) if ($value['year_graduated'] == $yearEnd) {
+            if ($monthEnd <= 6) {
+                if ($value['month_graduated'] == 'AGOSTO-DICIEMBRE') $a->forget($key);
+            }
+        }
+
+        $count = $a->count();
+
+        $this->total = $count;
+
+        foreach ($this->properties as $key => $property) {
+            $options = $a->pluck($key)->unique()->values()->all();
+            $values = array();
+            foreach ($options as $option) {
+                $optionCount = $a->where($key, $option)->count();
+                $values[$option]['quantity'] = $optionCount;
+                $values[$option]['percentage'] = round($optionCount / $count * 100, 2);
+            }
+            $this->options[$property] = $values;
+        }
     }
 }

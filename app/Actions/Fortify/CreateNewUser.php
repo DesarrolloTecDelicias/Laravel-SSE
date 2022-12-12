@@ -24,7 +24,12 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make(
+        $roles = [
+            15 => Constants::ROLE['Graduate'],
+            0 => Constants::ROLE['Company']
+        ];
+
+        $validateData =  Validator::make(
             $input,
             [
                 'role' => 'required|in:0,15',
@@ -32,6 +37,7 @@ class CreateNewUser implements CreatesNewUsers
                 'fathers_surname' => $input['role'] == 15 ?  ['required', 'string', 'max:100'] : '',
                 'mothers_surname' => $input['role'] == 15 ?  ['required', 'string', 'max:100'] : '',
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'career_id' => $input['role'] == 15 ? 'required' : '',
                 'control_number' => $input['role'] == 15 ? ['required', 'unique:users', 'regex:/^[C]?[B]?[0-9]{8,10}$/'] : '',
                 'income_year' => $input['role'] == 15 ? 'required|digits:4' : '',
                 'income_month' => $input['role'] == 15 ? 'required' : '',
@@ -44,6 +50,7 @@ class CreateNewUser implements CreatesNewUsers
                 'name.required' => GlobalFunctions::requiredMessage('nombre'),
                 'fathers_surname.required' => GlobalFunctions::requiredMessage('apellido paterno'),
                 'mothers_surname.required' => GlobalFunctions::requiredMessage('apellido materno'),
+                'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
                 'email.required' => GlobalFunctions::requiredMessage('email'),
                 'email.unique' => GlobalFunctions::uniqueMessage('email'),
                 'password.required' => GlobalFunctions::requiredMessage('contraseña'),
@@ -59,58 +66,20 @@ class CreateNewUser implements CreatesNewUsers
             ]
         )->validate();
 
-        $input['role'] = $input['role'] == 15
-            ? Constants::ROLE['Graduate']
-            : ($input['role'] == 0 ? Constants::ROLE['Company'] : null);
-        $input['password'] = Hash::make($input['password']);
+        $validateData['role'] = $roles[$input['role']];
+        $validateData['password'] = Hash::make($input['password']);
 
-        $roleGraduate = Constants::ROLE['Graduate'];
-        $name = mb_strtoupper($input['name'], 'UTF-8');
+        $isGraduate = Constants::ROLE['Graduate'] == $validateData['role'];
+        $validateData['name'] = mb_strtoupper($input['name'], 'UTF-8');
+        $validateData['fathers_surname'] = $isGraduate ? mb_strtoupper($input['fathers_surname'], 'UTF-8') : null;
+        $validateData['mothers_surname'] = $isGraduate ? mb_strtoupper($input['mothers_surname'], 'UTF-8') : null;
 
-        if ($input['role'] == $roleGraduate) {
-            $fathersSurname =  $roleGraduate ? mb_strtoupper($input['fathers_surname'], 'UTF-8') : null;
-            $mothersSurname =  $roleGraduate ? mb_strtoupper($input['mothers_surname'], 'UTF-8') : null;
+        $user = User::create($validateData);
+
+        if ($isGraduate) {
+            StudentSurvey::create(['user_id' => $user->id]);
         } else {
-            $fathersSurname = null;
-            $mothersSurname = null;
-        }
-
-
-        $user = User::create([
-            'name' => $name,
-            'fathers_surname' => $fathersSurname,
-            'mothers_surname' => $mothersSurname,
-            'email' => $input['email'],
-            'password' => $input['password'],
-            'role' => $input['role'],
-            'career' => $input['role'] == $roleGraduate ? $input['career'] : null,
-            'control_number' => $input['role'] == $roleGraduate ? $input['control_number'] : null,
-            'income_month' => $input['role'] == $roleGraduate ? $input['income_month'] : null,
-            'month_graduated' => $input['role'] == $roleGraduate ? $input['month_graduated'] : null,
-            'income_year' => $input['role'] == $roleGraduate ? $input['income_year'] : null,
-            'year_graduated' => $input['role'] == $roleGraduate ? $input['year_graduated'] : null,
-        ]);
-
-        $data = $user->role == $roleGraduate ? [
-            'user_id' => $user->id,
-            'survey_one_done' => false,
-            'survey_two_done' => false,
-            'survey_three_done' => false,
-            'survey_four_done' => false,
-            'survey_five_done' => false,
-            'survey_six_done' => false,
-            'survey_seven_done' => false
-        ] : [
-            'user_id' => $user->id,
-            'survey_one_company_done' => false,
-            'survey_two_company_done' => false,
-            'survey_three_company_done' => false,
-        ];
-
-        if ($user->role == $roleGraduate) {
-            StudentSurvey::create($data);
-        } else {
-            CompanySurvey::create($data);
+            CompanySurvey::create(['user_id' => $user->id]);
         }
 
         return $user;

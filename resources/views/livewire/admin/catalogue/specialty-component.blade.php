@@ -34,10 +34,10 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="id_career">Carrera</label>
+                                <label for="career_id">Carrera</label>
                                 <div class="controls">
-                                    <select id="id_career" wire:model.defer="state.id_career"
-                                        class="form-control @error('id_career') is-invalid @enderror"
+                                    <select id="career_id" wire:model.defer="state.career_id"
+                                        class="form-control @error('career_id') is-invalid @enderror"
                                         title="Mencione la carrera">
                                         <option value='' selected disabled="">Selecciona una opción</option>
                                         @foreach ($careers as $career)
@@ -45,7 +45,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('id_career')
+                                @error('career_id')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>

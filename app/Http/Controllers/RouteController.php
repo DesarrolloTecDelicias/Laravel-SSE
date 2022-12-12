@@ -51,6 +51,13 @@ class RouteController extends Controller
     public function pdf(Request $request)
     {
         $data['state'] = $request->session()->get('state');
+        $newCareers = [];
+        foreach ($data['state']['careers'] as $value) {
+            $career = Career::find($value);
+            $newCareers[$career['name']] = $career['name'];
+        }
+
+        $data['state']['careers'] = $newCareers;
         if ($request->session()->get('json')) {
             $data['json'] = $request->session()->get('json');
         } else {
@@ -62,11 +69,22 @@ class RouteController extends Controller
         return view('pdf.general-report', $data);
     }
 
-    public function datepdf(Request $request)
+    public function pdfOption(Request $request)
     {
-        $data['dateState'] = $request->session()->get('dateState');
-        // $request->session()->forget('dateState');
+        $data['state'] = $request->session()->get('state');
+        $newCareers = [];
+        foreach ($data['state']['careers'] as $value) {
+            $career = Career::find($value);
+            $newCareers[$career['name']] = $career['name'];
+        }
 
-        return view('pdf.date-report', $data);
+        $data['state']['careers'] = $newCareers;
+        if ($request->session()->get('json')) {
+            $data['json'] = $request->session()->get('json');
+        } else {
+            $data['json'] = null;
+        }
+
+        return view('pdf.general-option-report', $data);
     }
 }

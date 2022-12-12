@@ -15,7 +15,7 @@ class CreateSurveyThreesTable extends Migration
     {
         Schema::create('survey_threes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('do_for_living', 25);
             $table->string('speciality', 15)->nullable();
             $table->string('school', 100)->nullable();
@@ -27,7 +27,7 @@ class CreateSurveyThreesTable extends Migration
             $table->boolean('competence4')->nullable();
             $table->boolean('competence5')->nullable();
             $table->boolean('competence6')->nullable();
-            $table->string('language_most_spoken', 30)->nullable();
+            $table->foreignId('language_id')->nullable();
             $table->string('speak_percent', 3)->nullable();
             $table->string('write_percent', 3)->nullable();
             $table->string('read_percent', 3)->nullable();
@@ -52,7 +52,7 @@ class CreateSurveyThreesTable extends Migration
             $table->string('boss_email')->nullable();
             $table->string('business_structure', 10)->nullable();
             $table->string('company_size', 30)->nullable();
-            $table->string('business_activity_selector', 60)->nullable();
+            $table->foreignId('business_id')->nullable();
             $table->timestamps();
         });
     }

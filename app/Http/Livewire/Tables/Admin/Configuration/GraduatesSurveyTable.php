@@ -20,7 +20,8 @@ class GraduatesSurveyTable extends LivewireDatatable
     public function builder()
     {
         return StudentSurvey::query()
-            ->join('users', 'users.id', 'student_surveys.user_id');
+            ->join('users', 'users.id', 'student_surveys.user_id')
+            ->join('careers', 'careers.id', 'users.career_id');
     }
 
     public function columns()
@@ -55,7 +56,7 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::name('users.career')
+            Column::name('careers.name')
                 ->label('Carrera')
                 ->hideable()
                 ->filterable(Career::pluck('name')),
@@ -149,11 +150,6 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->label('Última actualización')
                 ->filterable(),
         ];
-    }
-
-    public function getUsersProperty()
-    {
-        return User::pluck('name');
     }
 
     public function buildActions()

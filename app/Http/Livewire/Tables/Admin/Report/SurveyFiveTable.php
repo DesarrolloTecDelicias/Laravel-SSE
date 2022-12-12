@@ -12,7 +12,6 @@ use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
-
 class SurveyFiveTable extends LivewireDatatable
 {
     public $model = SurveyFive::class;
@@ -21,7 +20,9 @@ class SurveyFiveTable extends LivewireDatatable
     public function builder()
     {
         return SurveyFive::query()
-            ->join('users', 'users.id', 'survey_fives.user_id');
+            ->join('users', 'users.id', 'survey_fives.user_id')
+            ->join('careers', 'careers.id', 'users.career_id')
+            ->whereNotNull('users.income_year');
     }
 
     public function columns()
@@ -77,7 +78,7 @@ class SurveyFiveTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::MONTH),
 
-            Column::name('users.career')
+            Column::name('careers.name')
                 ->label('Carrera de Egreso')
                 ->hideable()
                 ->filterable(Career::pluck('name')),

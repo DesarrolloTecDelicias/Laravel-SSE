@@ -19,7 +19,9 @@ class SurveyTwoTable extends LivewireDatatable
     public function builder()
     {
         return SurveyTwo::query()
-            ->join('users', 'users.id', 'survey_twos.user_id');
+            ->join('users', 'users.id', 'survey_twos.user_id')
+            ->join('careers', 'careers.id', 'users.career_id')
+            ->whereNotNull('users.income_year');
     }
 
     public function columns()
@@ -75,7 +77,7 @@ class SurveyTwoTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::MONTH),
 
-            Column::name('users.career')
+            Column::name('careers.name')
                 ->label('Carrera de Egreso')
                 ->hideable()
                 ->filterable(Career::pluck('name')),

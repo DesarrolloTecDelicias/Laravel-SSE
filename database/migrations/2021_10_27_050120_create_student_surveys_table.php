@@ -15,14 +15,14 @@ class CreateStudentSurveysTable extends Migration
     {
         Schema::create('student_surveys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->boolean('survey_one_done');
-            $table->boolean('survey_two_done');
-            $table->boolean('survey_three_done');
-            $table->boolean('survey_four_done');
-            $table->boolean('survey_five_done');
-            $table->boolean('survey_six_done');
-            $table->boolean('survey_seven_done');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('survey_one_done')->default(false);
+            $table->boolean('survey_two_done')->default(false);
+            $table->boolean('survey_three_done')->default(false);
+            $table->boolean('survey_four_done')->default(false);
+            $table->boolean('survey_five_done')->default(false);
+            $table->boolean('survey_six_done')->default(false);
+            $table->boolean('survey_seven_done')->default(false);
             $table->timestamps();
         });
     }

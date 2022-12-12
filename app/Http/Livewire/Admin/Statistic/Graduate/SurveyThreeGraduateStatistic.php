@@ -16,6 +16,14 @@ class SurveyThreeGraduateStatistic extends Component
         return view('livewire.admin.statistic.graduate.survey-three-graduate-statistic');
     }
 
+    public function getQueryRaw($field, $activity = 'TRABAJA')
+    {
+        return SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
+            ->orWhere('do_for_living', $activity)
+            ->groupBy($field)->selectRaw("count(*) as total, $field as label")
+            ->get();
+    }
+
     public function mount()
     {
         $doForLiving = SurveyThree::groupBy('do_for_living')->selectRaw('count(*) as total, do_for_living as label')->get();
@@ -35,9 +43,13 @@ class SurveyThreeGraduateStatistic extends Component
 
         $countArray = GlobalFunctions::generateArrayStats($counts);
 
-        $languageMostSpoken = $this->getQueryRaw("language_most_spoken");
+        $languageMostSpoken = SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
+            ->orWhere('do_for_living', 'TRABAJA')
+            ->join('languages', 'languages.id', 'survey_threes.language_id')
+            ->groupBy('language_id')->selectRaw("count(*) as total, languages.name as label")
+            ->get();
         $seniority = $this->getQueryRaw("seniority");
-        $seniority = $this->getQueryRaw("seniority");
+
         $salary = $this->getQueryRaw("salary");
         $year = $this->getQueryRaw("year");
         $managementLevel = $this->getQueryRaw("management_level");
@@ -45,7 +57,12 @@ class SurveyThreeGraduateStatistic extends Component
         $jobRelationship = $this->getQueryRaw("job_relationship");
         $businessStructure = $this->getQueryRaw("business_structure");
         $companySize = $this->getQueryRaw("company_size");
-        $businessActivity = $this->getQueryRaw("business_activity_selector");
+        $businessActivity =
+            SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
+            ->orWhere('do_for_living', 'TRABAJA')
+            ->join('businesses', 'businesses.id', 'survey_threes.business_id')
+            ->groupBy('business_id')->selectRaw("count(*) as total, businesses.name as label")
+            ->get();
 
         $this->chartState['doForLiving'] = $doForLiving;
         $this->chartState['speciality'] = $speciality;
@@ -63,13 +80,5 @@ class SurveyThreeGraduateStatistic extends Component
         $this->chartState['businessActivity'] = $businessActivity;
 
         $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
-    }
-
-    public function getQueryRaw($field, $activity='TRABAJA')
-    {
-        return SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
-            ->orWhere('do_for_living', $activity)
-            ->groupBy($field)->selectRaw("count(*) as total, $field as label")
-            ->get();
     }
 }

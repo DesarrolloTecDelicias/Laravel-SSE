@@ -41,19 +41,17 @@ class General extends Component
         $date = strtotime("$now -6 year");
         $this->dataFilterStart = Date('Y-m-d', $date);;
         $this->dataFilterEnd = $now;
-        $this->careers = Career::pluck('name');
+        $this->careers = Career::all();
         if (Auth::user()->role == Constants::ROLE['Committee']) {
-            $careerValue = Auth::user()->career;
+            $careerValue = Auth::user()->career_id;
             $this->careerSelected[$careerValue] = $careerValue;
         } else {
             foreach ($this->careers as $career) {
-                $this->careerSelected[$career] = $career;
+                $this->careerSelected[$career->id] = $career->id;
             }
         }
 
         $this->generateData();
-
-        $value = session('state');
     }
 
     public function generateData()

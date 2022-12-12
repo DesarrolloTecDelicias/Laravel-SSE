@@ -68,14 +68,14 @@
         @if(Auth::user()->role == 'graduate')
 
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="career" value="{{ __('Carrera') }}" />
-            <select id="career" wire:model.defer="state.career"
+            <x-jet-label for="career_id" value="{{ __('Carrera') }}" />
+            <select id="career_id" wire:model.defer="state.career_id"
                 class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                 <option value="" selected disabled="">
                     Selecciona tu carrera
                 </option>
                 @foreach (App\Models\Career::all() as $career)
-                <option value="{{ $career->name }}" @if (Auth::user()->career==$career->name)
+                <option value="{{ $career->id }}" @if (Auth::user()->career_id)
                     {{ 'selected' }} @endif>{{ $career->name }}</option>
                 @endforeach
             </select>

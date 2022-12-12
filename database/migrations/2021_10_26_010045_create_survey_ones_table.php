@@ -15,7 +15,7 @@ class CreateSurveyOnesTable extends Migration
     {
         Schema::create('survey_ones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('first_name', 100);
             $table->string('fathers_surname', 100);
             $table->string('mothers_surname', 100);
@@ -33,8 +33,8 @@ class CreateSurveyOnesTable extends Migration
             $table->string('phone', 15)->nullable();
             $table->string('cellphone', 15);
             $table->string('email');
-            $table->string('career', 100);
-            $table->string('specialty', 100);
+            $table->foreignId('career_id')->references('id')->on('careers')->onDelete('cascade');
+            $table->foreignId('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
             $table->string('qualified', 2);
             $table->string('qualified_year', 4);
             $table->string('income_month', 25);
@@ -42,7 +42,7 @@ class CreateSurveyOnesTable extends Migration
             $table->string('month', 25);
             $table->string('year', 4);
             $table->string('percent_english', 3);
-            $table->string('another_language', 30);
+            $table->foreignId('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('percent_another_language', 3);
             $table->string('software')->nullable();
             $table->timestamps();

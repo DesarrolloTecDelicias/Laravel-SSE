@@ -38,7 +38,7 @@
                                 <label for="name">Nombre del Administrador</label>
                                 <input wire:model.defer="state.name" type="text" autocomplete="off"
                                     class="form-control @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Nombre Egresado">
+                                    placeholder="Nombre administrador">
                                 @error('name')
                                 <div class="text-danger">
                                     {{ $message }}
@@ -71,18 +71,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="career">Carrera</label>
+                                <label for="career_id">Carrera</label>
                                 <div class="controls">
-                                    <select id="career" wire:model.defer="state.career"
-                                        class="form-control @error('career') is-invalid @enderror"
+                                    <select id="career_id" wire:model.defer="state.career_id"
+                                        class="form-control @error('career_id') is-invalid @enderror"
                                         title="Mencione la carrera">
                                         <option value='' selected disabled="">Selecciona una opción</option>
                                         @foreach ($careers as $career)
-                                        <option value="{{ $career->name }}">{{ $career->name }}</option>
+                                        <option value="{{ $career->id }}">{{ $career->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('career')
+                                @error('career_id')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>

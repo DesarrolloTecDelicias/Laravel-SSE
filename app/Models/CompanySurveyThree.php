@@ -32,7 +32,7 @@ class CompanySurveyThree extends Model
 
     public function company()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     use HasFactory;

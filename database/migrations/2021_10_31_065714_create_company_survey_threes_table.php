@@ -15,7 +15,7 @@ class CreateCompanySurveyThreesTable extends Migration
     {
         Schema::create('company_survey_threes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('resolve_conflicts');
             $table->tinyInteger('orthography');
             $table->tinyInteger('process_improvement');

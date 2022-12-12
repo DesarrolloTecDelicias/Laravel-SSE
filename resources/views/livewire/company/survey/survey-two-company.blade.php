@@ -234,18 +234,18 @@
                 <div class="form-group">
                     <label>Carrera que demanda preferentemente su empresa u organismo. *</label>
                     <div class="controls">
-                        <select id="most_demanded_career" name="most_demanded_career"
-                            wire:model.defer="state.most_demanded_career" required
-                            class="form-control @error('most_demanded_career') is-invalid @enderror">
+                        <select id="career_id" name="career_id"
+                            wire:model.defer="state.career_id" required
+                            class="form-control @error('career_id') is-invalid @enderror">
                             <option value="" selected="" disabled="">
                                 Seleccione la carrera
                             </option>
                             @foreach ($careers as $career)
-                            <option value="{{ $career->name }}">{{ $career->name }}</option>
+                            <option value="{{ $career->id }}">{{ $career->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    @error('most_demanded_career')
+                    @error('career_id')
                     <div class="text-danger">
                         {{ $message }}
                     </div>

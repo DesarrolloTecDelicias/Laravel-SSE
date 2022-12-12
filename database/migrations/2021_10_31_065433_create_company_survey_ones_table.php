@@ -15,7 +15,7 @@ class CreateCompanySurveyOnesTable extends Migration
     {
         Schema::create('company_survey_ones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('business_name');
             $table->string('address');
             $table->string('zip');
@@ -27,7 +27,7 @@ class CreateCompanySurveyOnesTable extends Migration
             $table->string('email');
             $table->string('business_structure');
             $table->string('company_size');
-            $table->string('business_activity_selector');
+            $table->foreignId('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class CreateSpecialtiesTable extends Migration
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->foreignId('id_career');
+            $table->foreignId('career_id')->references('id')->on('careers')->onDelete('cascade');
             $table->timestamps();
         });
     }

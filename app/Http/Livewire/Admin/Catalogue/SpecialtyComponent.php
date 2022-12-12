@@ -13,7 +13,7 @@ class SpecialtyComponent extends Component
 {
     protected $listeners = ['editSpecialty', 'deleteSpecialty', 'callConfirmationSpecialty'];
     public $modal = false;
-    public $state = ['id_career' => ''];
+    public $state = ['career_id' => ''];
     public $careers = [];
 
     public function render()
@@ -90,7 +90,7 @@ class SpecialtyComponent extends Component
 
         return [
             'name' => 'required|unique:specialties,name,' . $idValidator,
-            'id_career' => 'required'
+            'career_id' => 'required'
         ];
     }
 
@@ -99,7 +99,7 @@ class SpecialtyComponent extends Component
         return [
             'name.required' => GlobalFunctions::requiredMessage('nombre'),
             'name.unique' => GlobalFunctions::uniqueMessage('nombre'),
-            'id_career.required' => GlobalFunctions::requiredMessage('carrera'),
+            'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
         ];
     }
 }

@@ -64,8 +64,9 @@ class Dashboard extends Component
             ['survey_seven_done', false],
         ])->get()->count() ?? '';
 
-        $school = SurveyOne::groupBy('career')
-            ->selectRaw('count(*) as total, career as label')
+        $school = SurveyOne::groupBy('career_id')
+        ->join('careers', 'careers.id', 'survey_ones.career_id')
+            ->selectRaw('count(*) as total, careers.name as label')
             ->orderBy('total', 'desc')
             ->get();
 
@@ -75,8 +76,9 @@ class Dashboard extends Component
 
     public function getChartInfo()
     {
-        $careers = SurveyOne::groupBy('career')
-            ->selectRaw('count(*) as total, career as label')
+        $careers = SurveyOne::groupBy('career_id')
+            ->join('careers', 'careers.id', 'survey_ones.career_id')
+            ->selectRaw('count(*) as total, careers.name as label')
             ->get();
 
         $sex = SurveyOne::groupBy('sex')

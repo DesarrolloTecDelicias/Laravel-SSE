@@ -31,7 +31,7 @@ class User extends Authenticatable
         'role',
         'control_number',
         'is_new_user',
-        'career',
+        'career_id',
         'income_month',
         'income_year',
         'year_graduated',
@@ -73,5 +73,10 @@ class User extends Authenticatable
     {
         $this['is_new_user'] = true;
         $this->save();
+    }
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
     }
 }

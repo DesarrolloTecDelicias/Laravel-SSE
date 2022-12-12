@@ -18,7 +18,7 @@ class SpecialtiesTable extends LivewireDatatable
     public function builder()
     {
         return Specialty::query()
-            ->join('careers', 'careers.id', 'specialties.id_career');
+            ->join('careers', 'careers.id', 'specialties.career_id');
     }
 
     public function columns()

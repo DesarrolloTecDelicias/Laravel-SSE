@@ -107,7 +107,9 @@ class SurveyTwoCompanyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::name('most_demanded_career')
+            Column::callback(['career_id'], function ($career_id) {
+                return Career::find($career_id)->name;
+            })
                 ->label('Carrera Demandada')
                 ->hideable()
                 ->filterable(Career::pluck('name')),

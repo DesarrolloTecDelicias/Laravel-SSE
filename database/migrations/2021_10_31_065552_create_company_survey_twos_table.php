@@ -15,7 +15,7 @@ class CreateCompanySurveyTwosTable extends Migration
     {
         Schema::create('company_survey_twos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('number_graduates');
             $table->string('congruence');
             $table->boolean('competence1');
@@ -26,7 +26,7 @@ class CreateCompanySurveyTwosTable extends Migration
             $table->boolean('competence6');
             $table->boolean('competence7');
             $table->boolean('competence8');
-            $table->string('most_demanded_career');
+            $table->foreignId('career_id')->references('id')->on('careers')->onDelete('cascade');
             $table->timestamps();
         });
     }

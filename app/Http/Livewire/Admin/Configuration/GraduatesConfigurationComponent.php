@@ -15,7 +15,7 @@ class GraduatesConfigurationComponent extends Component
 {
     protected $listeners = ['editGraduate', 'deleteGraduate', 'callConfirmationGraduate'];
     public $modal = false;
-    public $state = ['income_year' => '', 'income_month' => '', 'year_graduated' => '', 'month_graduated' => '', 'career' => ''];
+    public $state = ['income_year' => '', 'income_month' => '', 'year_graduated' => '', 'month_graduated' => '', 'career_id' => ''];
 
     public function render()
     {
@@ -102,7 +102,7 @@ class GraduatesConfigurationComponent extends Component
             'income_month' => 'required',
             'year_graduated' => 'required',
             'month_graduated' => 'required',
-            'career' => 'required',
+            'career_id' => 'required',
             'control_number' => ['required', 'unique:users,control_number,' . $idValidator, 'regex:/^[C]?[B]?[0-9]{8,10}$/']
         ];
     }
@@ -119,8 +119,8 @@ class GraduatesConfigurationComponent extends Component
             'income_year.required' => GlobalFunctions::requiredMessage('año de ingreso'),
             'income_month.required' => GlobalFunctions::requiredMessage('período de ingreso'),
             'month_graduated.required' => GlobalFunctions::requiredMessage('período de egreso'),
-            'year_graduated.required' => GlobalFunctions::requiredMessage('año de egreso'), 
-            'career.required' => GlobalFunctions::requiredMessage('carrera'),
+            'year_graduated.required' => GlobalFunctions::requiredMessage('año de egreso'),
+            'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
             'control_number.required' => GlobalFunctions::requiredMessage('número de control'),
             'control_number.unique' => GlobalFunctions::uniqueMessage('número de control'),
             'control_number.regex' => GlobalFunctions::formatMessage('número de control'),

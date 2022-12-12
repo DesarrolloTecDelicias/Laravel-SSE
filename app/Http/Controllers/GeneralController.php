@@ -9,6 +9,13 @@ use App\Constants\Constants;
 
 class GeneralController extends Controller
 {
+    public $redirectRoute  =
+    [
+        Constants::ROLE['Administrator'] => 'admin.index',
+        Constants::ROLE['Committee'] => 'admin.index',
+        Constants::ROLE['Graduate'] => 'graduate.index',
+        Constants::ROLE['Company'] => 'company.index',
+    ];
     public function password()
     {
         return view('auth.forgot-password');
@@ -28,20 +35,6 @@ class GeneralController extends Controller
     public function index()
     {
         $role = Auth::user()->role;
-
-        switch ($role) {
-            case Constants::ROLE['Administrator']:
-                return redirect()->route('admin.index');
-                break;
-            case Constants::ROLE['Committee']:
-                return redirect()->route('admin.index');
-                break;
-            case Constants::ROLE['Graduate']:
-                return redirect()->route('graduate.index');
-                break;
-            case Constants::ROLE['Company']:
-                return redirect()->route('company.index');
-                break;
-        }
+        return $this->redirectRoute[$role];
     }
 }

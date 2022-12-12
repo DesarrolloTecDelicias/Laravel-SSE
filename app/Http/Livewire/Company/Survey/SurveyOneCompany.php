@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class SurveyOneCompany extends Component
 {
     public $businessActivity = [], $companySize, $businessStructure;
-    public $state = ['business_structure' => '', 'company_size' => '', 'business_activity_selector' => ''];
+    public $state = ['business_structure' => '', 'company_size' => '', 'business_id' => ''];
 
     public function render()
     {
@@ -29,6 +29,7 @@ class SurveyOneCompany extends Component
             $this->state = $userInfo->toArray();
         } else {
             $this->state['email'] = Auth::user()->email;
+            $this->state['business_name'] = Auth::user()->name;
         }
 
         $this->businessActivity = Business::all();
@@ -77,7 +78,7 @@ class SurveyOneCompany extends Component
             ['required', 'string', 'email', 'max:255'],
             'business_structure' => 'required',
             'company_size' => 'required',
-            'business_activity_selector' => 'required',
+            'business_id' => 'required',
         ];
     }
 
@@ -97,7 +98,7 @@ class SurveyOneCompany extends Component
             'email.required' => GlobalFunctions::requiredMessage('email'),
             'business_structure.required' => GlobalFunctions::requiredMessage('estructura de la empresa'),
             'company_size.required' => GlobalFunctions::requiredMessage('tamaño de la empresa'),
-            'business_activity_selector.required' => GlobalFunctions::requiredMessage('actividad económica'),
+            'business_id.required' => GlobalFunctions::requiredMessage('actividad económica'),
         ];
     }
 }

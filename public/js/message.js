@@ -11,7 +11,8 @@ $(document).on("click", "#helpAdmin", function (e) {
         showCancelButton: false,
         focusConfirm: false,
         confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Me sirve la información!',
+            '<i class="fa fa-thumbs-up"></i> Confirmación!',
+        confirmButtonColor: "#1b396a",
         confirmButtonAriaLabel: "Thumbs up, great!",
     });
 });
@@ -33,7 +34,8 @@ $(document).on("click", "#helpGraduate", function (e) {
         showCancelButton: false,
         focusConfirm: false,
         confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Me sirve la información!',
+            '<i class="fa fa-thumbs-up"></i> Confirmación!',
+        confirmButtonColor: "#1b396a",
         confirmButtonAriaLabel: "Thumbs up, great!",
     });
 });
@@ -56,7 +58,8 @@ $(document).on("click", "#helpCompany", function (e) {
         showCancelButton: false,
         focusConfirm: false,
         confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> Me sirve la información!',
+            '<i class="fa fa-thumbs-up"></i> Confirmación!',
+        confirmButtonColor: "#1b396a",
         confirmButtonAriaLabel: "Thumbs up, great!",
     });
 });

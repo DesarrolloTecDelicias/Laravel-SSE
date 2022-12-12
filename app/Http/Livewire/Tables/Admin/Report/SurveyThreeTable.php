@@ -13,7 +13,6 @@ use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
-use Maatwebsite\Excel\Facades\Excel;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
 class SurveyThreeTable extends LivewireDatatable
@@ -24,7 +23,9 @@ class SurveyThreeTable extends LivewireDatatable
     public function builder()
     {
         return SurveyThree::query()
-            ->join('users', 'users.id', 'survey_threes.user_id');
+            ->join('users', 'users.id', 'survey_threes.user_id')
+            ->join('careers', 'careers.id', 'users.career_id')
+            ->whereNotNull('users.income_year');
     }
 
     public function columns()
@@ -80,7 +81,7 @@ class SurveyThreeTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::MONTH),
 
-            Column::name('users.career')
+            Column::name('careers.name')
                 ->label('Carrera de Egreso')
                 ->hideable()
                 ->filterable(Career::pluck('name'))
@@ -144,7 +145,10 @@ class SurveyThreeTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::name('language_most_spoken')
+            Column::callback(['language_id'], function ($language_id) {
+                $language = Language::find($language_id);
+                return is_null($language) ? '' : $language->name;
+            })
                 ->label('Idioma que utiliza en su trabajo actual')
                 ->hideable()
                 ->filterable(Language::pluck('name')),
@@ -269,7 +273,10 @@ class SurveyThreeTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::COMPANY_SIZE),
 
-            Column::name('business_activity_selector')
+            Column::callback(['business_id'], function ($business_id) {
+                $business = Business::find($business_id);
+                return is_null($business) ? '' : $business->name;
+            })
                 ->label('Actividad económica de la empresa u organismo')
                 ->hideable()
                 ->filterable(Business::pluck('name')),

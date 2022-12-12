@@ -453,15 +453,7 @@ return "<td class=\"align-middle\" colspan=\"$colspan\">
                 const jobRelationshipChart = new ChartSSE('jobRelationshipChart', 'pie', jobRelationship);
                 const usefulnessProfessionalResidenceChart = new ChartSSE('usefulnessProfessionalResidenceChart', 'pie', usefulnessProfessionalResidence);
                 const academicTrainingChart = new ChartSSE('academicTrainingChart', 'pie', academicTraining);
-                
-        
-                    // window.addEventListener('updateChart', async (event) => {
-                    //     event.preventDefault();
-                    //     careerD.updateChart(sex);
-                    //     one.updateChart();
-                    //     two.updateChart();
-                    //     three.updateChart();
-                    // })
+            
     </script>
 
     @endif

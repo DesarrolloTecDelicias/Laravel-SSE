@@ -18,7 +18,8 @@ class SurveyOneCompanyTable extends LivewireDatatable
 
     public function builder()
     {
-        return CompanySurveyOne::query();
+        return CompanySurveyOne::query()
+            ->join('businesses', 'businesses.id', 'company_survey_ones.business_id');
     }
 
     public function columns()
@@ -84,7 +85,7 @@ class SurveyOneCompanyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::COMPANY_SIZE),
 
-            Column::name('business_activity_selector')
+            Column::name('businesses.name')
                 ->label('Actividad económica de la empresa u organismo')
                 ->hideable()
                 ->filterable(Business::pluck('name')),

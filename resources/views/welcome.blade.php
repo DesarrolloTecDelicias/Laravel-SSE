@@ -8,11 +8,9 @@
     <title>Sistema de Seguimiento de Egresados</title>
     @php $school = env('SCHOOL'); @endphp
     <link rel="icon" href="{{asset("image/school/$school/favicon.ico")}}">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/landing.min.css')}}">
+    <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Styles -->
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
 
@@ -70,7 +68,7 @@
                     <h1 class="title-h1">Sistema Seguimiento de Egresados</h1>
                     <p>El SSE es el sistema que permite el análisis del desempeño e impacto de los egresados en el
                         sector productivo.</p>
-                    <div class="hero-buttons">
+                    <div class="hero-buttons d-flex justify-content-center mb-4 mb-lg-0 mb-sm-4">
                         <a href="#features" class="btn btn-outline-primary btn-white">Conocer más!</a>
                     </div>
                 </div>

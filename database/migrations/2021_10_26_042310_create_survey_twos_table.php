@@ -15,7 +15,7 @@ class CreateSurveyTwosTable extends Migration
     {
         Schema::create('survey_twos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('quality_teachers', 10);
             $table->string('syllabus', 10);
             $table->string('study_condition', 10);

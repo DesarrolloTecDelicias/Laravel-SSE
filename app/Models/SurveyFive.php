@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\SurveyBase;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class SurveyFive extends SurveyBase
 {
     public function __construct()
     {
         $this->survey = 'survey_fives';
+        $this->title = 'Expectativas de desarrollo, superación profesional y de actualización.';
+        $this->properties =
+            [
+                'courses_yes_no' => '¿Le gustaria tomar cursos de actualización?',
+                'master_yes_no' => '¿Le gustaria tomar algún posgrado?',
+            ];
     }
 
     protected $fillable = [
@@ -21,4 +27,9 @@ class SurveyFive extends SurveyBase
     ];
 
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -166,18 +166,18 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="business_activity_selector">Actividad económica de la empresa u organismo *</label>
+                <label for="business_id">Actividad económica de la empresa u organismo *</label>
                 <div class="controls">
-                    <select id="business_activity_selector" wire:model.defer="state.business_activity_selector"
-                        class="form-control @error('business_activity_selector') is-invalid @enderror"
+                    <select id="business_id" wire:model.defer="state.business_id"
+                        class="form-control @error('business_id') is-invalid @enderror"
                         title="Por favor mencione el tipo de actividad">
                         <option value="" selected="" disabled="">Selecciona una opción</option>
                         @foreach ($businessActivity as $activity)
-                        <option value="{{ $activity->name }}">{{ $activity->name }}</option>
+                        <option value="{{ $activity->id }}">{{ $activity->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                @error('business_activity_selector')
+                @error('business_id')
                 <div class="text-danger">
                     {{ $message }}
                 </div>

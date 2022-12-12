@@ -8,6 +8,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Auth\ResetPassword;
 
+
 /*** Admin components ***/
 
 use App\Http\Livewire\Admin\Dashboard;
@@ -17,12 +18,14 @@ use App\Http\Livewire\Admin\Catalogue\CareerComponent;
 use App\Http\Livewire\Admin\Catalogue\LanguageComponent;
 use App\Http\Livewire\Admin\Catalogue\BusinessComponent;
 use App\Http\Livewire\Admin\Catalogue\SpecialtyComponent;
+
 //Configuration components
 use App\Http\Livewire\Admin\Configuration\CompanySurvey;
 use App\Http\Livewire\Admin\Configuration\GraduatesSurvey;
 use App\Http\Livewire\Admin\Configuration\GraduatesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\CompaniesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\AdministratorsConfigurationComponent;
+
 //Report components
 use App\Http\Livewire\Admin\Report\Graduate\SurveyOneGraduateReport;
 use App\Http\Livewire\Admin\Report\Graduate\SurveyTwoGraduateReport;
@@ -34,6 +37,7 @@ use App\Http\Livewire\Admin\Report\Graduate\SurveySevenGraduateReport;
 use App\Http\Livewire\Admin\Report\Company\SurveyOneCompanyReport;
 use App\Http\Livewire\Admin\Report\Company\SurveyTwoCompanyReport;
 use App\Http\Livewire\Admin\Report\Company\SurveyThreeCompanyReport;
+
 //Statistic components
 use App\Http\Livewire\Admin\Statistic\Graduate\SurveyOneGraduateStatistic;
 use App\Http\Livewire\Admin\Statistic\Graduate\SurveyTwoGraduateStatistic;
@@ -51,13 +55,13 @@ use App\Http\Livewire\Admin\Email\EmailCompanyTemplate;
 
 //Methodology components
 use App\Http\Livewire\Admin\Methodology\General;
+use App\Http\Livewire\Admin\Methodology\GeneralOption;
 use App\Http\Livewire\Admin\Methodology\GeneralStatistic;
-use App\Http\Livewire\Admin\Methodology\Date;
+
 
 /*** Graduate components ***/
 
 use App\Http\Livewire\Graduate\DashboardGraduate;
-// use App\Http\Livewire\Graduate\CvComponent;
 
 //Survey components
 use App\Http\Livewire\Graduate\Survey\SurveyOneGraduate;
@@ -68,15 +72,15 @@ use App\Http\Livewire\Graduate\Survey\SurveyFiveGraduate;
 use App\Http\Livewire\Graduate\Survey\SurveySixGraduate;
 use App\Http\Livewire\Graduate\Survey\SurveySevenGraduate;
 
-/***************** Graduate components ******************/
+
+/*** Company components ***/
 
 use App\Http\Livewire\Company\DashboardCompany;
 //Survey components
 use App\Http\Livewire\Company\Survey\SurveyOneCompany;
 use App\Http\Livewire\Company\Survey\SurveyTwoCompany;
 use App\Http\Livewire\Company\Survey\SurveyThreeCompany;
-//Job components
-// use App\Http\Livewire\Company\Job\JobsComponent;
+
 
 Route::get('/', [RouteController::class, 'index'])->name('welcome');
 Route::get('/restaurar-contraseña', ResetPassword::class)->name('forgot.password');
@@ -108,8 +112,8 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
 
         /***************** Email ******************/
         Route::prefix('correo')->group(function () {
-        Route::get('/aviso', EmailTemplate::class)->name('email.advice');
-        Route::get('/aviso-empresa', EmailCompanyTemplate::class)->name('email.advice.company');
+            Route::get('/aviso', EmailTemplate::class)->name('email.advice');
+            Route::get('/aviso-empresa', EmailCompanyTemplate::class)->name('email.advice.company');
         });
 
         /***************** Configuration ******************/
@@ -160,14 +164,16 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
 
         /***************** Methodology ******************/
         Route::prefix('metodologia')->group(function () {
-            Route::get('/general/corte', General::class)->name('methodology.general');
-            Route::get('/pdf/corte', [RouteController::class, 'pdf'])->name('pdf');
-            Route::get('/general/corte/grafica', GeneralStatistic::class)->name('methodology.general.statistics');
-            Route::get('/pdf/corte/grafica', [RouteController::class, 'pdf'])->name('pdfStatistics');
-            Route::get('/general/constestacion', Date::class)->name('methodology.date');
-            Route::get('/pdf/constestacion', [RouteController::class, 'datepdf'])->name('datepdf');
-            Route::get('/general/constestacion/grafica', Date::class)->name('methodology.date.statistics');
-            Route::get('/pdf/constestacion/grafica', [RouteController::class, 'datepdf'])->name('datepdfStatistics');
+            Route::prefix('pdf')->group(function () {
+                Route::get('/cohorte', [RouteController::class, 'pdf'])->name('pdf');
+                Route::get('/opciones', [RouteController::class, 'pdfOption'])->name('pdf.options');
+            });
+
+            Route::prefix('general')->group(function () {
+                Route::get('/cohorte', General::class)->name('methodology.general');
+                Route::get('/opciones', GeneralOption::class)->name('methodology.options');
+                Route::get('/cohorte/grafica', GeneralStatistic::class)->name('methodology.general.statistics');
+            });
         });
     });
 
@@ -176,7 +182,6 @@ Route::middleware(['auth:sanctum', 'verified', 'graduate'])
     ->group(function () {
         Route::get('/tablero', DashboardGraduate::class)->name('graduate.dashboard');
         Route::get('/perfil', [UserController::class, 'profile'])->name('graduate.profile');
-        // Route::get('/pdf', CvComponent::class)->name('graduate.pdf');
 
         Route::prefix('encuesta')->group(function () {
             Route::get('/perfil', SurveyOneGraduate::class)->name('graduate.survey.one');
@@ -201,9 +206,4 @@ Route::middleware(['auth:sanctum', 'verified', 'company'])
             Route::get('/ubicacion', SurveyTwoCompany::class)->name('company.survey.two');
             Route::get('/competencias', SurveyThreeCompany::class)->name('company.survey.three');
         });
-
-        // Route::prefix('empleo')->group(function () {
-        //     Route::get('/', JobsComponent::class)->name('company.job.view');
-        //     Route::get('/postulados', SurveyTwoCompany::class)->name('company.job.postulate');
-        // });
     });

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('role', 10);
             $table->string('control_number', 15)->nullable();
-            $table->string('career', 100)->nullable();
+            $table->foreignId('career_id')->nullable();
             $table->string('income_month', 25)->nullable();
             $table->string('income_year', 4)->nullable();
             $table->string('year_graduated', 4)->nullable();
@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('cv')->nullable();
-            $table->tinyInteger('is_new_user')->nullable();
+            $table->boolean('is_new_user')->default(false)->nullable();
             $table->timestamps();
         });
     }

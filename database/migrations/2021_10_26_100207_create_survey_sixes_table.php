@@ -15,7 +15,7 @@ class CreateSurveySixesTable extends Migration
     {
         Schema::create('survey_sixes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('organization_yes_no', 2);
             $table->string('organization', 100)->nullable();
             $table->string('agency_yes_no', 2);
