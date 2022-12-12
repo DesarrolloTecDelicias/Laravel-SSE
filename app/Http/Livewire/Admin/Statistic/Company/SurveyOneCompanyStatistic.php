@@ -20,7 +20,11 @@ class SurveyOneCompanyStatistic extends Component
         $this->chartState['state'] = $this->getQueryRaw("state");
         $this->chartState['businessStructure'] = $this->getQueryRaw("business_structure");
         $this->chartState['companySize'] = $this->getQueryRaw("company_size");
-        $this->chartState['businessActivity'] = $this->getQueryRaw("business_activity_selector");
+        $this->chartState['businessActivity'] =
+        CompanySurveyOne::groupBy("business_id")
+            ->selectRaw("count(*) as total, businesses.name as label")
+            ->join('businesses', 'businesses.id', 'company_survey_ones.business_id')
+            ->get();
         $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
     }
 

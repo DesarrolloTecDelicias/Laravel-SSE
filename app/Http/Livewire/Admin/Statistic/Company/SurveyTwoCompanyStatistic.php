@@ -17,7 +17,8 @@ class SurveyTwoCompanyStatistic extends Component
         return view('livewire.admin.statistic.company.survey-two-company-statistic');
     }
 
-    public function mount(){
+    public function mount()
+    {
         $counts = CompanySurveyTwo::selectRaw(
             'SUM(competence1) as \'Área de estudio\', 
             SUM(competence2) as \'Títulación\',
@@ -34,8 +35,12 @@ class SurveyTwoCompanyStatistic extends Component
         $this->chartState['careers'] = CompanyGraduatesWorking::groupBy('career')->selectRaw('sum(total) as total, career as label')->get();
         $this->chartState['congruence'] = $this->getQueryRaw('congruence');
         $this->chartState['numberGraduates'] = $this->getQueryRaw('number_graduates');
-        $this->chartState['mostDemandedCareer'] = $this->getQueryRaw('most_demanded_career');
-        
+        $this->chartState['mostDemandedCareer'] =
+            CompanySurveyTwo::groupBy('career_id')
+            ->selectRaw("count(*) as total, careers.name as label")
+            ->join('careers', 'careers.id', 'company_survey_twos.career_id')
+            ->get();
+
         $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
     }
 
