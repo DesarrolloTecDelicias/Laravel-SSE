@@ -88,11 +88,11 @@ class DatabaseSeeder extends Seeder
         }
 
         //create a career with property
-        foreach ($this->careers as $career) {
-            $career = \App\Models\Career::create([
-                'name' => mb_strtoupper($career, 'UTF-8')
-            ]);
-        }
+        // foreach ($this->careers as $career) {
+        //     $career = \App\Models\Career::create([
+        //         'name' => mb_strtoupper($career, 'UTF-8')
+        //     ]);
+        // }
 
         \App\Models\User::create([
             'name' => 'ADMINISTRADOR',
