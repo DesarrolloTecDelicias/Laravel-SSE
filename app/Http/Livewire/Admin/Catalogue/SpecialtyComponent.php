@@ -90,7 +90,7 @@ class SpecialtyComponent extends Component
         $idValidator = array_key_exists('id', $this->state) ? $this->state['id'] : '';
 
         return [
-            'name' => 'required|unique:specialties,name,' . $idValidator,
+            'name' => 'required',
             'career_id' => 'required'
         ];
     }
@@ -99,7 +99,6 @@ class SpecialtyComponent extends Component
     {
         return [
             'name.required' => GlobalFunctions::requiredMessage('nombre'),
-            'name.unique' => GlobalFunctions::uniqueMessage('nombre'),
             'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
         ];
     }
