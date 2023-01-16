@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
-<x-guest-layout>
-    <x-jet-authentication-card class="mb-4">
+<x-guest-layout class="mb-4">
+    <x-jet-authentication-card>
         <x-slot name="logo">
             <a href="{{route('welcome')}}">
                 <img style="width:190px; height:120px; margin-top: 10px;" src="{{asset('image/school/SSE2.png')}}"
