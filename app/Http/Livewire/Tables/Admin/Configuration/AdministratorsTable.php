@@ -60,11 +60,16 @@ class AdministratorsTable extends LivewireDatatable
                 ->filterable(),
 
             Column::callback(['id'], function ($id) {
-                return view('table-actions.actions', [
-                    'id' => $id,
-                    'edit' => 'editAdministrator',
-                    'delete' => 'callConfirmationAdministrator'
-                ]);
+                if ($id = !1) {
+                    return view('table-actions.actions', [
+                        'id' => $id,
+                        'edit' => 'editAdministrator',
+                        'delete' => 'callConfirmationAdministrator'
+                    ]);
+                }
+                else {
+                    return '';
+                }
             })
                 ->label('Acciones')
                 ->unsortable()
