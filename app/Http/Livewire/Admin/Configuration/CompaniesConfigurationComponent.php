@@ -36,6 +36,7 @@ class CompaniesConfigurationComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
+        $this->state = [];
     }
 
     public function editCompany(int $id)

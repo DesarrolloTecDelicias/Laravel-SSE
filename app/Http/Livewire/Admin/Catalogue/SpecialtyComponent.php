@@ -42,6 +42,7 @@ class SpecialtyComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
+        $this->state = ['career_id' => ''];
     }
 
     public function editSpecialty(int $id)

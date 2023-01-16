@@ -28,6 +28,11 @@ class GraduatesConfigurationComponent extends Component
         $this->careers = Career::all();
     }
 
+    public function clean(){
+        $this->state =
+        ['income_year' => '', 'income_month' => '', 'year_graduated' => '', 'month_graduated' => '', 'career_id' => ''];
+    }
+
     public function save()
     {
         $idValidator = array_key_exists('id', $this->state) ? $this->state['id'] : '';
@@ -46,6 +51,7 @@ class GraduatesConfigurationComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizado' : 'creado');
+        $this->clean();
     }
 
     public function editGraduate(int $id)

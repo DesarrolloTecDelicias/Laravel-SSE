@@ -44,6 +44,7 @@ class AdministratorsConfigurationComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizado' : 'creado');
+        $this->state = ['career_id' => ''];
     }
 
     public function editAdministrator(int $id)
