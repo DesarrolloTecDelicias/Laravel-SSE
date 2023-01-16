@@ -6,7 +6,7 @@
 </head>
 
 <x-guest-layout>
-    <x-jet-authentication-card>
+    <x-jet-authentication-card class="mb-4">
         <x-slot name="logo">
             <a href="{{route('welcome')}}">
                 <img style="width:190px; height:120px; margin-top: 10px;" src="{{asset('image/school/SSE2.png')}}"
@@ -175,7 +175,7 @@
                     {{ __('¿Ya te encuentras registrado?') }}
                 </a>
 
-                <x-jet-button class="ml-4 mb-4">
+                <x-jet-button class="ml-4">
                     {{ __('Register') }}
                 </x-jet-button>
             </div>
