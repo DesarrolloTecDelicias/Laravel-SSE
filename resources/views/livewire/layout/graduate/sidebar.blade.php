@@ -1,6 +1,6 @@
 <aside class="main-sidebar main-sidebar-custom sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('graduate.dashboard') }}" title="SSE ITD" class="brand-link">
+    <a href="{{ route('graduate.dashboard') }}" title="SSE {{ env('SCHOOL_U_NAME') }}" class="brand-link">
         <img src="{{asset('image/school/schooliconwhite.png')}}" alt="Logo" class="brand-image img-circle"
             style="opacity: .8">
         <span class="brand-text font-weight-light">{{ env('SCHOOL_U_NAME')}}</span>
