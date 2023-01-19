@@ -47,6 +47,10 @@ class AdministratorsTable extends LivewireDatatable
             })
                 ->label('Carrera perteneciente')
                 ->hideable()
+                ->exportCallback(function ($career_id) {
+                    $career = Career::find($career_id);
+                    return $career == null ? '' : $career->name;
+                })
                 ->filterable(),
 
             DateColumn::name('created_at')
@@ -60,14 +64,13 @@ class AdministratorsTable extends LivewireDatatable
                 ->filterable(),
 
             Column::callback(['id'], function ($id) {
-                if ($id = !1) {
+                if ($id != 1) {
                     return view('table-actions.actions', [
                         'id' => $id,
                         'edit' => 'editAdministrator',
                         'delete' => 'callConfirmationAdministrator'
                     ]);
-                }
-                else {
+                } else {
                     return '';
                 }
             })

@@ -20,12 +20,24 @@ class SurveyOneTable extends LivewireDatatable
 
     public function builder()
     {
-        return SurveyOne::query()
-            ->join('users', 'users.id', 'survey_ones.user_id')
-            ->join('careers', 'careers.id', 'survey_ones.career_id')
-            ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
-            ->join('languages', 'languages.id', 'survey_ones.language_id')
-            ->whereNotNull('users.income_year');
+        $role = auth()->user()->role;
+        if ($role == Constants::ROLE['Committee']) {
+            $career = auth()->user()->career_id;
+            return SurveyOne::query()
+                ->join('users', 'users.id', 'survey_ones.user_id')
+                ->join('careers', 'careers.id', 'survey_ones.career_id')
+                ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
+                ->join('languages', 'languages.id', 'survey_ones.language_id')
+                ->where('survey_ones.career_id', $career)
+                ->whereNotNull('users.income_year');
+        } else {
+            return SurveyOne::query()
+                ->join('users', 'users.id', 'survey_ones.user_id')
+                ->join('careers', 'careers.id', 'survey_ones.career_id')
+                ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
+                ->join('languages', 'languages.id', 'survey_ones.language_id')
+                ->whereNotNull('users.income_year');
+        }
     }
 
     public function columns()

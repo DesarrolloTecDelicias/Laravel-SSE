@@ -63,7 +63,6 @@ class BusinessesTable extends LivewireDatatable
                 return [
                     Action::value('csv')->label('Exportar CSV')->export('Actividad_económica.csv'),
                     Action::value('html')->label('Exportar HTML')->export('Actividad_económica.html'),
-                    // Action::value('pdf')->label('Exportar PDF')->export('Actividad_económica.pdf'),
                     Action::value('xls')->label('Exportar XLS')->export('Actividad_económica.xls')
                 ];
             }),

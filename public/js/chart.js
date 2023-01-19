@@ -60,11 +60,12 @@ const barOptions = {
 };
 
 export default class ChartSSE {
-    constructor(ref, type, dataChart) {
+    constructor(ref, type, dataChart, title='grafica') {
         this.ref = ref;
         this.type = type;
         this.dataChart = dataChart;
         this.chart = null;
+        this.title = title;
         this.drawChart();
     }
 
@@ -110,6 +111,13 @@ export default class ChartSSE {
         if (newData) this.dataChart = newData;
 
         this.drawChart();
+    }
+
+    download = () => {
+        const imageLink = document.createElement('a');
+        imageLink.href = this.chart.toBase64Image();
+        imageLink.download = `${this.title}.png`;
+        imageLink.click();
     }
 }
 

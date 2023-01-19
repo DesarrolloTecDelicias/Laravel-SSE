@@ -14,6 +14,15 @@ class SurveyConstants
         7 => "Comentarios y sugerencias.",
     ];
 
+    public static $GRADUATE_SURVEY_REPORT = [
+        1 => "Perfil del egresado.",
+        2 => "Pertinencia y disponibilidad de medio y recursos para el aprendizaje.",
+        3 => "Ubicación laboral de los egresados.",
+        4 => "Desempeño profesional de los egresados.",
+        5 => "Expectativas de desarrollo, superación profesional y de actualización.",
+        6 => "Participación social de los egresados.",
+    ];
+
     public static $GRADUATE_SURVEY_NAME_BY_SURVEY_DONE = [
         'survey_one_done' => "Perfil del egresado.",
         'survey_two_done' => "Pertinencia y disponibilidad de medio y recursos para el aprendizaje.",

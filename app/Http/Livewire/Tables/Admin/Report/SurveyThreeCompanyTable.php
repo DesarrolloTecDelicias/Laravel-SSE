@@ -18,7 +18,7 @@ class SurveyThreeCompanyTable extends LivewireDatatable
     public function builder()
     {
         return CompanySurveyThree::query()
-        ->join('users', 'users.id', 'company_survey_threes.user_id');
+            ->join('users', 'users.id', 'company_survey_threes.user_id');
     }
 
     public function columns()
@@ -119,15 +119,55 @@ class SurveyThreeCompanyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(Constants::GOOD_BAD_QUESTION),
 
-            Column::name('requirement')
-                ->label('Sugerencias')
+            Column::callback(['requirement'], function ($requirement) {
+                return view('table-actions.long-text', [
+                    'text' => $requirement
+                ]);
+            })
+                ->label('Sugerencias Corto')
+                ->unsortable()
                 ->hideable()
-                ->filterable(),
+                ->filterable()
+                ->exportCallback(function ($requirement) {
+                    return (string) $requirement;
+                }),
 
-            Column::name('comments')
-                ->label('Comentarios y sugerencias')
+            Column::callback(['id', 'requirement'], function ($id, $requirement) {
+                return view('table-actions.open-text-company', [
+                    'show' => 'showComments',
+                    'id' => $id,
+                    'type' => 1
+                ]);
+            })
+                ->label('Mostrar sugerencias')
+                ->unsortable()
                 ->hideable()
-                ->filterable(),
+                ->excludeFromExport(),
+
+            Column::callback(['comments'], function ($comments) {
+                return view('table-actions.long-text', [
+                    'text' => $comments
+                ]);
+            })
+                ->label('Comentarios y Sugerencias Corto')
+                ->unsortable()
+                ->hideable()
+                ->filterable()
+                ->exportCallback(function ($comments) {
+                    return (string) $comments;
+                }),
+
+            Column::callback(['id'], function ($id) {
+                return view('table-actions.open-text-company', [
+                    'show' => 'showComments',
+                    'id' => $id,
+                    'type' => 2
+                ]);
+            })
+                ->label('Mostrar comentario')
+                ->unsortable()
+                ->hideable()
+                ->excludeFromExport(),
 
             DateColumn::name('created_at')
                 ->label('Contestada')

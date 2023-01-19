@@ -57,7 +57,7 @@ class CompaniesConfigurationComponent extends Component
 
     public function deleteCompany(int $id)
     {
-        ModelHelper::delete(Company::class, $id);
+        ModelHelper::delete(User::class, $id);
         $this->sendMessage('eliminada');
     }
 

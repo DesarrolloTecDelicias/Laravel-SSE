@@ -70,41 +70,65 @@ class SurveyTwoCompanyTable extends LivewireDatatable
             BooleanColumn::name("competence1")
                 ->label('Área o campo de estudio')
                 ->hideable()
+                ->exportCallback(function ($competence1) {
+                    return $competence1 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence2")
                 ->label('Títulación')
                 ->hideable()
+                ->exportCallback(function ($competence2) {
+                    return $competence2 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence3")
                 ->label('Experiencia Laboral/Práctica (Antes de egresar)')
                 ->hideable()
+                ->exportCallback(function ($competence3) {
+                    return $competence3 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence4")
                 ->label('Posicionamiento de la institución de egreso')
                 ->hideable()
+                ->exportCallback(function ($competence4) {
+                    return $competence4 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence5")
                 ->label('Conocimiento de idiomas extranjeros')
                 ->hideable()
+                ->exportCallback(function ($competence5) {
+                    return $competence5 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence6")
                 ->label('Recomendaciones / Referencias')
                 ->hideable()
+                ->exportCallback(function ($competence6) {
+                    return $competence6 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence7")
                 ->label('Personalidad / Actitudes')
                 ->hideable()
+                ->exportCallback(function ($competence7) {
+                    return $competence7 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence8")
                 ->label('Capacidad de liderazgo')
                 ->hideable()
+                ->exportCallback(function ($competence8) {
+                    return $competence8 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             Column::callback(['career_id'], function ($career_id) {

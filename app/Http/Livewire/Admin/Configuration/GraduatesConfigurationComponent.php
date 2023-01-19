@@ -72,7 +72,7 @@ class GraduatesConfigurationComponent extends Component
 
     public function deleteGraduate(int $id)
     {
-        ModelHelper::delete(Graduate::class, $id);
+        ModelHelper::delete(User::class, $id);
         $this->sendMessage('eliminado');
     }
 

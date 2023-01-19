@@ -8,8 +8,50 @@
     </x-slot>
 
     <div>
-        <div class="row d-flex justify-content-center mb-4">
-            <button id="print_button" class="btn bg-gradient-success btn-lg">Imprimir</button>
+        <div class="row d-flex justify-content-between">
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="dataFilterStart">Fecha de Inicio</label>
+                    <div class="controls">
+                        <input type="date" class="form-control" wire:model="dataFilterStart" id="dataFilterStart">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="dataFilterEnd">Fecha Fin</label>
+                    <div class="controls">
+                        <input type="date" class="form-control" wire:model="dataFilterEnd" id="dataFilterEnd">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6" wire:ignore>
+                <div class="form-group">
+                    <label for="careerSelected">Carrera</label>
+                    <select id="careerSelected" class="select2-class form-control" title="Mencionar carrera"
+                        multiple="multiple">
+                        @foreach ($careers as $career)
+                        <option @if(array_key_exists($career->id, $careerSelected))selected @endif
+                            value="{{ $career->id }}">
+                            {{ $career->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <div class="form-group text-center">
+                    <label>Aplicar filtros</label>
+                    <div class="controls">
+                        <button type="button" class="btn bg-gradient-info w-100" wire:click.prevent="changeChart">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -40,6 +82,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('efficiencyWorkActivitiesChart', 'eficiencia')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
             </div>
@@ -72,6 +120,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('academicTrainingChart', 'formacion')">
+                            Descargar Imagen
+                        </button>
+                    </div>                      
                 </div>
                 <!-- /.card -->
             </div>
@@ -104,6 +158,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('usefulnessProfessionalResidenceChart', 'utilidad')">
+                            Descargar Imagen
+                        </button>
+                    </div>                       
                 </div>
                 <!-- /.card -->
             </div>
@@ -138,13 +198,20 @@
                             class="chartjs-render-monitor bar-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('averagesArrayChart', 'aspectos_promedio')">
+                            Descargar Imagen
+                        </button>
+                    </div>                     
                 </div>
                 <!-- /.card -->
             </div>
         </div>
 
         <div class="row w-100 alert alert-primary d-flex justify-content-center">
-            <span>Aspectos que valora la empresa u organismo para la contratación de egresados, donde 1 es poco y 5 es mucho.<br />
+            <span>Aspectos que valora la empresa u organismo para la contratación de egresados, donde 1 es poco y 5 es
+                mucho.<br />
                 Pésimo (1), Malo (2), Regular (3), Bueno (4) y Excelente (5)
             </span>
         </div>
@@ -177,6 +244,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('studyAreaChart', 'area_campo')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
 
@@ -206,6 +279,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('titleChart', 'titulacion')">
+                            Descargar Imagen
+                        </button>
+                    </div>                     
                 </div>
                 <!-- /.card -->
 
@@ -235,6 +314,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('experienceChart', 'experiencia')">
+                            Descargar Imagen
+                        </button>
+                    </div>                     
                 </div>
                 <!-- /.card -->
 
@@ -265,6 +350,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('jobCompetenceChart', 'competencia_laboral')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
 
@@ -294,6 +385,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('positioningChart', 'posicionamiento')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
 
@@ -327,6 +424,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('languagesChart', 'idioma')">
+                            Descargar Imagen
+                        </button>
+                    </div>                       
                 </div>
                 <!-- /.card -->
 
@@ -356,6 +459,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('recommendationsChart', 'recomendaciones')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
 
@@ -385,6 +494,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('personalityChart', 'personalidad')">
+                            Descargar Imagen
+                        </button>
+                    </div>                     
                 </div>
                 <!-- /.card -->
 
@@ -414,6 +529,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('leadershipChart', 'liderazgo')">
+                            Descargar Imagen
+                        </button>
+                    </div>                     
                 </div>
                 <!-- /.card -->
 
@@ -443,6 +564,12 @@
                             class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-info" 
+                            onclick="downloadChart('othersChart', 'otros')">
+                            Descargar Imagen
+                        </button>
+                    </div>                    
                 </div>
                 <!-- /.card -->
 
@@ -453,10 +580,43 @@
 
     @section('scripts')
     <script type="module">
-        import ChartSSE from '/js/chart.js';
-                    
-            const chartsData = @php echo $json; @endphp;
-            const { 
+        import ChartSSE from '/js/chart.js';    
+        const chartsData = @php echo $json; @endphp;
+        const { 
+            efficiencyWorkActivities,
+            academicTraining,
+            usefulnessProfessionalResidence,
+            averagesArray,
+            studyArea,
+            title,
+            experience,
+            jobCompetence,
+            positioning,
+            languages,
+            recommendations,
+            personality,
+            leadership,
+            others,
+        } = chartsData;
+
+        const efficiencyWorkActivitiesChart = new ChartSSE('efficiencyWorkActivitiesChart', 'pie', efficiencyWorkActivities, 'Eficiencia');
+        const academicTrainingChart = new ChartSSE('academicTrainingChart', 'pie', academicTraining);
+        const usefulnessProfessionalResidenceChart = new ChartSSE('usefulnessProfessionalResidenceChart', 'pie', usefulnessProfessionalResidence);
+        const averagesArrayChart = new ChartSSE('averagesArrayChart', 'bar', averagesArray);
+        const studyAreaChart = new ChartSSE('studyAreaChart', 'pie', studyArea);
+        const titleChart = new ChartSSE('titleChart', 'pie', title);
+        const experienceChart = new ChartSSE('experienceChart', 'pie', experience);
+        const jobCompetenceChart = new ChartSSE('jobCompetenceChart', 'pie', jobCompetence);
+        const positioningChart = new ChartSSE('positioningChart', 'pie', positioning);
+        const languagesChart = new ChartSSE('languagesChart', 'pie', languages);
+        const recommendationsChart = new ChartSSE('recommendationsChart', 'pie', recommendations);
+        const personalityChart = new ChartSSE('personalityChart', 'pie', personality);
+        const leadershipChart = new ChartSSE('leadershipChart', 'pie', leadership);
+        const othersChart = new ChartSSE('othersChart', 'pie', others);
+            
+        window.addEventListener('updateChart', async (event) => {
+            event.preventDefault();
+            const {
                 efficiencyWorkActivities,
                 academicTraining,
                 usefulnessProfessionalResidence,
@@ -471,25 +631,34 @@
                 personality,
                 leadership,
                 others,
-            } = chartsData;
+            } = event.detail.chartsData;
 
-            console.log(averagesArray);
-            console.log(jobCompetence);
+            efficiencyWorkActivitiesChart.updateChart(efficiencyWorkActivities);
+            academicTrainingChart.updateChart(academicTraining);
+            usefulnessProfessionalResidenceChart.updateChart(usefulnessProfessionalResidence);
+            averagesArrayChart.updateChart(averagesArray);
+            studyAreaChart.updateChart(studyArea);
+            titleChart.updateChart(title);
+            experienceChart.updateChart(experience);
+            jobCompetenceChart.updateChart(jobCompetence);
+            positioningChart.updateChart(positioning);
+            languagesChart.updateChart(languages);
+            recommendationsChart.updateChart(recommendations);
+            personalityChart.updateChart(personality);
+            leadershipChart.updateChart(leadership);
+            othersChart.updateChart(others);
+        })
+    </script>
 
-            const efficiencyWorkActivitiesChart = new ChartSSE('efficiencyWorkActivitiesChart', 'pie', efficiencyWorkActivities);
-            const academicTrainingChart = new ChartSSE('academicTrainingChart', 'pie', academicTraining);
-            const usefulnessProfessionalResidenceChart = new ChartSSE('usefulnessProfessionalResidenceChart', 'pie', usefulnessProfessionalResidence);
-            const averagesArrayChart = new ChartSSE('averagesArrayChart', 'bar', averagesArray);
-            const studyAreaChart = new ChartSSE('studyAreaChart', 'pie', studyArea);
-            const titleChart = new ChartSSE('titleChart', 'pie', title);
-            const experienceChart = new ChartSSE('experienceChart', 'pie', experience);
-            const jobCompetenceChart = new ChartSSE('jobCompetenceChart', 'pie', jobCompetence);
-            const positioningChart = new ChartSSE('positioningChart', 'pie', positioning);
-            const languagesChart = new ChartSSE('languagesChart', 'pie', languages);
-            const recommendationsChart = new ChartSSE('recommendationsChart', 'pie', recommendations);
-            const personalityChart = new ChartSSE('personalityChart', 'pie', personality);
-            const leadershipChart = new ChartSSE('leadershipChart', 'pie', leadership);
-            const othersChart = new ChartSSE('othersChart', 'pie', others);       
+    <script>
+        function downloadChart(name, title){
+            const imageLink = document.createElement('a');
+            const canva = document.getElementById(name);
+            imageLink.download = `${title}.png`;
+            imageLink.href = canva.toDataURL('image/png');
+            imageLink.click();
+        }
+
     </script>
 
     @endsection

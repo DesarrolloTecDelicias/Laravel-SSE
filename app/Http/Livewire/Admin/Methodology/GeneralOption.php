@@ -46,7 +46,7 @@ class GeneralOption extends Component
         $this->tab = 'pills-1';
         $this->dataFilterStart = Date('Y-m-d', $date);;
         $this->dataFilterEnd = $now;
-        $this->surveys = SurveyConstants::$GRADUATE_SURVEY_NAME;
+        $this->surveys = SurveyConstants::$GRADUATE_SURVEY_REPORT;
         for ($i = 1; $i <= 6; $i++) {
             $this->surveySelected[$i] = $i;
         }

@@ -8,8 +8,11 @@
     <title>Sistema de Seguimiento de Egresados</title>
     @php $school = env('SCHOOL'); @endphp
     <link rel="icon" href="{{asset("image/school/$school/favicon.ico")}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/landing.min.css')}}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ mix('css/app-landing.css') }}">
+    
+    @livewireStyles
+    
     <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Styles -->
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
@@ -196,6 +199,9 @@
         </div>
 
     </footer>
+
+    @livewireScripts
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

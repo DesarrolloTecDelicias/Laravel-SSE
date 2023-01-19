@@ -30,10 +30,10 @@ class CompanySurveyThree extends Model
         'comments'
     ];
 
-    public function company()
+    use HasFactory;
+
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    use HasFactory;
 }

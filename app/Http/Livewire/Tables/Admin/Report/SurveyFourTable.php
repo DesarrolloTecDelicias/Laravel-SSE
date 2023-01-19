@@ -18,10 +18,20 @@ class SurveyFourTable extends LivewireDatatable
 
     public function builder()
     {
-        return SurveyFour::query()
-            ->join('users', 'users.id', 'survey_fours.user_id')
-            ->join('careers', 'careers.id', 'users.career_id')
-            ->whereNotNull('users.income_year');
+        $role = auth()->user()->role;
+        if ($role == Constants::ROLE['Committee']) {
+            $career = auth()->user()->career_id;
+            return SurveyFour::query()
+                ->join('users', 'users.id', 'survey_fours.user_id')
+                ->join('careers', 'careers.id', 'users.career_id')
+                ->where('users.career_id', $career)
+                ->whereNotNull('users.income_year');
+        } else {
+            return SurveyFour::query()
+                ->join('users', 'users.id', 'survey_fours.user_id')
+                ->join('careers', 'careers.id', 'users.career_id')
+                ->whereNotNull('users.income_year');
+        }
     }
 
     public function columns()

@@ -42,17 +42,25 @@ class CompaniesSurveyTable extends LivewireDatatable
             BooleanColumn::name("survey_one_company_done")
                 ->label('E1: Datos generales de la empresa u organismo')
                 ->hideable()
-                ->filterable()
+                ->exportCallback( function ($survey_one_company_done) {
+                    return $survey_one_company_done ? 'Completada' : 'Pendiente';
+                })
                 ->filterable(),
 
             BooleanColumn::name("survey_two_company_done")
                 ->label('E2: Ubicación laboral de los egresados')
                 ->hideable()
+                ->exportCallback(function ($survey_two_company_done) {
+                    return $survey_two_company_done ? 'Completada' : 'Pendiente';
+                })
                 ->filterable(),
 
             BooleanColumn::name("survey_three_company_done")
                 ->label('E3: Competencias Laborales')
                 ->hideable()
+                ->exportCallback( function ($survey_three_company_done) {
+                    return $survey_three_company_done ? 'Completada' : 'Pendiente';
+                })
                 ->filterable(),
 
             Column::callback([
@@ -111,9 +119,9 @@ class CompaniesSurveyTable extends LivewireDatatable
         return [
             Action::groupBy('Opciones a Exportar', function () {
                 return [
-                    Action::value('csv')->label('Exportar CSV')->export('Egresados.csv'),
-                    Action::value('html')->label('Exportar HTML')->export('Egresados.html'),
-                    Action::value('xls')->label('Exportar XLS')->export('Egresados.xls')
+                    Action::value('csv')->label('Exportar CSV')->export('Empresas_Encuestas.csv'),
+                    Action::value('html')->label('Exportar HTML')->export('Empresas_Encuestas.html'),
+                    Action::value('xls')->label('Exportar XLS')->export('Empresas_Encuestas.xls')
                 ];
             }),
         ];

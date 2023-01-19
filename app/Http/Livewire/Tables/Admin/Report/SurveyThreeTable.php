@@ -22,10 +22,20 @@ class SurveyThreeTable extends LivewireDatatable
 
     public function builder()
     {
-        return SurveyThree::query()
-            ->join('users', 'users.id', 'survey_threes.user_id')
-            ->join('careers', 'careers.id', 'users.career_id')
-            ->whereNotNull('users.income_year');
+        $role = auth()->user()->role;
+        if ($role == Constants::ROLE['Committee']) {
+            $career = auth()->user()->career_id;
+            return SurveyThree::query()
+                ->join('users', 'users.id', 'survey_threes.user_id')
+                ->join('careers', 'careers.id', 'users.career_id')
+                ->where('users.career_id', $career)
+                ->whereNotNull('users.income_year');
+        } else {
+            return SurveyThree::query()
+                ->join('users', 'users.id', 'survey_threes.user_id')
+                ->join('careers', 'careers.id', 'users.career_id')
+                ->whereNotNull('users.income_year');
+        }
     }
 
     public function columns()
@@ -118,31 +128,49 @@ class SurveyThreeTable extends LivewireDatatable
             BooleanColumn::name("competence1")
                 ->label('Competencias laborales')
                 ->hideable()
+                ->exportCallback(function ($competence1) {
+                    return $competence1 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence2")
                 ->label('Título Profesional')
                 ->hideable()
+                ->exportCallback(function ($competence2) {
+                    return $competence2 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence3")
                 ->label('Examen de selección')
                 ->hideable()
+                ->exportCallback(function ($competence3) {
+                    return $competence3 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence4")
                 ->label('Idioma Extranjero')
                 ->hideable()
+                ->exportCallback(function ($competence4) {
+                    return $competence4 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence5")
                 ->label('Actitudes y habilidades socio-comunicativas (principios y valores)')
                 ->hideable()
+                ->exportCallback(function ($competence5) {
+                    return $competence5 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             BooleanColumn::name("competence6")
                 ->label('Ninguno')
                 ->hideable()
+                ->exportCallback(function ($competence6) {
+                    return $competence6 ? 'Sí' : 'No';
+                })
                 ->filterable(),
 
             Column::callback(['language_id'], function ($language_id) {

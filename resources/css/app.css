@@ -1,3 +1,14 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* Css de la plantilla */
+@import '../template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css';
+@import '../template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css';
+@import '../template/plugins/toastr/toastr.min.css';
+@import '../template/plugins/daterangepicker/daterangepicker.css';
+@import '../template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css';
+@import '../template/css/adminlte.min.css';
+@import './swiper.min.css';
+@import '../template/plugins/select2/css/select2.min.css';
+@import '../template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
