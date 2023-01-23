@@ -34,7 +34,7 @@
 <p>En caso que salte este error por la versión de MySQL, realizar los siguientes pasos para solucionarlo:</p>
 <ol>
 <li>Dirigirse al fichero conf/database.php</li>
-<li>En el arreglo de MySQL poner la propieda strict como false y comentar el modo 'NO_AUTO_CREATE_USER'
+<li>En el arreglo de MySQL poner la propieda strict como false y comentar el modo 'NO_AUTO_CREATE_USER' <br/>
     <code>
         'mysql' =[
             ...
@@ -44,7 +44,7 @@
                 //'NO_AUTO_CREATE_USER',
             ]
     </code>
-<li>
+</li>
 <li>Ahora ejecutar el comando php artisan config:cache</li>
 <li>Ahora ejecutar el comando php artisan config:clear</li>
 </ol>
