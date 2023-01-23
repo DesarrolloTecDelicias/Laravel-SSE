@@ -1,2 +1,5 @@
 @import './landing/bootstrap.min.css';
 @import './landing/landing.min.css';
+html {
+    scroll-behavior: smooth;
+}

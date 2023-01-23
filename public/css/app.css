@@ -1901,6 +1901,9 @@ select {
 .p-3 {
 	padding: 0.75rem;
 }
+.p-0 {
+	padding: 0px;
+}
 .p-4 {
 	padding: 1rem;
 }
@@ -2004,11 +2007,11 @@ select {
 .pr-2 {
 	padding-right: 0.5rem;
 }
-.pb-2 {
-	padding-bottom: 0.5rem;
-}
 .pb-5 {
 	padding-bottom: 1.25rem;
+}
+.pb-2 {
+	padding-bottom: 0.5rem;
 }
 .pt-8 {
 	padding-top: 2rem;
@@ -12051,6 +12054,9 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection,form.was-val
 .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear{position:absolute !important;top:0;right:.7em;float:none;margin-right:0}
 .select2-container--bootstrap4.select2-container--disabled .select2-selection--multiple .select2-selection__choice{padding:0 5px;cursor:not-allowed}
 .select2-container--bootstrap4.select2-container--disabled .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove{display:none}
+html {
+    scroll-behavior: smooth;
+}
 .focus-within\:z-10:focus-within {
 	z-index: 10;
 }
