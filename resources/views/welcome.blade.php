@@ -95,7 +95,7 @@
                     <i class="lni lni-bar-chart mb-2"></i>
                     <h3>Recabar Información</h3>
                     <p class="text-justify">Producir indicadores que permitan a la universidad conocer la situación del
-                        egresado ITD.</p>
+                        egresado de la institución.</p>
                 </div>
                 <div class="col-md-4">
                     <i class="lni lni-certificate mb-2"></i>
