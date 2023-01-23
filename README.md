@@ -12,6 +12,7 @@
 <li>Jetstream: Ecosistema de Laravel para autenticación</li>
 <li>Sanctum: Ecosistema de Laravel para autenticación de rutas</li>
 <li>Livewire: Framework para la elaboración del cliente</li>
+<li>Blade Components: El proyecto maneja algunos componentes hechos con blade para la refactorización</li>
 <li>MySQL: Base de datos</li>
 <li>AdminLTE: Plantilla para la elaboración de la intefaz</li>
 </ol>
