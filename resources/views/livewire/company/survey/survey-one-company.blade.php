@@ -1,11 +1,6 @@
 <div>
-    <x-slot name="title">
-        Datos generales
-    </x-slot>
-
-    <x-slot name="header">
-        Datos generales de la empresa u organismo
-    </x-slot>
+    <x-header title="Datos generales" 
+        header="Datos generales de la empresa u organismo" />
 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">

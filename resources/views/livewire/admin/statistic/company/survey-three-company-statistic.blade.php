@@ -1,501 +1,67 @@
 <div>
-    <x-slot name="title">
-        Competencias Laborales Estadísticas
-    </x-slot>
-
-    <x-slot name="header">
-        Estadísticas Competencias Laborales
-    </x-slot>
+    <x-header title="Estadísticas Competencias Laborales" />
 
     <div>
-        <div class="row d-flex justify-content-center mb-4">
-            <button id="print_button" class="btn bg-gradient-success btn-lg">Imprimir</button>
-        </div>
-
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card card-danger">
-                    <div class="card-header">Competencias considera deben desarrollar los egresados del Instituto
-                        Tecnológico, para desempeñarse eficientemente en sus actividades laborales. Promedios.</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="averagesArrayChart" width="685" height="312"
-                            class="chartjs-render-monitor bar-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-            </div>
+            <x-chart-component idChart="averagesArrayChart" description="Competencias considera deben desarrollar los egresados del Instituto Tecnológico, para desempeñarse eficientemente en sus actividades laborales. Promedios."
+                title="competencias_laborales_promedios" />
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Habilidad para resolver conflictos</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="resolveConflictsChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="resolveConflictsChart" description="Habilidad para resolver conflictos"
+                title="resolver_conflictos" lg="6" md="6" />
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">Ortografía y redacción de documentos</h3>
+            <x-chart-component idChart="orthographyChart" description="Ortografía y redacción de documentos"
+                title="ortografia_redaccion" lg="6" md="6" />
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="orthographyChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="processImprovementChart" description="Mejora de procesos"
+                title="mejora_procesos" lg="6" md="6" />
 
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Mejora de procesos</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="processImprovementChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="teamworkChart" description="Trabajo en equipo"
+                title="trabajo_equipo" lg="6" md="6" />
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">Trabajo en equipo</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="teamworkChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="timeManagementChart" description="Habilidad para administrar tiempo"
+                title="administracion_tiempo" lg="6" md="6" />
 
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Habilidad para administrar tiempo</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="timeManagementChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="securityChart" description="Seguridad personal"
+                title="seguridad_personal" lg="6" md="6" />
+                
+            <x-chart-component idChart="easeSpeechChart" description="Facilidad de palabra"
+                title="facilidad_palabra" lg="6" md="6" />
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">Seguridad personal</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="securityChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="projectManagementChart" description="Gestión de proyectos"
+                title="gestion_proyectos" lg="6" md="6" />
 
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Facilidad de palabra</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="easeSpeechChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="puntualityChart" description="Puntualidad y asistencia"
+                title="puntualidad_asistencia" lg="6" md="6" />
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">Gestión de proyectos</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="projectManagementChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-            </div>
+            <x-chart-component idChart="rulesChart" description="Cumplimiento de las normas"
+                title="puntualidad_asistencia" lg="6" md="6" />
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Puntualidad y asistencia</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="puntualityChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="integrationWorkChart" description="Integración al trabajo"
+                title="integracion_trabajo" lg="6" md="6" />                
 
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Cumplimiento de las normas</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="rulesChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="creativityChart" description="Creatividad e innovación"
+                title="creatividad_innovacion" lg="6" md="6" />                
 
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Integración al trabajo</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="integrationWorkChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="bargainingChart" description="Capacidad de negociación"
+                title="capacidad_negociacion" lg="6" md="6" />
 
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Creatividad e innovación</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="creativityChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="abstractionChart" description="Abstracción, análisis y síntesis"
+                title="abstraccion_analisis_sintesis" lg="6" md="6" />
 
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Capacidad de negociación</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="bargainingChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="leadershipChart" description="Liderazgo y toma de decisión"
+                title="liderazgo_toma_decisiones" lg="6" md="6" />                
 
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Abstracción, análisis y síntesis</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="abstractionChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
+            <x-chart-component idChart="changesChart" description="Adaptar al cambio"
+                title="adaptacion_cambios" lg="6" md="6" />
 
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Liderazgo y toma de decisión</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="leadershipChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Adaptar al cambio</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="changesChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">¿Cómo considera su desempeño laboral respecto a su formación académica?
-                            Del total de egresados anote el porcentaje que corresponda.</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="jobPerformanceChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-            </div>
+            <x-chart-component idChart="jobPerformanceChart" description="¿Cómo considera su desempeño laboral respecto a su formación académica? Del total de egresados anote el porcentaje que corresponda."
+                title="desempeno_laboral_formacion_academica" />
         </div>
     </div>
 
     @section('scripts')
     <script type="module">
-        import ChartSSE from '/js/chart.js';      
+        import ChartSSE from '/js/chartOld.js';      
             const chartsData = @php echo $json; @endphp;
             const { 
                 averagesArray,

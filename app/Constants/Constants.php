@@ -21,14 +21,6 @@ class Constants
         'Committee' => "committee"
     ];
 
-    public const DEGREE = [
-        0 => 'INGENIERÍA',
-        1 => 'LICENCIATURA',
-        2 => 'MAESTRÍA',
-        3 => 'ESPECIALIDAD',
-        4 => 'DOCTORADO'
-    ];
-
     const STATUS = [
         'Inactive' => 0,
         'Active' => 1
@@ -40,13 +32,13 @@ class Constants
     ];
 
     const SEX = [
-        0 => "FEMENINO",
-        1 => "MASCULINO"
+        "FEMENINO",
+        "MASCULINO"
     ];
 
     const YES_NO = [
-        0 => "SÍ",
-        1 => "NO",
+        "SÍ",
+        "NO",
     ];
 
     const DO_FOR_LIVING = [
@@ -57,24 +49,24 @@ class Constants
     ];
 
     const MONTH = [
-        0 => "ENERO-JUNIO",
-        1 => "AGOSTO-DICIEMBRE"
+        "ENERO-JUNIO",
+        "AGOSTO-DICIEMBRE"
     ];
 
     const MARITAL_STATUS = [
-        0 => "SOLTERO",
-        1 => "CASADO",
-        2 => "DIVORCIADO",
-        3 => "VIUDO",
-        4 => "CONCUBINATO",
-        5 => "OTRO",
+        "SOLTERO",
+        "CASADO",
+        "DIVORCIADO",
+        "VIUDO",
+        "CONCUBINATO",
+        "OTRO",
     ];
 
     const GOOD_BAD_QUESTION = [
-        0 => "MUY BUENA",
-        1 => "BUENA",
-        2 => "REGULAR",
-        3 => "MALA",
+        "MUY BUENA",
+        "BUENA",
+        "REGULAR",
+        "MALA",
     ];
 
     const SPECIALITY = [
@@ -168,18 +160,18 @@ class Constants
     ];
 
     const LEVEL_ACTIVITIES = [
-        0 => 'MUY EFICIENTE',
-        1 => 'EFICIENTE',
-        2 => 'POCO EFICIENTE',
-        3 => 'DEFICIENTE'
+        'MUY EFICIENTE',
+        'EFICIENTE',
+        'POCO EFICIENTE',
+        'DEFICIENTE'
     ];
 
     const LEVEL_ACTIVITIES_TWO = [
-        0 => 'EXCELENTE',
-        1 => 'BUENO',
-        2 => 'REGULAR',
-        3 => 'MALO',
-        4 => 'PÉSIMO'
+        'EXCELENTE',
+        'BUENO',
+        'REGULAR',
+        'MALO',
+        'PÉSIMO'
     ];
 
     const LEVEL_ACTIVITIES_NUMBERS = [

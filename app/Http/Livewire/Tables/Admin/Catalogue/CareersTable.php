@@ -45,8 +45,8 @@ class CareersTable extends LivewireDatatable
             Column::callback(['id'], function ($id) {
                 return view('table-actions.actions', [
                     'id' => $id,
-                    'edit' => 'editCareer',
-                    'delete' => 'callConfirmationCareer'
+                    'edit' => 'edit',
+                    'delete' => 'callConfirmation'
                 ]);
             })
                 ->label('Acciones')
@@ -63,7 +63,6 @@ class CareersTable extends LivewireDatatable
                 return [
                     Action::value('csv')->label('Exportar CSV')->export('Carreras.csv'),
                     Action::value('html')->label('Exportar HTML')->export('Carreras.html'),
-                    // Action::value('pdf')->label('Exportar PDF')->export('Carreras.pdf'),
                     Action::value('xls')->label('Exportar XLS')->export('Carreras.xls')
                 ];
             }),

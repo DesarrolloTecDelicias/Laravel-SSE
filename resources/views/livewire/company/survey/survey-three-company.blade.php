@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Competencias Laborales
-    </x-slot>
-
-    <x-slot name="header">
-        Competencias Laborales
-    </x-slot>
+    <x-header title="Competencias Laborales" />
 
     <label>En su opinión ¿qué competencias considera deben desarrollar los egresados del Instituto Tecnológico, para
         desempeñarse eficientemente en sus actividades laborales? <br>

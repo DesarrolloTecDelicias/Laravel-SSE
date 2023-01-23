@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Resultados Generales Cohorte
-    </x-slot>
-
-    <x-slot name="header">
-        Reporte de resultados generales cohorte
-    </x-slot>
+    <x-header title="Reporte de resultados generales cohorte" />
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

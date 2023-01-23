@@ -1,6 +1,5 @@
 const options = {
     maintainAspectRatio: false,
-    responsive: true,
     plugins: {
         datalabels: {
             formatter: (value, categories) => {
@@ -86,8 +85,8 @@ export default class ChartSSE {
 
         const array = this.dataChart;
 
-        const labels = array.map(item => item.label);
-        const values = array.map(item => item.total);
+        const labels = Object.keys(array);
+        const values = Object.values(array);
         const colors = this.handleColorArray(values.length);
 
         const data = {
@@ -111,13 +110,6 @@ export default class ChartSSE {
         if (newData) this.dataChart = newData;
 
         this.drawChart();
-    }
-
-    download = () => {
-        const imageLink = document.createElement('a');
-        imageLink.href = this.chart.toBase64Image();
-        imageLink.download = `${this.title}.png`;
-        imageLink.click();
     }
 }
 

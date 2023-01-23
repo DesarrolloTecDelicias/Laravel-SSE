@@ -27,6 +27,18 @@ class SurveyOne extends SurveyBase
             'percent_english' => 'PORCENTAJE DE CONOCIMIENTO DEL INGLÉS',
             'percent_another_language' => 'PORCENTAJE DE CONOCIMIENTO DE OTRO IDIOMA',
         ];
+
+        $this->graph = [
+            'sex',
+            'marital_status',
+            'qualified',
+            'month',
+            'year',
+            'state',
+            'career_id',
+            'specialty_id',
+            'percent_english',
+        ];        
     }
 
     protected $fillable = [

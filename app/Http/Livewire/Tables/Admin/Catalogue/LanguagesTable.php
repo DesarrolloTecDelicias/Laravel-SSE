@@ -45,8 +45,8 @@ class LanguagesTable extends LivewireDatatable
             Column::callback(['id'], function ($id) {
                 return view('table-actions.actions', [
                     'id' => $id,
-                    'edit' => 'editLanguage',
-                    'delete' => 'callConfirmationLanguage'
+                    'edit' => 'edit',
+                    'delete' => 'callConfirmation'
                 ]);
             })
                 ->label('Acciones')
@@ -63,7 +63,6 @@ class LanguagesTable extends LivewireDatatable
                 return [
                     Action::value('csv')->label('Exportar CSV')->export('Lenguajes.csv'),
                     Action::value('html')->label('Exportar HTML')->export('Lenguajes.html'),
-                    // Action::value('pdf')->label('Exportar PDF')->export('Lenguajes.pdf'),
                     Action::value('xls')->label('Exportar XLS')->export('Lenguajes.xls')
                 ];
             }),

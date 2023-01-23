@@ -17,6 +17,8 @@ abstract class SurveyBase extends Model
     public $properties;
     public $options;
     public $total;
+    protected $questions = [];
+    protected $graph = [];
 
     public $external =  [
         'career_id',
@@ -162,5 +164,15 @@ abstract class SurveyBase extends Model
             }
             $this->options[$property] = $values;
         }
+    }
+
+    public function getQuestions(){
+        $questions = $this->fillable;
+        array_shift($questions);
+        return $questions;
+    }
+
+    public function getGraph(){
+        return $this->graph;
     }
 }

@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Ubicación Laboral
-    </x-slot>
-
-    <x-slot name="header">
-        Ubicación laboral de los egresados
-    </x-slot>
+    <x-header title="Ubicación laboral de los egresados" />    
 
     <div class="row">
         <div class="col-lg-4 col-md-12 col-sm-12">
@@ -605,14 +599,7 @@
     </div>
     @endif
 
-    <div class="row mt-2 pb-2 d-flex align-items-center flex-column">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <button class="btn btn-block bg-gradient-primary" wire:click="save">Guardar Encuesta</button>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-            <a href="{{ route('graduate.dashboard') }}" class="btn btn-block bg-gradient-danger">Cancelar</a>
-        </div>
-    </div>
+    <x-save-component route='graduate.dashboard' />
 
     <script type="text/javascript">
         $(document.body).on("select2:selecting", "#business_id", (e) => {

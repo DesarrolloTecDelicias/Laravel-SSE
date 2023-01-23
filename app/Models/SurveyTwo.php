@@ -20,6 +20,15 @@ class SurveyTwo extends SurveyBase
                 'study_emphasis' => 'ÉNFASIS QUE SE LE PRESENTABA A LA INVESTIGACIÓN DENTRO DEL PROCESO DE ENSEÑANZA',
                 'participate_projects' => 'OPORTUNIAD DE PARTICIPAR EN PROYECTOS DE INVESTIGACIÓN Y DESAROLLO',
             ];
+
+        $this->graph = [
+            'quality_teachers',
+            'syllabus',
+            'study_condition',
+            'experience',
+            'study_emphasis',
+            'participate_projects'
+        ];            
     }
 
     protected $fillable = [

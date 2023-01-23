@@ -3,27 +3,24 @@
 namespace App\Http\Livewire\Admin\Catalogue;
 
 use App\Models\Career;
-use Livewire\Component;
-use App\Constants\Constants;
-use App\Helpers\ModelHelper;
+use App\Models\SurveyOne;
+use App\Models\CompanySurveyTwo;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Livewire\Admin\Catalogue\CatalogueBase;
 
-class CareerComponent extends Component
+class CareerComponent extends CatalogueBase
 {
-    protected $listeners = ['editCareer', 'deleteCareer', 'callConfirmationCareer'];
-    public $modal = false;
-    public $state = [];
-    public $degrees = ['degree' => ''];
+    public function __construct()
+    {
+        $this->catalogue = 'Carrera';
+        $this->lastVowal = 'a';
+        $this->model = Career::class;
+    }
 
     public function render()
     {
         return view('livewire.admin.catalogue.career-component');
-    }
-
-    public function mount()
-    {
-        $this->degrees = Constants::DEGREE;
     }
 
     public function save()
@@ -42,45 +39,22 @@ class CareerComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
+        $this->clear();
     }
 
-    public function editCareer(int $id)
+    public function delete(int $id)
     {
-        $this->state = ModelHelper::modelToArray(Career::class, $id);
-        $this->launchModal();
-    }
-
-    public function callConfirmationCareer($id)
-    {
-        $career = ModelHelper::findModel(Career::class, $id);
-        $this->dispatchBrowserEvent('confirmation', [
-            'name' => $career->name,
-            'id' => $career->id,
-            'event' => 'deleteCareer'
-        ]);
-    }
-
-    public function deleteCareer(int $id)
-    {
-        ModelHelper::delete(Career::class, $id);
-        $this->sendMessage('eliminada');
-    }
-
-    public function launchModal()
-    {
-        $this->modal = !$this->modal;
-        $this->modal == false ? $this->state = [] : null;
-        $this->dispatchBrowserEvent('openModal', ['modal' => $this->modal]);
-    }
-
-    public function sendMessage(string $message)
-    {
-        $this->dispatchBrowserEvent('message', [
-            'message' => "Carrera {$message} correctamente",
-            'type' => 'success'
-        ]);
-        $this->emit('refreshLivewireDatatable');
-        $this->state = [];
+        $surveyOne = SurveyOne::where('career_id', $id)->get();
+        $companySurveyTwo = CompanySurveyTwo::where('career_id', $id)->get();
+        if ($surveyOne->count() > 0 || $companySurveyTwo->count() > 0) {
+            $this->dispatchBrowserEvent('message', [
+                'message' => "No se puede eliminar esta carrera porque está siendo utilizada en una encuesta, eso podría afectar a la integridad de los datos. Contacte con el administrador del sistema.",
+                'type' => 'error'
+            ]);
+            return;
+        }
+        $this->model::findOrFail($id)->delete();
+        $this->sendMessage("eliminad{$this->lastVowal}");
     }
 
     public function rules()

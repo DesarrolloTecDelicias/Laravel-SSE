@@ -27,6 +27,22 @@ class SurveyFour extends SurveyBase
                 'leadership' => 'Capacidad de liderazgo',
                 'others' => 'Otros Aspectos',
             ];
+
+        $this->graph = [
+            'efficiency_work_activities',
+            'academic_training',
+            'usefulness_professional_residence',
+            'study_area',
+            'title',
+            'experience',
+            'job_competence',
+            'positioning',
+            'languages',
+            'recommendations',
+            'personality',
+            'leadership',
+            'others'
+        ];
     }
 
     protected $fillable = [

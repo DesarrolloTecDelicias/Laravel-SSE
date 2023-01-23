@@ -17,6 +17,12 @@ class SurveySix extends SurveyBase
                 'agency_yes_no' => '¿Pertenece a organismos de profesionistas?',
                 'association_yes_no' => '¿Pertenece a asociaciones de egresados?',
             ];
+
+        $this->graph = [
+            'organization_yes_no',
+            'agency_yes_no',
+            'association_yes_no'
+        ];
     }
 
     protected $fillable = [

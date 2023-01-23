@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Tablero
-    </x-slot>
-
-    <x-slot name="header">
-        Tablero de Egresado
-    </x-slot>
+    <x-header title="Tablero" header="Tablero de Egresado" />
 
     @if (Auth::user()->is_new_user == null)
     <div class="row d-flex justify-content-sm-center">
@@ -15,8 +9,7 @@
                 <div class="card-header">
                     <div class="user-block">
                         @php $school = env('SCHOOL'); @endphp
-                        <img class="img-circle" src="{{asset("image/school/$school/logo.png")}}"
-                            alt="User Image">
+                        <img class="img-circle" src="{{asset('image/school/' . $school . '/logo.png')}}" alt="User Image">
                         <span class="username">Bienvenido</span>
                         <span class="description">Comunicado oficial</span>
                     </div>
@@ -65,19 +58,8 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             @foreach ($surveys as $key => $survey)
-            <div class="swiper-slide">
-                <div class="container-image">
-                    <div class="container-loader">
-                        {!! $this->checkSurvey($key) !!}
-                    </div>
-                    <a href="{{ route($graduateRoutes[$key]) }}" title="{{ $survey }}">
-                        <img src="{{asset("image/school/sn$loop->iteration.png") }}" />
-                    </a>
-                    <div class="container-text">
-                        <h5>{{ $survey }}</h5>
-                    </div>
-                </div>
-            </div>                
+            <x-survey-card :survey="$survey" :number="$loop->iteration" :icon="$this->checkSurvey($key)"
+                :route="$graduateRoutes[$key]" />
             @endforeach
         </div>
         <div class="swiper-pagination"></div>

@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire\Admin\Catalogue;
 
-use Livewire\Component;
 use App\Models\Language;
-use App\Helpers\ModelHelper;
+use App\Models\SurveyOne;
+use App\Models\SurveyThree;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Livewire\Admin\Catalogue\CatalogueBase;
 
-class LanguageComponent extends Component
+class LanguageComponent extends CatalogueBase
 {
-    protected $listeners = ['editLanguage', 'deleteLanguage', 'callConfirmationLanguage'];
-    public $modal = false;
-    public $state = [];
+    public function __construct()
+    {
+        $this->catalogue = 'Lenguaje';
+        $this->lastVowal = 'o';
+        $this->model = Language::class;
+    }
 
     public function render()
     {
@@ -35,46 +39,22 @@ class LanguageComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizado' : 'creado');
+        $this->clear();
     }
 
-    public function editLanguage(int $id)
+    public function delete(int $id)
     {
-        $this->state = ModelHelper::modelToArray(Language::class, $id);
-        $this->launchModal();
-    }
-
-    public function callConfirmationLanguage($id)
-    {
-        $language = ModelHelper::findModel(Language::class, $id);
-        $this->dispatchBrowserEvent('confirmation', [
-            'name' => $language->name,
-            'id' => $language->id,
-            'event' => 'deleteLanguage'
-        ]);
-    }
-
-    public function deleteLanguage(int $id)
-    {
-        ModelHelper::delete(Language::class, $id);
-        $this->sendMessage('eliminado');
-    }
-
-    public function launchModal()
-    {
-        $this->modal = !$this->modal;
-        $this->modal == false ? $this->state = [] : null;
-        $this->dispatchBrowserEvent('openModal', ['modal' => $this->modal]);
-    }
-
-    public function sendMessage(string $message)
-    {
-        $this->dispatchBrowserEvent('message', [
-            'message' => "Lenguaje {$message} correctamente",
-            'type' => 'success'
-        ]);
-
-        $this->emit('refreshLivewireDatatable');
-        $this->state = [];
+        $surveyOne = SurveyOne::where('language_id', $id)->get();
+        $surveyThree = SurveyThree::where('language_id', $id)->get();
+        if ($surveyOne->count() > 0 || $surveyThree->count() > 0) {
+            $this->dispatchBrowserEvent('message', [
+                'message' => "No se puede eliminar el lenguaje porque está siendo utilizado en una encuesta, eso podría afectar a la integridad de los datos. Contacte con el administrador del sistema.",
+                'type' => 'error'
+            ]);
+            return;
+        }
+        $this->model::findOrFail($id)->delete();
+        $this->sendMessage("eliminad{$this->lastVowal}");
     }
 
     public function rules()

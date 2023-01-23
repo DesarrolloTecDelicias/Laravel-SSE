@@ -21,8 +21,8 @@ class GraduatesSurvey extends Component
     public function sendEmail($userData)
     {
         $emailTemplate = Email::where([
-            ['type_id', EmailConstant::$advice],
-            ['type_user_id', EmailConstant::$graduate]
+            ['type_id', EmailConstant::ADVICE],
+            ['type_user_id', EmailConstant::GRADUATE]
         ])->first()->body;
 
         $email = $userData['email'];

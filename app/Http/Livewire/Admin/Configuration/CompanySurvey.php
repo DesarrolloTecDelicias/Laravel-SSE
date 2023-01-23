@@ -21,8 +21,8 @@ class CompanySurvey extends Component
     public function sendEmail($userData)
     {
         $emailTemplate = Email::where([
-            ['type_id', EmailConstant::$advice],
-            ['type_user_id', EmailConstant::$company]
+            ['type_id', EmailConstant::ADVICE],
+            ['type_user_id', EmailConstant::COMPANY]
         ])->first()->body;
 
         $email = $userData['email'];

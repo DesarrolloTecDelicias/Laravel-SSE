@@ -1,315 +1,36 @@
 <div>
-    <x-slot name="title">
-        Perfil del Egresado
-    </x-slot>
-
-    <x-slot name="header">
-        Perfil del Egresado
-    </x-slot>
+    <x-header title="Perfil del Egresado" />
 
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="first_name">Nombre(s) *</label>
-                <input id="first_name" type="text" wire:model.defer="state.first_name"
-                    class="form-control @error('first_name') is-invalid @enderror" placeholder="Nombre"
-                    title="Por favor escribe tu nombre(s)" />
-                @error('first_name')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="fathers_surname">Apellido Paterno *</label>
-                <input id="fathers_surname" wire:model.defer="state.fathers_surname" type="text"
-                    class="form-control @error('fathers_surname') is-invalid @enderror" placeholder="Apellido Paterno"
-                    title="Por favor escribe tu apellido paterno" />
-                @error('fathers_surname')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="mothers_surname">Apellido Materno *</label>
-                <input id="mothers_surname" wire:model.defer="state.mothers_surname" type="text"
-                    class="form-control @error('mothers_surname') is-invalid @enderror" placeholder="Apellido Materno"
-                    title="Por favor escribe tu apellido materno" />
-                @error('mothers_surname')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="control_number">Número de Control *</label>
-                <input id="control_number" wire:model.defer="state.control_number" type="text"
-                    onkeypress="validateNumbers(event);"
-                    class="form-control @error('control_number') is-invalid @enderror" placeholder="Número de Control"
-                    title="Por favor escribe tu número de control" readonly />
-                @error('control_number')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="birthday">Fecha de Nacimiento *</label>
-                <input id="birthday" wire:model.defer="state.birthday" type="date"
-                    class="form-control @error('birthday') is-invalid @enderror" placeholder="Fecha de Nacimiento"
-                    title="Por favor selecciona tu fecha de nacimiento" />
-                @error('birthday')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="curp">CURP *</label>
-                <input id="curp" wire:model.defer="state.curp" type="text"
-                    class="form-control @error('curp') is-invalid @enderror" placeholder="CURP"
-                    title="Por favor escribe tu CURP" />
-                @error('curp')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="sex">Sexo *</label>
-                <div class="controls">
-                    <select id="sex" wire:model.defer="state.sex"
-                        class="form-control @error('sex') is-invalid @enderror" title="Por favor selecciona tu sexo">
-                        <option value="" selected="" disabled="">
-                            Selecciona un sexo
-                        </option>
-                        @foreach ($sexes as $sex)
-                        <option value="{{ $sex }}">
-                            {{ $sex }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                @error('sex')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="marital_status">Estado Civil *</label>
-                <div class="controls">
-                    <select id="marital_status" wire:model.defer="state.marital_status"
-                        class="form-control @error('marital_status') is-invalid @enderror"
-                        title="Por favor selecciona tu estado civil">
-                        <option value="" selected="" disabled="">
-                            Selecciona un estado civil
-                        </option>
-                        @foreach ($maritalStatus as $status)
-                        <option value="{{ $status }}">
-                            {{ $status }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                @error('marital_status')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
+        <x-input-component  idInput='first_name' title="Nombre" />
+        <x-input-component  idInput='fathers_surname' title="Apellido Paterno" />
+        <x-input-component  idInput='mothers_surname' title="Apellido Materno" />
+        <x-input-component  idInput='control_number' title="Número de Control" readonly />
+        <x-input-component  idInput='birthday' title="Fecha de Nacimiento" type="date" />
+        <x-input-component  idInput='curp' title="CURP"  />
+        <x-select-component idInput='sex' title="Sexo" short="sexo" :options="$sexes" />
+        <x-select-component idInput='marital_status' title="Estado Civil" short="estado civil" :options="$maritalStatus" />
     </div>
 
     <hr />
 
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="address">Domicilio *</label>
-                <input id="address" wire:model.defer="state.address" type="text"
-                    class="form-control @error('address') is-invalid @enderror" placeholder="Calle #Número"
-                    title="Por favor escribe tu dirección" />
-                @error('address')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="zip_code">Código Postal *</label>
-                <input id="zip_code" wire:model.defer="state.zip_code" type="text" onkeypress="validateNumbers(event);"
-                    class="form-control @error('zip_code') is-invalid @enderror" placeholder="Código Postal"
-                    title="Por favor escribe tu código postal" />
-                @error('zip_code')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="suburb">Colonia *</label>
-                <input id="suburb" wire:model.defer="state.suburb" type="text"
-                    class="form-control @error('suburb') is-invalid @enderror" placeholder="Colonia"
-                    title="Por favor escribe tu colonia" />
-                @error('suburb')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="state">Estado *</label>
-                <input id="state" wire:model.defer="state.state" type="text"
-                    class="form-control @error('state') is-invalid @enderror" placeholder="Estado"
-                    title="Por favor escribe tu estado" />
-                @error('state')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="city">Ciudad *</label>
-                <input id="city" wire:model.defer="state.city" type="text"
-                    class="form-control @error('city') is-invalid @enderror" placeholder="Ciudad"
-                    title="Por favor escribe tu ciudad" />
-                @error('city')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="municipality">Municipio *</label>
-                <input id="municipality" wire:model.defer="state.municipality" type="text"
-                    class="form-control @error('municipality') is-invalid @enderror" placeholder="Municipio"
-                    title="Por favor escribe tu municipio" />
-                @error('municipality')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="phone">Teléfono</label>
-                <input id="phone" wire:model.defer="state.phone" type="text" maxlength="10"
-                    onkeypress="validateNumbers(event);" class="form-control @error('phone') is-invalid @enderror"
-                    placeholder="Teléfono" title="Por favor escribe tu teléfono" />
-                @error('phone')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="cellphone">Teléfono Celular *</label>
-                <input id="cellphone" wire:model.defer="state.cellphone" type="text" maxlength="10"
-                    onkeypress="validateNumbers(event);" class="form-control @error('cellphone') is-invalid @enderror"
-                    placeholder="Teléfono" title="Por favor escribe tu teléfono" />
-                @error('cellphone')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="email">Correo electrónico *</label>
-                <input id="email" wire:model.defer="state.email" type="email"
-                    class="form-control @error('email') is-invalid @enderror" readonly />
-                @error('email')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
+        <x-input-component idInput='address' title="Domicilio" />
+        <x-input-component idInput='zip_code' title="Código Postal" type="number" />
+        <x-input-component idInput='suburb' title="Colonia" />
+        <x-input-component idInput='state' title="Estado" />
+        <x-input-component idInput='city' title="Ciudad" />
+        <x-input-component idInput='municipality' title="Municipio" />
+        <x-input-component idInput='phone' title="Teléfono" :required="false" type="number" maxlength="10" />
+        <x-input-component idInput='cellphone' title="Teléfono Celular" type="number" maxlength="10" />
+        <x-input-component idInput='email' title="Correo Electrónico" type="email" readonly />
     </div>
 
     <hr />
 
     <div class="row">
-
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="income_month">Período de ingreso *</label>
-                <div class="controls">
-                    <select id="income_month" wire:model.defer="state.income_month"
-                        class="form-control @error('income_month') is-invalid @enderror"
-                        title="Por favor seleccione un mes">
-                        <option value="" selected="" disabled="">
-                            Selecciona un mes
-                        </option>
-                        @foreach ($months as $month)
-                        <option value="{{ $month }}">
-                            {{ $month }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                @error('income_month')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="income_year">Año de ingreso *</label>
-                <select id="income_year" wire:model.defer="state.income_year"
-                    title="Por favor selecciona tu año de egreso"
-                    class="form-control @error('income_year') is-invalid @enderror">
-                    <option value="" selected="" disabled="">
-                        Selecciona año de ingreso
-                    </option>
-                    @for ($i = 1990; $i < Date('Y'); $i++) <option value="{{ $i }}">{{ $i }}
-                        </option>
-                        @endfor
-                </select>
-                @error('income_year')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-
+        <x-select-component idInput='income_month' title="Período de Ingreso" short="mes" :options="$months" />
+        <x-select-component idInput='income_year' title="Año de Ingreso" short="año" :options="$yearsIncome" />
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="form-group">
                 <label for="career_id">Carrera de egreso *</label>
@@ -358,48 +79,9 @@
                 @enderror
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="month">Período de egreso *</label>
-                <div class="controls">
-                    <select id="month" wire:model.defer="state.month"
-                        class="form-control @error('month') is-invalid @enderror" title="Por favor seleccione un mes">
-                        <option value="" selected="" disabled="">
-                            Selecciona un mes
-                        </option>
-                        @foreach ($months as $month)
-                        <option value="{{ $month }}">
-                            {{ $month }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                @error('month')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="form-group">
-                <label for="year">Año de Egreso *</label>
-                <select id="year" wire:model.defer="state.year" title="Por favor selecciona tu año de egreso"
-                    class="form-control @error('year') is-invalid @enderror">
-                    <option value="" selected="" disabled="">
-                        Selecciona año de egreso
-                    </option>
-                    @for ($i = 1990; $i <= Date('Y'); $i++) <option value="{{ $i }}">{{ $i }}
-                        </option>
-                        @endfor
-                </select>
-                @error('year')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
+        <x-select-component idInput='month' title="Período de Egreso" short="mes" :options="$months" />
+        <x-select-component idInput='year' title="Año de Egreso" short="año" :options="$years" />        
+
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="form-group">
                 <label for="qualified">Titulado *</label>
@@ -544,12 +226,5 @@
         </div>
     </div>
 
-    <div class="row mt-2 pb-2 d-flex align-items-center flex-column">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <button class="btn btn-block bg-gradient-primary" wire:click="save">Guardar Encuesta</button>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-            <a href="{{ route('graduate.dashboard') }}" class="btn btn-block bg-gradient-danger">Cancelar</a>
-        </div>
-    </div>
+    <x-save-component route='graduate.dashboard' />
 </div>

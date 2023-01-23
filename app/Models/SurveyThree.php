@@ -33,6 +33,22 @@ class SurveyThree extends SurveyBase
                 'company_size' => 'TAMAÑO DE LA EMPRESA U ORGANISMO',
                 'business_id' => 'ACTIVIDAD ECONÓMICA DE LA EMPRESA U ORGANISMO',
             ];
+
+        $this->graph = [
+            'do_for_living',
+            'speciality',
+            'long_take_job',
+            'study_area',
+            'title',
+            'experience',
+            'job_competence',
+            'positioning',
+            'languages',
+            'recommendations',
+            'personality',
+            'leadership',
+            'others'
+        ];            
     }
 
     protected $fillable = [

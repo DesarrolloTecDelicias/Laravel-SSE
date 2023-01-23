@@ -87,4 +87,12 @@ class RouteController extends Controller
 
         return view('pdf.general-option-report', $data);
     }
+
+    public function maintenance(){
+        return view('maintenance');
+    }
+
+    public function notFound(){
+        return view('404');
+    }
 }

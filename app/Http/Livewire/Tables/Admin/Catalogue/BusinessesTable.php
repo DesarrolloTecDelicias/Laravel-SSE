@@ -45,8 +45,8 @@ class BusinessesTable extends LivewireDatatable
             Column::callback(['id'], function ($id) {
                 return view('table-actions.actions', [
                     'id' => $id,
-                    'edit' => 'editBusiness',
-                    'delete' => 'callConfirmationBusiness'
+                    'edit' => 'edit',
+                    'delete' => 'callConfirmation'
                 ]);
             })
                 ->label('Acciones')

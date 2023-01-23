@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Resultados por pregunta
-    </x-slot>
-
-    <x-slot name="header">
-        Reporte por pregunta
-    </x-slot>
+    <x-header title="Resultados por pregunta" />
 
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -86,7 +80,7 @@
 
                         @if ($instance != null)
                         <div class="row d-flex justify-content-center mb-4" wire:ignore>
-                            <div class="card w-75 text-dark">
+                            <div class="card w-100 text-dark">
                                 <div class="card-header bg-gray-dark">
                                     <a class="card-link text-light" data-toggle="collapse" href="#collapse{{ $key }}" wire:ignore>
                                         {{ $instance->title }}

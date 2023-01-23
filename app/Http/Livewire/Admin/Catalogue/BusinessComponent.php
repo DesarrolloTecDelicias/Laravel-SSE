@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire\Admin\Catalogue;
 
-use Livewire\Component;
 use App\Models\Business;
-use App\Helpers\ModelHelper;
+use App\Models\CompanySurveyOne;
+use App\Models\SurveyThree;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Livewire\Admin\Catalogue\CatalogueBase;
 
-class BusinessComponent extends Component
+class BusinessComponent extends CatalogueBase
 {
-    protected $listeners = ['editBusiness', 'deleteBusiness', 'callConfirmationBusiness'];
-    public $modal = false;
-    public $state = [];
+    public function __construct()
+    {
+        $this->catalogue = 'Actividad Económica';
+        $this->lastVowal = 'a';
+        $this->model = Business::class;
+    }
 
     public function render()
     {
@@ -34,46 +38,22 @@ class BusinessComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
+        $this->clear();
     }
 
-    public function editBusiness(int $id)
+    public function delete(int $id)
     {
-        $this->state = ModelHelper::modelToArray(Business::class, $id);
-        $this->launchModal();
-    }
-
-    public function callConfirmationBusiness($id)
-    {
-        $business = ModelHelper::findModel(Business::class, $id);
-        $this->dispatchBrowserEvent('confirmation', [
-            'name' => $business->name,
-            'id' => $business->id,
-            'event' => 'deleteBusiness'
-        ]);
-    }
-
-    public function deleteBusiness(int $id)
-    {
-        ModelHelper::delete(Business::class, $id);
-        $this->sendMessage('eliminada');
-    }
-
-    public function launchModal()
-    {
-        $this->modal = !$this->modal;
-        $this->modal == false ? $this->state = [] : null;
-        $this->dispatchBrowserEvent('openModal', ['modal' => $this->modal]);
-    }
-
-    public function sendMessage(string $message)
-    {
-        $this->dispatchBrowserEvent('message', [
-            'message' => "Actividad económica {$message} correctamente",
-            'type' => 'success'
-        ]);
-
-        $this->emit('refreshLivewireDatatable');
-        $this->state = [];
+        $companySurveyOne = CompanySurveyOne::where('business_id', $id)->get();
+        $surveyThree = SurveyThree::where('business_id', $id)->get();
+        if ($companySurveyOne->count() > 0 || $surveyThree->count() > 0) {
+            $this->dispatchBrowserEvent('message', [
+                'message' => "No se puede eliminar esta actividad porque está siendo utilizada en una encuesta, eso podría afectar a la integridad de los datos. Contacte con el administrador del sistema.",
+                'type' => 'error'
+            ]);
+            return;
+        }
+        $this->model::findOrFail($id)->delete();
+        $this->sendMessage("eliminad{$this->lastVowal}");
     }
 
     public function rules()

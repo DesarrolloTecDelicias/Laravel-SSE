@@ -1,13 +1,8 @@
-<div>
-    <x-slot name="title">
-        Reporte Expectativas de desarrollo
-    </x-slot>
-
-    <x-slot name="header">
-        Reporte Expectativas de desarrollo, superación profesional y de actualización
-    </x-slot>
-
-    <div class="py-4">
-        <livewire:tables.admin.report.survey-five-table />
-    </div>
-</div>
+@livewire(
+    'admin.components.report-component',
+    [
+        'short' => 'Expectativas de desarrollo',
+        'title' => 'Expectativas de desarrollo, superación profesional y de actualización',
+        'survey' => 5
+    ]
+)

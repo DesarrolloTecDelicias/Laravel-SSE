@@ -4,9 +4,8 @@ namespace App\Constants;
 
 class EmailConstant
 {
-    public static $advice = 1;
-    public static $resetPassword = 2;
+    CONST ADVICE = 1;
 
-    public static $graduate = 1;
-    public static $company = 2;
+    const GRADUATE = 1;
+    const COMPANY = 2;
 }

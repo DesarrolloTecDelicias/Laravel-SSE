@@ -16,6 +16,11 @@ class SurveyFive extends SurveyBase
                 'courses_yes_no' => '¿Le gustaria tomar cursos de actualización?',
                 'master_yes_no' => '¿Le gustaria tomar algún posgrado?',
             ];
+
+        $this->graph = [
+            'courses_yes_no',
+            'master_yes_no'
+        ];            
     }
 
     protected $fillable = [

@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Participación Social
-    </x-slot>
-
-    <x-slot name="header">
-        Participación social de los egresados
-    </x-slot>
+    <x-header title="Participación social de los egresados" />
 
     <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12">
@@ -100,12 +94,5 @@
         </div>
     </div>
 
-    <div class="row mt-2 pb-2 d-flex align-items-center flex-column">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <button class="btn btn-block bg-gradient-primary" wire:click="save">Guardar Encuesta</button>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-            <a href="{{ route('graduate.dashboard') }}" class="btn btn-block bg-gradient-danger">Cancelar</a>
-        </div>
-    </div>
+    <x-save-component route='graduate.dashboard' />
 </div>

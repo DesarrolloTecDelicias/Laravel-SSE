@@ -2,15 +2,18 @@
 
 namespace App\Http\Livewire\Admin\Statistic\Company;
 
-use Livewire\Component;
 use App\Helpers\GlobalFunctions;
 use App\Models\CompanySurveyTwo;
 use App\Models\CompanyGraduatesWorking;
+use App\Http\Livewire\Admin\Statistic\Company\CompanyBaseStatisticComponent;
 
-class SurveyTwoCompanyStatistic extends Component
+class SurveyTwoCompanyStatistic extends CompanyBaseStatisticComponent
 {
-    public $chartState = [];
-    public $json;
+    public function __construct()
+    {
+        $this->model = CompanySurveyTwo::class;
+        $this->survey = 'company_survey_twos';
+    }
 
     public function render()
     {
@@ -42,12 +45,5 @@ class SurveyTwoCompanyStatistic extends Component
             ->get();
 
         $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
-    }
-
-    public function getQueryRaw($field)
-    {
-        return CompanySurveyTwo::groupBy($field)
-            ->selectRaw("count(*) as total, $field as label")
-            ->get();
     }
 }

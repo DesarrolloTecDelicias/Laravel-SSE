@@ -33,6 +33,33 @@
 
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('template/plugins/summernote/summernote-bs4.css')}}">
+
+    <style>
+        [class$="-legend"] {
+        list-style: none !important;
+        cursor: pointer !important;
+        padding-left: 0 !important;
+        }
+        
+        [class$="-legend"] li {
+        font-size: 12px !important;
+        }
+        
+        [class$="-legend"] li span {
+            font-size: 12px !important;
+        border-radius: 5px !important;
+        height: 10px !important;
+        margin-right: 10px !important;
+        width: 10px !important;
+        }
+
+        .bg-tec.text-white,
+                    .bg-tec.text-white.text-center.w-25 th {
+                    background-color: #1f3d6d !important;
+                    color: white !important;
+                    -webkit-print-color-adjust: exact;
+                    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -138,6 +165,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 
     <script src="{{asset('template/plugins/select2/js/select2.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -191,7 +221,7 @@
             window.addEventListener('confirmation', async (event) => {
                 const result = await Swal.fire({
                     title: '¿Estás seguro?',
-                    text: `Se eliminará el registro ${event.detail.name}`,
+                    text: `Se eliminará el registro ${event.detail.name}. Esto podría afectar con la integridad de la base de datos.`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -224,7 +254,18 @@
             window.addEventListener('clearBody', event => {
                 $('#body').summernote('code', '');
                 $('#content').summernote('code', '');
-            });   
+            });
+
+            window.addEventListener('updateChart', async (event) => {
+                event.preventDefault();
+                const array = event.detail.data;
+                const properties = event.detail.properties;
+                for (let property of properties) {
+                    const output = getObject(property, array);
+                    const ref = window[property+'Chart'];
+                    ref.updateChart(output)
+                }
+            })            
 
             $('.select2-class').select2({
                 placeholder: 'Seleccione una opción',
@@ -238,7 +279,53 @@
 
         const validateNumbers = (e) => {
             if (e.keyCode < 45 || e.keyCode> 57) e.returnValue = false;
-        };  
+        };
+        
+        const downloadChart = (name, title) =>{
+            const imageLink = document.createElement('a');
+            const canva = document.getElementById(name);
+            imageLink.download = `${title}.png`;
+            imageLink.href = canva.toDataURL('image/png');
+            imageLink.click();
+        }
+
+        const sumValues = obj => Object.values(obj).reduce((a, b) => a + b, 0);
+
+        const getSumObject = (object) => {
+            const sum = sumValues(object);
+            const newObject = {};
+            for (const key in object) {
+                const value = object[key];
+                const newKey = `${key}: ${value} (${(value * 100 / sum).toFixed(2)}%)`;
+                newObject[newKey] = value;
+            }
+            return newObject;
+        }
+
+        const getObject = (key, arr) => {
+            const output = arr.reduce((result, obj) => {
+                if (!result[obj[key]]) {
+                    result[obj[key]] = 0;
+                }
+                result[obj[key]]++;
+                return result;
+            }, {});
+            const newObject = getSumObject(output);
+            return newObject;
+        }
+
+        const getObjectExtra = (key, arr, extraObject) => {
+            const output = arr.reduce((result, obj) => {
+                const value = extraObject[obj[key]];
+                if (!result[value]) {
+                    result[value] = 0;
+                }
+                result[value]++;
+                return result;
+            }, {});
+            const newObject = getSumObject(output);
+            return newObject;
+        }        
     </script>
 
     <script type="text/javascript">

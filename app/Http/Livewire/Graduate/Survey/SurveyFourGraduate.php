@@ -20,6 +20,7 @@ class SurveyFourGraduate extends Component
         'positioning' => '', 'languages' => '', 'recommendations' => '',
         'personality' => '', 'leadership' => '', 'others' => ''
     ];
+    public $numbers;
 
     public function render()
     {
@@ -32,6 +33,11 @@ class SurveyFourGraduate extends Component
         if ($userInfo) $this->state = $userInfo->toArray();
         $this->levelActivities = Constants::LEVEL_ACTIVITIES;
         $this->levelActivitiesTwo = Constants::LEVEL_ACTIVITIES_TWO;
+        $this->numbers = array();
+        for ($i = 1; $i < 6; $i++){
+            array_push($this->numbers, $i);
+        }
+                
     }
 
     public function save()

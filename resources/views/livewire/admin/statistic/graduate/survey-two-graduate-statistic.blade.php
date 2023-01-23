@@ -1,209 +1,65 @@
 <div>
-    <x-slot name="title">
-        Pertinencia y Disponibilidad Estadísticas
-    </x-slot>
-
-    <x-slot name="header">
-        Estadísticas Pertinencia y disponibilidad de medio y recursos para el aprendizaje
-    </x-slot>
+    <x-header title="Estadísticas Pertinencia y disponibilidad de medio y recursos para el aprendizaje" />
 
     <div>
-        <div class="row d-flex justify-content-center mb-4">
-            <button id="print_button" class="btn bg-gradient-success btn-lg">Imprimir</button>
+        <x-filter-chart :careers="$careers" :selected="$careerSelected" />
+        
+        <div class="row">
+            <x-chart-component idChart="quality_teachers" description="Calidad de los docentes" title="calidad"
+                lg="6" md="6" />
+
+            <x-chart-component idChart="syllabus" description="Plan de estudios" title="plan_estudios" lg="6"
+                md="6" />
+
+            <x-chart-component idChart="study_condition"
+                description="Satisfacción condiciones de estudio (infraestructura)" title="satisfaccion" lg="6"
+                md="6" />
+
+            <x-chart-component idChart="experience"
+                description="Experiencia obtenida a través de la residencia profesional" title="experiencia" lg="6"
+                md="6" />
+
+            <x-chart-component idChart="study_emphasis"
+                description="Énfasis que se le prestaba a la investigación dentro del proceso de enseñanza"
+                title="enfasis_investigacion" lg="6" md="6" />
+
+            <x-chart-component idChart="participate_projects"
+                description="Oportunidad de participar en proyectos de investigación y desarrollo"
+                title="oportunidad_participar" lg="6" md="6" />
         </div>
-        <div class="row" id="print_row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Calidad de los docentes</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="qualityTeachersChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">Plan de estudios</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="syllabusChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+        @section('scripts')
+        <script type="module">
+            import ChartSSE from '/js/chart.js';    
 
-                <!-- PIE CHART -->
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Satisfacción condiciones de estudio (infraestructura)</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="studyConditionChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
+            const arr = @php echo $query; @endphp;
+            const properties = @php echo json_encode($properties); @endphp;
+            for (let property of properties) {
+                const output = getObject(property, arr);
+                window[property+'Chart'] = new ChartSSE(property, 'pie', output);
+            }
+        </script>
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Experiencia obtenida a través de la residencia profesional</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="experienceChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-
-                <div class="card card-danger">
-                    <div class="card-header">
-                        <h3 class="card-title">Énfasis que se le prestaba a la investigación dentro del proceso de
-                            enseñanza</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="studyEmphasisChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Oportunidad de participar en proyectos de investigación y
-                            desarrollo</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="participateProjectsChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @section('scripts')
-    <script type="module">
-        import ChartSSE from '/js/chart.js';
+        <script type="text/javascript">
+            $(document.body).on("select2:selecting", "#careerSelected", (e) => {
+                const career = e.params.args.data.id;
+                Livewire.emit('addCareer', career)
+            });
                     
-            const chartsData = @php echo $json; @endphp;
-            const { 
-                qualityTeachers,
-                syllabus,
-                studyCondition,
-                experience,
-                studyEmphasis,
-                participateProjects
-            } = chartsData;
-    
-            const qualityTeachersChart = new ChartSSE('qualityTeachersChart', 'pie', qualityTeachers);
-            const syllabusChart = new ChartSSE('syllabusChart', 'pie', syllabus);
-            const studyConditionChart = new ChartSSE('studyConditionChart', 'pie', studyCondition);
-            const experienceChart = new ChartSSE('experienceChart', 'pie', experience);
-            const studyEmphasisChart = new ChartSSE('studyEmphasisChart', 'pie', studyEmphasis);
-            const participateProjectsChart = new ChartSSE('participateProjectsChart', 'pie', participateProjects);
-            
-    </script>
+            $(document.body).on("select2:unselecting", "#careerSelected", (e) => {
+                const career = e.params.args.data.id;
+                Livewire.emit('removeCareer', career)
+            });
 
-    @endsection
+            $(document.body).on("select2:selecting", "#surveySelected", (e) => {
+                const survey = e.params.args.data.id;
+                Livewire.emit('addSurvey', survey)
+            });
 
-</div>
+            $(document.body).on("select2:unselecting", "#surveySelected", (e) => {
+                const survey = e.params.args.data.id;
+                Livewire.emit('removeSurvey', survey)
+            });
+        </script>
+        @endsection
+    </div>

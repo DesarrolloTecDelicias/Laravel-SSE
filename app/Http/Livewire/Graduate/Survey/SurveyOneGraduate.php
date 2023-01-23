@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class SurveyOneGraduate extends Component
 {
     public $career;
-    public $careers = [], $specialties = [], $languages = [], $sexes, $maritalStatus, $yesNoOptions, $months;
+    public $careers = [], $specialties = [], $languages = [], $sexes, $maritalStatus, $yesNoOptions, $months, $years, $yearsIncome;
     public $state = [
         'career_id' => '', 'specialty_id' => '', 'sex' => '',
         'marital_status' => '', 'qualified' => '', 'month' => '',
@@ -64,6 +64,14 @@ class SurveyOneGraduate extends Component
         $this->maritalStatus = Constants::MARITAL_STATUS;
         $this->yesNoOptions = Constants::YES_NO;
         $this->months = Constants::MONTH;
+
+        $this->years = array();
+        $this->yearsIncome = array();
+        
+        for ($i = 1990; $i <= Date('Y'); $i++){
+            if(!($i == Date('Y'))) array_push($this->yearsIncome, $i);
+            array_push($this->years, $i);
+        }
     }
 
     public function getSpecialties()

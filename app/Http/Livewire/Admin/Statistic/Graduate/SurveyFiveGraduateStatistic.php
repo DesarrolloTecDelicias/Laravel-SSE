@@ -2,34 +2,28 @@
 
 namespace App\Http\Livewire\Admin\Statistic\Graduate;
 
-use Livewire\Component;
 use App\Models\SurveyFive;
+use App\Http\Livewire\Admin\Statistic\Graduate\GraduateBaseStatisticComponent;
 
-class SurveyFiveGraduateStatistic extends Component
+class SurveyFiveGraduateStatistic extends GraduateBaseStatisticComponent
 {
-    public $chartState = [];
-    public $json;
     public $courses, $master;
-    
+
+    public function __construct()
+    {
+        $this->model = SurveyFive::class;
+        $this->survey = 'survey_fives';
+        $this->extra = true;
+    }
+
     public function render()
     {
         return view('livewire.admin.statistic.graduate.survey-five-graduate-statistic');
     }
 
-    public function mount()
+    public function getExtraData()
     {
-        $this->chartState['coursesYesNo'] = $this->getQueryRaw('courses_yes_no');
-        $this->chartState['masterYesNo'] = $this->getQueryRaw('master_yes_no');
         $this->courses = SurveyFive::selectRaw('id, courses')->where('courses_yes_no', '=', "SÍ")->get();
         $this->master = SurveyFive::selectRaw('id, master')->where('master_yes_no', '=', "SÍ")->get();
-
-        $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
-    }
-
-    public function getQueryRaw($field)
-    {
-        return SurveyFive::groupBy($field)
-            ->selectRaw("count(*) as total, $field as label")
-            ->get();
     }
 }

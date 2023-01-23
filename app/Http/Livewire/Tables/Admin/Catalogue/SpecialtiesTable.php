@@ -52,8 +52,8 @@ class SpecialtiesTable extends LivewireDatatable
             Column::callback(['id'], function ($id) {
                 return view('table-actions.actions', [
                     'id' => $id,
-                    'edit' => 'editSpecialty',
-                    'delete' => 'callConfirmationSpecialty'
+                    'edit' => 'edit',
+                    'delete' => 'callConfirmation'
                 ]);
             })
                 ->label('Acciones')
@@ -70,7 +70,6 @@ class SpecialtiesTable extends LivewireDatatable
                 return [
                     Action::value('csv')->label('Exportar CSV')->export('Especialidades.csv'),
                     Action::value('html')->label('Exportar HTML')->export('Especialidades.html'),
-                    // Action::value('pdf')->label('Exportar PDF')->export('Especialidades.pdf'),
                     Action::value('xls')->label('Exportar XLS')->export('Especialidades.xls')
                 ];
             }),

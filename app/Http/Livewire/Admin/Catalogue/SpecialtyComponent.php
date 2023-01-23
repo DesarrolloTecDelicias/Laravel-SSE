@@ -2,18 +2,24 @@
 
 namespace App\Http\Livewire\Admin\Catalogue;
 
-use Livewire\Component;
 use App\Models\Career;
 use App\Models\Specialty;
-use App\Helpers\ModelHelper;
+use App\Models\SurveyOne;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Livewire\Admin\Catalogue\CatalogueBase;
 
-class SpecialtyComponent extends Component
+class SpecialtyComponent extends CatalogueBase
 {
-    protected $listeners = ['editSpecialty', 'deleteSpecialty', 'callConfirmationSpecialty'];
-    public $modal = false;
-    public $state = ['career_id' => ''];
+    public function __construct()
+    {
+        $this->catalogue = 'Especialidad';
+        $this->lastVowal = 'a';
+        $this->model = Specialty::class;
+        $this->state = ['career_id' => ''];
+        $this->initialState = ['career_id' => ''];
+    }
+
     public $careers = [];
 
     public function render()
@@ -42,53 +48,25 @@ class SpecialtyComponent extends Component
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
-        $this->state = ['career_id' => ''];
+        $this->clear();
     }
 
-    public function editSpecialty(int $id)
+    public function delete(int $id)
     {
-        $this->state = ModelHelper::modelToArray(Specialty::class, $id);
-        $this->launchModal();
-    }
-
-    public function callConfirmationSpecialty($id)
-    {
-        $specialty = ModelHelper::findModel(Specialty::class, $id);
-        $this->dispatchBrowserEvent('confirmation', [
-            'name' => $specialty->name,
-            'id' => $specialty->id,
-            'event' => 'deleteSpecialty'
-        ]);
-    }
-
-    public function deleteSpecialty(int $id)
-    {
-        ModelHelper::delete(Specialty::class, $id);
-        $this->sendMessage('eliminada');
-    }
-
-    public function launchModal()
-    {
-        $this->modal = !$this->modal;
-        $this->modal == false ? $this->state = [] : null;
-        $this->dispatchBrowserEvent('openModal', ['modal' => $this->modal]);
-    }
-
-    public function sendMessage(string $message)
-    {
-        $this->dispatchBrowserEvent('message', [
-            'message' => "Especialidad {$message} correctamente",
-            'type' => 'success'
-        ]);
-
-        $this->emit('refreshLivewireDatatable');
-        $this->state = [];
+        $surveyOne = SurveyOne::where('career_id', $id)->get();
+        if ($surveyOne->count() > 0) {
+            $this->dispatchBrowserEvent('message', [
+                'message' => "No se puede eliminar esta especialidad porque está siendo utilizada en una encuesta, eso podría afectar a la integridad de los datos. Contacte con el administrador del sistema.",
+                'type' => 'error'
+            ]);
+            return;
+        }
+        $this->model::findOrFail($id)->delete();
+        $this->sendMessage("eliminad{$this->lastVowal}");
     }
 
     public function rules()
     {
-        $idValidator = array_key_exists('id', $this->state) ? $this->state['id'] : '';
-
         return [
             'name' => 'required',
             'career_id' => 'required'

@@ -2,14 +2,18 @@
 
 namespace App\Http\Livewire\Admin\Statistic\Graduate;
 
-use Livewire\Component;
 use App\Models\SurveyThree;
 use App\Helpers\GlobalFunctions;
+// use App\Http\Livewire\Admin\Statistic\Graduate\GraduateBaseStatisticComponent;
+use App\Http\Livewire\Admin\Statistic\Company\CompanyBaseStatisticComponent;
 
-class SurveyThreeGraduateStatistic extends Component
+class SurveyThreeGraduateStatistic extends CompanyBaseStatisticComponent
 {
-    public $chartState = [];
-    public $json;
+    public function __construct()
+    {
+        $this->model = SurveyThree::class;
+        $this->survey = 'survey_threes';
+    }
 
     public function render()
     {
@@ -20,7 +24,11 @@ class SurveyThreeGraduateStatistic extends Component
     {
         return SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
             ->orWhere('do_for_living', $activity)
-            ->groupBy($field)->selectRaw("count(*) as total, $field as label")
+            ->groupBy($field)->selectRaw("count(*) as total,
+                concat($field,': ', count(*), ' (',
+                round(count(*) *(100/(select count(*) from {$this->survey})), 2),
+                '%)'
+                ) as label")
             ->get();
     }
 

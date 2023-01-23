@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Ubicación laboral
-    </x-slot>
-
-    <x-slot name="header">
-        Ubicación laboral de los egresados
-    </x-slot>
+    <x-header title="Ubicación laboral de los egresados" />    
 
     <div>
         <label>Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo. *</label>

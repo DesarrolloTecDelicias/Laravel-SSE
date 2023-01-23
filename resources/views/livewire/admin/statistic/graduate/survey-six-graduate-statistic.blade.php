@@ -1,109 +1,18 @@
 <div>
-    <x-slot name="title">
-        Participación Social Estadísticas
-    </x-slot>
-
-    <x-slot name="header">
-        Estadísticas Participación social de los egresados
-    </x-slot>
+    <x-header title="Estadísticas Participación social de los egresados" />
 
     <div>
-        <div class="row d-flex justify-content-center mb-4">
-            <button id="print_button" class="btn bg-gradient-success btn-lg">Imprimir</button>
-        </div>
+        <x-filter-chart :careers="$careers" :selected="$careerSelected" />
+
         <div class="row">
-            <div class="">
-                <!-- PIE CHART -->
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">¿Pertenece a organizaciones sociales?</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="organizationYesNoChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
+            <x-chart-component idChart="organization_yes_no" description="¿Pertenece a organizaciones sociales?"
+                title="organizaciones_sociales" />
 
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <!-- PIE CHART -->
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 class="card-title">¿Pertenece a organismos de profesionistas?</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="agencyYesNoChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
+            <x-chart-component idChart="agency_yes_no" description="¿Pertenece a organismos de profesionistas?"
+                title="profesionistas" />
 
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <!-- PIE CHART -->
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">¿Pertenece a asociaciones de egresados?</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                            <div class="chartjs-size-monitor-expand">
-                                <div class=""></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink">
-                                <div class=""></div>
-                            </div>
-                        </div>
-                        <canvas id="associationYesNoChart" width="685" height="312"
-                            class="chartjs-render-monitor pie-style w-100 h-100"></canvas>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
+            <x-chart-component idChart="association_yes_no" description="¿Pertenece a asociaciones de egresados?"
+                title="asociaciones_egresados" />
         </div>
 
         <div class="row d-flex justify-content-center">
@@ -170,20 +79,36 @@
 
     @section('scripts')
     <script type="module">
-        import ChartSSE from '/js/chart.js';
-                    
-            const chartsData = @php echo $json; @endphp;
-            const { 
-                organizationYesNo,
-                agencyYesNo,
-                associationYesNo,
-            } = chartsData;
+        import ChartSSE from '/js/chart.js';    
 
-            const organizationYesNoChart = new ChartSSE('organizationYesNoChart', 'pie', organizationYesNo);
-            const agencyYesNoChart = new ChartSSE('agencyYesNoChart', 'pie', agencyYesNo);
-            const associationYesNoChart = new ChartSSE('associationYesNoChart', 'pie', associationYesNo);    
+            const arr = @php echo $query; @endphp;
+            const properties = @php echo json_encode($properties); @endphp;
+            for (let property of properties) {
+                const output = getObject(property, arr);
+                window[property+'Chart'] = new ChartSSE(property, 'pie', output);
+            }
     </script>
 
-    @endsection
+    <script type="text/javascript">
+        $(document.body).on("select2:selecting", "#careerSelected", (e) => {
+                const career = e.params.args.data.id;
+                Livewire.emit('addCareer', career)
+            });
+                    
+            $(document.body).on("select2:unselecting", "#careerSelected", (e) => {
+                const career = e.params.args.data.id;
+                Livewire.emit('removeCareer', career)
+            });
 
+            $(document.body).on("select2:selecting", "#surveySelected", (e) => {
+                const survey = e.params.args.data.id;
+                Livewire.emit('addSurvey', survey)
+            });
+
+            $(document.body).on("select2:unselecting", "#surveySelected", (e) => {
+                const survey = e.params.args.data.id;
+                Livewire.emit('removeSurvey', survey)
+            });
+    </script>
+    @endsection
 </div>
