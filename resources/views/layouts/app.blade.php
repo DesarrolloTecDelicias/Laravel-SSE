@@ -24,15 +24,44 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
-
+    
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
+    
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="{{asset('template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{asset('template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('template/plugins/toastr/toastr.min.css')}}">
+    
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{asset('template/plugins/daterangepicker/daterangepicker.css')}}">
+    
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{asset('template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+    
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('template/plugins/summernote/summernote-bs4.css')}}">
+    
+    <!-- Swiper JS-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('template/css/adminlte.min.css')}}">
+    
+    <!-- Own Swiper Theme -->
+    <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
+    
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
     <style>
         [class$="-legend"] {
