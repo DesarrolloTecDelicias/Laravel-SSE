@@ -3,14 +3,14 @@
 
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <x-box-component :value="$allUsers" title="Egresados registrados" icon='person' route='configuration.graduates' bg='info' />
-        <x-box-component :value="$allCompanies" title="Empresas registradas" icon='briefcase' route='configuration.companies' bg='success' />
+        <x-box-component :value="$allUsers" title="Egresados registrados" icon='person' route='graduates.graduates' bg='info' />
+        <x-box-component :value="$allCompanies" title="Empresas registradas" icon='briefcase' route='company.companies' bg='success' />
         <x-box-component :value="$surveyOneCount" title="Perfil del Egresado respondidas" icon='document' route='report.graduate.survey.one' bg='warning' />
-        <x-box-component :value="$surveysPercentage . ' %'" title="% con 7 encuestas respondidas" icon='pie-graph' route='configuration.graduates.surveys' bg='danger' />
-        <x-box-component :value="$newUsers" title="Usuarios Nuevos(Mes Actual)" icon='plus' route='configuration.graduates' bg='info' />
+        <x-box-component :value="$surveysPercentage . ' %'" title="% con 7 encuestas respondidas" icon='pie-graph' route='graduates.graduates.surveys' bg='danger' />
+        <x-box-component :value="$newUsers" title="Usuarios Nuevos(Mes Actual)" icon='plus' route='graduates.graduates' bg='info' />
         <x-box-component :value="$relation . ' %'" title="Relación de Perfil del Egresado" icon='checkmark' route='report.graduate.survey.one' bg='success' />
-        <x-box-component :value="$careerCount" :title="$career .'+ Egresados'" icon='ios-book' route='configuration.graduates' bg='warning' />
-        <x-box-component :value="$notUsers" title="Usuarios sin registros" icon='sad' route='configuration.graduates.surveys' bg='danger' />
+        <x-box-component :value="$careerCount" :title="$career .'+ Egresados'" icon='ios-book' route='graduates.graduates' bg='warning' />
+        <x-box-component :value="$notUsers" title="Usuarios sin registros" icon='sad' route='graduates.graduates.surveys' bg='danger' />
     </div>
     <!-- /.row -->
 

@@ -9,7 +9,7 @@
             wire:model.defer={{ "state.$idInput" }} 
             type="{{ $type }}"
             class="form-control @error($idInput)is-invalid @enderror" 
-            placeholder="{{ ucwords($title) }}"
+            placeholder="{{ $title }}"
             title="Por favor indica tu {{ strtolower($title) }}" 
             {{ $readonly ? "readonly" : "" }}
             {{ $maxLength ? "maxlength=\"$maxLength\"" : "" }} />

@@ -11,9 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ empty(Auth::user()->profile_photo_path) 
-                ? Auth::user()->profile_photo_url 
-                : url("storage/".Auth::user()->profile_photo_path)}}"
+                <img src="{{ Auth::user()->profile_photo_url }}"
                 class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -42,78 +40,15 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.one') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.one' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.one' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>1. Perfil del Egresado</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.two') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.two' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.two' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>2. Pertinencia y Disponibilidad</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.three') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.three' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.three' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>3. Ubicación Laboral</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.four') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.four' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.four' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>4. Desempeño Profesional</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.five') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.five' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.five' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>5. Expectativas y actualización</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.six') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.six' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.six' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>6. Participación social</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('graduate.survey.seven') }}" class="nav-link 
-                            {!! $routeName == 'graduate.survey.seven' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'graduate.survey.seven' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>7. Comentarios y sugerencias</p>
-                            </a>
-                        </li>
+                        <x-nav-item route='graduate.survey.one' :routename="$routeName" title="1. Perfil del Egresado" />                        
+                        <x-nav-item route='graduate.survey.two' :routename="$routeName" title="2. Pertinencia y Disponibilidad" />
+                        <x-nav-item route='graduate.survey.three' :routename="$routeName" title="3. Ubicación Laboral" />
+                        <x-nav-item route='graduate.survey.four' :routename="$routeName" title="4. Desempeño Profesional" />
+                        <x-nav-item route='graduate.survey.five' :routename="$routeName" title="5. Expectativas y actualización" />
+                        <x-nav-item route='graduate.survey.six' :routename="$routeName" title="6. Participación social" />
+                        <x-nav-item route='graduate.survey.seven' :routename="$routeName" title="7. Comentarios y sugerencias" />
                     </ul>
                 </li>
-                <!--<li class="nav-item">
-                    <a href="#" class="nav-link 
-                    {{ $routeName == 'graduate.work' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-briefcase"></i>
-                        <p>Ofertas de Trabajo</p>
-                    </a>
-                </li>-->
-                <!-- <li class="nav-item">
-                    <a href="#" class="nav-link 
-                    {{ $routeName == 'graduate.pdf' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-pdf"></i>
-                        <p>Currículum</p>
-                    </a>
-                </li>-->
                 <li class="nav-item">
                     <a href="{{ route('graduate.profile') }}"
                         class="nav-link {{ $routeName == 'graduate.profile' ? 'active' : '' }}">

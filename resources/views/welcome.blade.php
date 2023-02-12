@@ -7,15 +7,43 @@
 
     <title>Sistema de Seguimiento de Egresados</title>
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset("image/school/$school/favicon.ico")}}">
+    <link rel="icon" href="{{asset('image/school/' .$school.'/favicon.ico')}}">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app-landing.css') }}">
-    
+
     @livewireStyles
-    
+
     <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Styles -->
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+
+    <style>
+        .section-title-heading {
+            text-align: center;
+        }
+
+        .title-text::before {
+            content: "Sistema de Seguimiento de Egresados" !important;
+        }
+
+        @media (max-width: 992px) {
+            .section-title-heading {
+                text-align: center;
+            }
+
+            .title-text::before {
+                content: "" !important;
+            }
+
+            .title-text {
+                content: "" !important;
+            }
+
+            .title-text::after {
+                content: "S.S.E" !important;
+            }
+        }
+    </style>
 
 </head>
 
@@ -23,7 +51,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light text-light fixed-top">
             <div class="container">
-                <h5 class="navbar-brand text-light">Sistema de Seguimiento de Egresados</h5>
+                <h5 class="navbar-brand text-light title-text"></h5>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation text-white text-light">
@@ -180,10 +208,12 @@
         <div class="container">
             <div class="row d-flex flex-column align-items-center">
                 <div class="social-icons text-light">
-                    <a class="text-decoration-none" title="Facebook" href="{{ env('SCHOOL_FACEBOOK') }}" target="_blank">
+                    <a class="text-decoration-none" title="Facebook" href="{{ env('SCHOOL_FACEBOOK') }}"
+                        target="_blank">
                         <i class="lni lni-facebook-original"></i>
                     </a>
-                    <a class="text-decoration-none" title="Sitio oficial" href="{{ env('SCHOOL_WEB') }}" target="_blank">
+                    <a class="text-decoration-none" title="Sitio oficial" href="{{ env('SCHOOL_WEB') }}"
+                        target="_blank">
                         <i class="lni lni-website"></i>
                     </a>
                     @if (env('SCHOOL_LINKEDIN'))

@@ -11,10 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ empty(Auth::user()->profile_photo_path) 
-                    ? Auth::user()->profile_photo_url 
-                    : url("storage/".Auth::user()->profile_photo_path)}}"
-                class="img-circle elevation-2" alt="User Image">
+                <img src="{{Auth::user()->profile_photo_url }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="{{ route('admin.profile') }}" class="d-block">
@@ -43,39 +40,10 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('catalogue.business') }}"
-                                class="nav-link {!! $routeName == 'catalogue.business' ? 'active' : '' !!}">
-                                <i class="far nav-icon {!! $routeName == 'catalogue.business' 
-                                        ? 'fa-dot-circle'
-                                        : 'fa-circle' !!}"></i>
-                                <p>Actividad económica</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('catalogue.career') }}"
-                                class="nav-link {!! $routeName == 'catalogue.career' ? 'active' : ''!!}">
-                                <i class="far {!! $routeName == 'catalogue.career' ? 'fa-dot-circle'
-                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Carreras</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('catalogue.specialty') }}"
-                                class="nav-link {!! $routeName == 'catalogue.specialty' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'catalogue.specialty' ? 'fa-dot-circle'
-                                        : 'fa-circle' !!} nav-icon"></i>
-                                <p>Especialidad</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('catalogue.language') }}"
-                                class="nav-link {!! $routeName == 'catalogue.language' ? 'active' : ''!!}">
-                                <i class="far {!! $routeName == 'catalogue.language' ? 'fa-dot-circle'
-                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Lenguaje</p>
-                            </a>
-                        </li>
+                        <x-nav-item route='catalogue.business' :routename="$routeName" title="Actividad económica" />
+                        <x-nav-item route='catalogue.career' :routename="$routeName" title="Carreras" />
+                        <x-nav-item route='catalogue.specialty' :routename="$routeName" title="Especialidad" />
+                        <x-nav-item route='catalogue.language' :routename="$routeName" title="Lenguaje" />
                     </ul>
                 </li>
 
@@ -88,25 +56,44 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('email.advice') }}"
-                                class="nav-link {!! $routeName == 'email.advice' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'email.advice' ? 'fa-dot-circle'
-                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Aviso egresados</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('email.advice.company') }}"
-                                class="nav-link {!! $routeName == 'email.advice.company' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'email.advice.company' ? 'fa-dot-circle'
-                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Aviso empresas</p>
-                            </a>
-                        </li>
+                        <x-nav-item route='email.advice' :routename="$routeName" title="Aviso egresados" />
+                        <x-nav-item route='email.advice.company' :routename="$routeName" title="Aviso empresas" />
                     </ul>
                 </li>
 
+
+                <li class="nav-item {!! $this->openMenu('administrador/egresados') !!}">
+                    <a href="#" class="nav-link {!! $segments[1] == 'egresados' ? 'active' : '' !!}">
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>
+                            Egresados
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <x-nav-item route='graduates.graduates' :routename="$routeName" title="Administrar Egresados" />
+                        <x-nav-item route='graduates.graduates.surveys' :routename="$routeName"
+                            title="Encuestas Egresados" />
+                    </ul>
+                </li>
+
+                <li class="nav-item {!! $this->openMenu('administrador/empresas') !!}">
+                    <a href="#" class="nav-link {!! $segments[1] == 'empresas' ? 'active' : '' !!}">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>
+                            Empresas
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <x-nav-item route='company.companies' :routename="$routeName" title="Administrar Empresas" />
+                        <x-nav-item route='company.company.surveys' :routename="$routeName"
+                            title="Empresas Encuestas" />
+                        <x-nav-item route='company.agreements' :routename="$routeName" title="Convenios" />
+                    </ul>
+                </li>
+
+                @if (Auth::user()->role == 'admin')
                 <li class="nav-item {!! $this->openMenu('administrador/configuracion') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'configuracion' ? 'active' : '' !!}">
                         <i class="nav-icon fas fa-cog"></i>
@@ -116,52 +103,11 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('configuration.graduates.surveys') }}"
-                                class="nav-link {!! $routeName == 'configuration.graduates.surveys' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'configuration.graduates.surveys' 
-                                            ? 'fa-dot-circle' : 'fa-circle' !!} nav-icon"></i>
-                                <p>Egresados Encuestas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('configuration.graduates') }}"
-                                class="nav-link {!! $routeName == 'configuration.graduates' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'configuration.graduates' 
-                                            ? 'fa-dot-circle' : 'fa-circle' !!} nav-icon"></i>
-                                <p>Administrar Egresados</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('configuration.company.surveys') }}"
-                                class="nav-link {!! $routeName == 'configuration.company.surveys' ? 'active' : '' !!}">
-                                <i
-                                    class="far {!! $routeName == 'configuration.company.surveys' 
-                                                                                            ? 'fa-dot-circle' : 'fa-circle' !!} nav-icon"></i>
-                                <p>Empresas Encuestas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('configuration.companies') }}"
-                                class="nav-link {!! $routeName == 'configuration.companies' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'configuration.companies' 
-                                            ? 'fa-dot-circle' : 'fa-circle' !!} nav-icon"></i>
-                                <p>Administrar Empresas</p>
-                            </a>
-                        </li>
-                        @if (Auth::user()->role == 'admin')
-                        <li class="nav-item">
-                            <a href="{{ route('configuration.administrators') }}"
-                                class="nav-link {!! $routeName == 'configuration.administrators' ? 'active' : '' !!}">
-                                <i
-                                    class="far  {!! $routeName == 'configuration.administrators' 
-                                                                                            ? 'fa-dot-circle' : 'fa-circle' !!} nav-icon"></i>
-                                <p>Administrar Comité</p>
-                            </a>
-                        </li>
-                        @endif
+                        <x-nav-item route='configuration.administrators' :routename="$routeName"
+                            title="Administradores" />
                     </ul>
                 </li>
+                @endif
 
                 <li class="nav-item {!! $this->openMenu('administrador/reporte') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'reporte' ? 'active' : '' !!}">
@@ -408,31 +354,8 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('methodology.general') }}"
-                                class="nav-link {!! $routeName == 'methodology.general' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'methodology.general' ? 'fa-dot-circle'
-                                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Fecha cohorte</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('methodology.options') }}"
-                                class="nav-link {!! $routeName == 'methodology.options' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'methodology.options' ? 'fa-dot-circle'
-                                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Por opciones</p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('methodology.general.statistics') }}"
-                                class="nav-link {!! $routeName == 'methodology.general.statistics' ? 'active' : '' !!}">
-                                <i
-                                    class="far {!! $routeName == 'methodology.general.statistics' ? 'fa-dot-circle'
-                                                                                                            : 'fa-circle' !!} nav-icon"></i>
-                                <p>Fecha corte gráficas</p>
-                            </a>
-                        </li> --}}
+                        <x-nav-item route='methodology.general' :routename="$routeName" title="Fecha cohorte" />
+                        <x-nav-item route='methodology.options' :routename="$routeName" title="Por opciones" />
                     </ul>
                 </li>
 

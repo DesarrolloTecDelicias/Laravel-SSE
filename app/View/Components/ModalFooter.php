@@ -4,19 +4,17 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SaveComponent extends Component
+class ModalFooter extends Component
 {
-    public $route;
-    public $title;
+    public $stateid;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($route, $title = 'Guardar Encuesta')
+    public function __construct($stateid = false)
     {
-        $this->route = $route;
-        $this->title = $title;
+        $this->stateid = $stateid;
     }
 
     /**
@@ -26,6 +24,6 @@ class SaveComponent extends Component
      */
     public function render()
     {
-        return view('components.save-component');
+        return view('components.modal-footer');
     }
 }

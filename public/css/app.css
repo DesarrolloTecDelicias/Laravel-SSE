@@ -1300,11 +1300,11 @@ select {
 .-mb-0 {
 	margin-bottom: 0px;
 }
-.ml-auto {
-	margin-left: auto;
-}
 .mb-2 {
 	margin-bottom: 0.5rem;
+}
+.ml-auto {
+	margin-left: auto;
 }
 .mr-8 {
 	margin-right: 2rem;

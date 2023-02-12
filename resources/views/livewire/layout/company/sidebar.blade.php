@@ -11,9 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ empty(Auth::user()->profile_photo_path) 
-                ? Auth::user()->profile_photo_url 
-                : url("storage/".Auth::user()->profile_photo_path)}}"
+                <img src="{{ Auth::user()->profile_photo_url }}"
                 class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -42,59 +40,24 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('company.survey.one') }}" class="nav-link 
-                            {!! $routeName == 'company.survey.one' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'company.survey.one' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>1. Datos generales de la empresa</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('company.survey.two') }}" class="nav-link 
-                            {!! $routeName == 'company.survey.two' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'company.survey.two' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>2. Ubicación Laboral del Egresado</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('company.survey.three') }}" class="nav-link 
-                            {!! $routeName == 'company.survey.three' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'company.survey.three' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>3. Competencias Laborales</p>
-                            </a>
-                        </li>
+                        <x-nav-item route='company.survey.one' :routename="$routeName" title="1. Datos generales de la empresa" />
+                        <x-nav-item route='company.survey.two' :routename="$routeName" title="2. Ubicación Laboral del Egresado" />
+                        <x-nav-item route='company.survey.three' :routename="$routeName" title="3. Competencias Laborales" />
                     </ul>
                 </li>
-                <!--<li class="nav-item {!! $this->openMenu('empresa/empleo') !!}">
-                    <a href="#" class="nav-link {!! $segments[1] == 'empleo' ? 'active' : '' !!}">
+                <li class="nav-item {!! $this->openMenu('empresa/vacantes') !!}">
+                    <a href="#" class="nav-link {!! $segments[1] == 'vacantes' ? 'active' : '' !!}">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>
-                            Empleos
+                            Vacantes
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link 
-                                {!! $routeName == 'company.job.view' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'company.job.view' 
-                                     ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>Lista de empleos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link 
-                                {!! $routeName == 'company.job.postulate' ? 'active' : '' !!}">
-                                <i class="far {!! $routeName == 'company.job.postulate' 
-                                    ? 'fa-dot-circle': 'fa-circle' !!} nav-icon"></i>
-                                <p>Ver postulados</p>
-                            </a>
-                        </li>
+                        <x-nav-item route='company.application.table' :routename="$routeName" title="Lista de vacantes" />
+                        <x-nav-item route='company.application.create' :routename="$routeName" title="Registrar vacantes" />                 
                     </ul>
-                </li>-->
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('company.profile') }}"
                         class="nav-link {{ $routeName == 'company.profile' ? 'active' : '' }}">

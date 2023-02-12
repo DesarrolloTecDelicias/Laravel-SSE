@@ -32,11 +32,32 @@ html {
     color: #1b396a;
     border: 2px solid #fff;
 }
+
+.title-text::before {
+    content: "Sistema de Seguimiento de Egresados" !important;
+}
+@media (max-width: 992px) {
+    .section-title-heading::after {
+        display: none !important;
+    }
+    .title-text::before {
+        content: "" !important;
+    }
+
+    .title-text {
+        content: "" !important;
+    }
+
+    .title-text::after {
+        content: "S.S.E" !important;
+    }
+}
 h2.section-title-heading {
     padding-top: 2rem;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 1.8rem;
+    text-align: center;
 }
 .section-title::after {
     content: "";
@@ -45,6 +66,16 @@ h2.section-title-heading {
     width: 8%;
     top: 80px;
 }
+
+@media screen and (max-width: 768px) {
+    .section-title::after {
+        content: "";
+        border-bottom: 2px solid #1b396a;
+        width: 8%;
+        top: 80px;
+    }
+}
+
 .section-title:hover::after {
     width: 12%;
     -o-transition: 0.6s ease-out;

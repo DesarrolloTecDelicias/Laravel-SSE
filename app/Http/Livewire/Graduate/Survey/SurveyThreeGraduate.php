@@ -81,7 +81,7 @@ class SurveyThreeGraduate extends Component
 
     public function validateValues($key, $validator)
     {
-        $this->state[$key] = $validator ? ($this->state[$key] ? null : $this->state[$key]) : null;
+        $this->state[$key] = $validator ? ($this->state[$key] ? $this->state[$key] : null) : null;
     }
 
     public function save()
@@ -151,7 +151,7 @@ class SurveyThreeGraduate extends Component
         $this->validateValues('business_structure', $work);
         $this->validateValues('company_size', $work);
         $this->validateValues('business_id', $work);
-        
+
         $validateData = $this->state;
         $user = User::find(Auth::user()->id);
         $validateData['user_id'] = $user->id;
