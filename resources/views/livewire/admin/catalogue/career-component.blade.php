@@ -1,20 +1,9 @@
 <div>
-    <x-slot name="title">
-        Carreras
-    </x-slot>
-
-    <x-slot name="header">
-        Administrar carreras
-    </x-slot>
+    <x-header title="Carreras" header="Administrar carreras" />
 
     <div class="pb-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn bg-gradient-success mb-4" wire:click="launchModal">
-                    Agregar nueva carrera
-                </button>
-            </div>
+            <x-add-button model="carrera" />
 
             <div class="pb-4">
                 <livewire:tables.admin.catalogue.careers-table />
@@ -25,34 +14,13 @@
                 style="@if($modal)display: block; padding-right: 16px; @else display: none; @endif ">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                {{ isset($state['id']) ? 'Editar' : 'Guardar' }} Carrera
-                            </h5>
-                            <button type="button" class="close" wire:click="launchModal">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                        <x-modal-header model="Carrera" :stateid="isset($state['id'])" />
+
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Nombre de la carrera</label>
-                                <input id="name" wire:model.defer="state.name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Carrera">
-                                @error('name')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
+                            <x-input-component idInput='name' title="Nombre de la carrera" lg="12" md="12" sm="12" />
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-primary" wire:click="save">
-                                {{ isset($state['id']) ? 'Editar' : 'Guardar' }}
-                            </button>
-                            <button type="button" class="btn bg-gradient-danger"
-                                wire:click="launchModal">Cancelar</button>
-                        </div>
+
+                        <x-modal-footer model="Carrera" :stateid="isset($state['id'])" />
                     </div>
                 </div>
             </div>

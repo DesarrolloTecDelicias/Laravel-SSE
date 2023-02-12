@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 /*** General Controllers ***/
+
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\UserController;
 
 /*** Admin components ***/
+
 use App\Http\Livewire\Admin\Dashboard;
 
 //Catalogue components
@@ -14,6 +16,7 @@ use App\Http\Livewire\Admin\Catalogue\CareerComponent;
 use App\Http\Livewire\Admin\Catalogue\LanguageComponent;
 use App\Http\Livewire\Admin\Catalogue\BusinessComponent;
 use App\Http\Livewire\Admin\Catalogue\SpecialtyComponent;
+use App\Http\Livewire\Admin\Catalogue\AgreementComponent;
 
 //Configuration components
 use App\Http\Livewire\Admin\Configuration\CompanySurvey;
@@ -75,12 +78,21 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
             Route::get('/aviso-empresa', EmailCompanyTemplate::class)->name('email.advice.company');
         });
 
+        /***************** Graduates ******************/
+        Route::prefix('egresados')->group(function () {
+            Route::get('/', GraduatesConfigurationComponent::class)->name('graduates.graduates');
+            Route::get('/encuestas', GraduatesSurvey::class)->name('graduates.graduates.surveys');
+        });
+
+        /***************** Company ******************/
+        Route::prefix('empresas')->group(function () {
+            Route::get('/', CompaniesConfigurationComponent::class)->name('company.companies');
+            Route::get('/encuestas', CompanySurvey::class)->name('company.company.surveys');
+            Route::get('/convenios', AgreementComponent::class)->name('company.agreements');
+        });
+
         /***************** Configuration ******************/
         Route::prefix('configuracion')->group(function () {
-            Route::get('/egresados', GraduatesConfigurationComponent::class)->name('configuration.graduates');
-            Route::get('/egresados/encuestas', GraduatesSurvey::class)->name('configuration.graduates.surveys');
-            Route::get('/empresas', CompaniesConfigurationComponent::class)->name('configuration.companies');
-            Route::get('/empresas/encuestas', CompanySurvey::class)->name('configuration.company.surveys');
             Route::get('/administradores', AdministratorsConfigurationComponent::class)->name('configuration.administrators');
         });
 

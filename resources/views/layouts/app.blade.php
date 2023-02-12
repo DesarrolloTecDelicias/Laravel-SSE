@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @php $school = env('SCHOOL'); @endphp
-    <link rel="icon" href="{{asset ("image/school/$school/favicon.ico")}}">
+    <link rel="icon" href="{{asset ('image/school/'.$school.'/favicon.ico')}}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -24,77 +24,77 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
-    
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    
+
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{asset('template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-    
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-    
+
     <!-- Toastr -->
     <link rel="stylesheet" href="{{asset('template/plugins/toastr/toastr.min.css')}}">
-    
+
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{asset('template/plugins/daterangepicker/daterangepicker.css')}}">
-    
+
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{asset('template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
-    
+
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('template/plugins/summernote/summernote-bs4.css')}}">
-    
+
     <!-- Swiper JS-->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('template/css/adminlte.min.css')}}">
-    
+
     <!-- Own Swiper Theme -->
     <link rel="stylesheet" href="{{asset('css/swiper.min.css')}}">
-    
+
     <!-- Select2 -->
     <link rel="stylesheet" href="{{asset('template/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
     <style>
         [class$="-legend"] {
-        list-style: none !important;
-        cursor: pointer !important;
-        padding-left: 0 !important;
+            list-style: none !important;
+            cursor: pointer !important;
+            padding-left: 0 !important;
         }
-        
+
         [class$="-legend"] li {
-        font-size: 12px !important;
+            font-size: 12px !important;
         }
-        
+
         [class$="-legend"] li span {
             font-size: 12px !important;
-        border-radius: 5px !important;
-        height: 10px !important;
-        margin-right: 10px !important;
-        width: 10px !important;
+            border-radius: 5px !important;
+            height: 10px !important;
+            margin-right: 10px !important;
+            width: 10px !important;
         }
 
         .bg-tec.text-white,
-                    .bg-tec.text-white.text-center.w-25 th {
-                    background-color: #1f3d6d !important;
-                    color: white !important;
-                    -webkit-print-color-adjust: exact;
-                    }
+        .bg-tec.text-white.text-center.w-25 th {
+            background-color: #1f3d6d !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+        }
     </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-        @include('layouts.partials.preloader')
+        {{-- @include('layouts.partials.preloader') --}}
 
         <!-- Navbar -->
         @include('layouts.partials.navbar')
@@ -284,6 +284,18 @@
                 $('#body').summernote('code', '');
                 $('#content').summernote('code', '');
             });
+
+            window.addEventListener('showImage', async (event) => {
+               const result = await MySwal.fire({
+                  title: `<strong>Anuncio</strong>`,
+                  html: `<img src=${item.image} class="w-full h-[300px] object-scale-down rounded-t-lg" /> `,
+                  showCloseButton: true,
+                  focusConfirm: false,
+                  confirmButtonText: "Cerrar ventana!",
+                  confirmButtonAriaLabel: "Cerrar ventana!",
+                  confirmButtonColor: "#cc1532",
+                });
+            })
 
             window.addEventListener('updateChart', async (event) => {
                 event.preventDefault();

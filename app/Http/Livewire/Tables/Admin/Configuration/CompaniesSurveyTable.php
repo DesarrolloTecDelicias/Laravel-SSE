@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tables\Admin\Configuration;
 
 use App\Models\User;
+use App\Models\Agreement;
 use App\Models\CompanySurvey;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
@@ -39,10 +40,22 @@ class CompaniesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
+            Column::callback(['id'], function ($id) {
+                $agreement = Agreement::where('user_id', $id)->first();
+                return $agreement == null ? 'No' : 'Sí';
+            })
+                ->label('¿Tiene convenio con el tecnológico?')
+                ->unsortable()
+                ->hideable()
+                ->exportCallback(function ($id) {
+                    $agreement = Agreement::where('user_id', $id)->first();
+                    return $agreement == null ? 'No' : 'Sí';
+                }),
+
             BooleanColumn::name("survey_one_company_done")
                 ->label('E1: Datos generales de la empresa u organismo')
                 ->hideable()
-                ->exportCallback( function ($survey_one_company_done) {
+                ->exportCallback(function ($survey_one_company_done) {
                     return $survey_one_company_done ? 'Completada' : 'Pendiente';
                 })
                 ->filterable(),
@@ -58,7 +71,7 @@ class CompaniesSurveyTable extends LivewireDatatable
             BooleanColumn::name("survey_three_company_done")
                 ->label('E3: Competencias Laborales')
                 ->hideable()
-                ->exportCallback( function ($survey_three_company_done) {
+                ->exportCallback(function ($survey_three_company_done) {
                     return $survey_three_company_done ? 'Completada' : 'Pendiente';
                 })
                 ->filterable(),

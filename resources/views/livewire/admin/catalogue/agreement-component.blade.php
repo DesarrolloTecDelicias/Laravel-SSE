@@ -1,12 +1,12 @@
 <div>
-    <x-header title="Especialidades" header="Administrar especialidades" />
+    <x-header title="Convenio" header="Administrar convenio" />
 
     <div class="pb-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-add-button model="especialidad" />
+            <x-add-button model="convenio" lastVowal="o" />
 
             <div class="pb-4">
-                <livewire:tables.admin.catalogue.specialties-table />
+                <livewire:tables.admin.catalogue.agreements-table />
             </div>
 
             <!-- Modal -->
@@ -14,30 +14,34 @@
                 style="@if($modal)display: block; padding-right: 16px; @else display: none; @endif ">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <x-modal-header model="Especialidad" :stateid="isset($state['id'])" />
+                        <x-modal-header model="Convenio" :stateid="isset($state['id'])" />
+
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="career_id">Carrera</label>
+                                <label for="user_id">Empresa a realizar convenio</label>
                                 <div class="controls">
-                                    <select id="career_id" wire:model.defer="state.career_id"
-                                        class="form-control @error('career_id') is-invalid @enderror"
+                                    <select id="user_id" wire:model.defer="state.user_id"
+                                        class="form-control @error('user_id') is-invalid @enderror"
                                         title="Mencione la carrera">
                                         <option value='' selected disabled="">Selecciona una opción</option>
-                                        @foreach ($careers as $career)
-                                        <option value="{{ $career->id }}">{{ $career->name }}</option>
+                                        @foreach ($companies as $company)
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('career_id')
+                                @error('user_id')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
                                 @enderror
                             </div>
-                            <x-input-component idInput='name' title="Nombre de la especialidad" lg="12" md="12"
+                            <x-input-component idInput='name' title="Nombre del convenio" lg="12" md="12" sm="12" />
+                            <x-input-component idInput='description' title="Descripción del convenio" lg="12" md="12"
                                 sm="12" />
+                            <x-input-component idInput='type' title="Tipo del convenio" lg="12" md="12" sm="12" />
                         </div>
-                        <x-modal-footer model="Especialidad" :stateid="isset($state['id'])" />
+
+                        <x-modal-footer model="Convenio" :stateid="isset($state['id'])" />
                     </div>
                 </div>
             </div>

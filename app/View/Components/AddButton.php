@@ -4,19 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SaveComponent extends Component
+class AddButton extends Component
 {
-    public $route;
-    public $title;
+    public $model;
+    public $lastVowal;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($route, $title = 'Guardar Encuesta')
+    public function __construct($model, $lastVowal='a')
     {
-        $this->route = $route;
-        $this->title = $title;
+        $this->model = $model;
+        $this->lastVowal = $lastVowal;
     }
 
     /**
@@ -26,6 +26,6 @@ class SaveComponent extends Component
      */
     public function render()
     {
-        return view('components.save-component');
+        return view('components.add-button');
     }
 }
