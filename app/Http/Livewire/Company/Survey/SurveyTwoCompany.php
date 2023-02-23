@@ -94,7 +94,7 @@ class SurveyTwoCompany extends Component
         }
 
         $messageState = $idValidator ? 'actualizada' : 'creada';
-        $message = GlobalFunctions::surveyMessage('Datos Generales', $messageState);
+        $message = GlobalFunctions::surveyMessage('Ubicación laboral de los egresados', $messageState);
 
         return redirect()->route('company.dashboard')->with($message);
     }
