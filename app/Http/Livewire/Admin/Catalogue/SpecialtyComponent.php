@@ -69,7 +69,8 @@ class SpecialtyComponent extends CatalogueBase
     {
         return [
             'name' => 'required',
-            'career_id' => 'required'
+            'career_id' => 'required',
+            'reticle' => 'required',
         ];
     }
 
@@ -78,6 +79,7 @@ class SpecialtyComponent extends CatalogueBase
         return [
             'name.required' => GlobalFunctions::requiredMessage('nombre'),
             'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
+            'reticle.required' => GlobalFunctions::requiredMessage('retícula'),
         ];
     }
 }

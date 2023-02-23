@@ -36,6 +36,7 @@
                             </div>
                             <x-input-component idInput='name' title="Nombre de la especialidad" lg="12" md="12"
                                 sm="12" />
+                                <x-input-component idInput='reticle' title="Retícula" lg="12" md="12" sm="12" />
                         </div>
                         <x-modal-footer model="Especialidad" :stateid="isset($state['id'])" />
                     </div>

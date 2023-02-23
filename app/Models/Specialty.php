@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specialty extends Model
 {
-    protected $fillable = ['name', 'career_id'];
+    protected $fillable = ['name', 'career_id', 'reticle'];
 
     use HasFactory;
 

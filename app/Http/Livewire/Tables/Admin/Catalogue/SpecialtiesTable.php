@@ -34,6 +34,12 @@ class SpecialtiesTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
+            Column::name('reticle')
+                ->label('Retícula')
+                ->hideable()
+                ->editable()
+                ->filterable(),
+
             Column::name('careers.name')
                 ->label('Carrera')
                 ->filterable($this->careers)
