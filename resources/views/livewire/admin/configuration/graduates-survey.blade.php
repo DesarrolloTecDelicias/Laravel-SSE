@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Egresados Encuestas
-    </x-slot>
-
-    <x-slot name="header">
-        Egresados con encuestas completadas
-    </x-slot>
+    <x-header title="Egresados Encuestas" header="Egresados con encuestas completadas" />
 
     <div class="pb-4">
         <livewire:tables.admin.configuration.graduates-survey-table />

@@ -2,15 +2,37 @@
 
 namespace App\Http\Livewire\Admin\Statistic\Graduate;
 
+use App\Constants\Constants;
 use App\Models\SurveyThree;
-use App\Helpers\GlobalFunctions;
-// use App\Http\Livewire\Admin\Statistic\Graduate\GraduateBaseStatisticComponent;
-use App\Http\Livewire\Admin\Statistic\Company\CompanyBaseStatisticComponent;
+use App\Models\Career;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
-class SurveyThreeGraduateStatistic extends CompanyBaseStatisticComponent
+class SurveyThreeGraduateStatistic extends Component
 {
-    public function __construct()
-    {
+    protected $listeners = ['addCareer', 'removeCareer'];
+    public $chartState = [];
+    public $json;
+    public $model;
+    public $survey;
+    public $extra = false;
+    public $updateMethod = 'updateChart';
+
+    //Dates
+    public $dataFilterStart, $dataFilterEnd;
+    //Instance of surveys
+    protected $surveyInstance;
+    protected $surveyInstance2;
+    //Career(s)
+    public $career;
+    public $careers;
+    public $careerSelected = [];
+    public $query;
+    public $properties;
+    public $query2;
+    public $properties2;
+
+    public function __construct(){
         $this->model = SurveyThree::class;
         $this->survey = 'survey_threes';
     }
@@ -20,73 +42,109 @@ class SurveyThreeGraduateStatistic extends CompanyBaseStatisticComponent
         return view('livewire.admin.statistic.graduate.survey-three-graduate-statistic');
     }
 
-    public function getQueryRaw($field, $activity = 'TRABAJA')
+    public function createInstanceReports()
     {
-        return SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
-            ->orWhere('do_for_living', $activity)
-            ->groupBy($field)->selectRaw("count(*) as total,
-                concat($field,': ', count(*), ' (',
-                round(count(*) *(100/(select count(*) from {$this->survey})), 2),
-                '%)'
-                ) as label")
-            ->get();
+        unset($this->surveyInstance);
+        unset($this->surveyInstance2);
+        $this->query = null;
+        $this->query2 = null;
+        //Init surveys
+        $this->surveyInstance = new $this->model();
+        $this->query = $this->surveyInstance->getGeneralReportSurveyThreeWork(
+            $this->dataFilterStart,
+            $this->dataFilterEnd,
+            $this->careerSelected
+        );
+
+        $this->surveyInstance2 = new $this->model();
+        $this->query2 = $this->surveyInstance2->getGeneralReport(
+            $this->dataFilterStart,
+            $this->dataFilterEnd,
+            $this->careerSelected
+        );
+    }
+
+    public function filter($update = false)
+    {
+        if (!$this->careerSelected) {
+            $this->dispatchBrowserEvent(
+                'message',
+                [
+                    'message' => "No se puede filtrar el reporte sin carrera(s)",
+                    'type' => 'error'
+                ]
+            );
+            return;
+        }
+        if ($this->dataFilterStart > $this->dataFilterEnd) {
+            $this->dispatchBrowserEvent(
+                'message',
+                [
+                    'message' => "La fecha inicial no puede ser mayor a la fecha final",
+                    'type' => 'error'
+                ]
+            );
+            return;
+        }
+        $this->createInstanceReports();
+
+        if ($update) {
+            $newData = $this->query;
+            $properties = $this->properties;
+            $this->dispatchBrowserEvent($this->updateMethod, [
+                'data' => $newData,
+                'properties' => $properties
+            ]);
+
+            $newData2 = $this->query2;
+            $properties2 = $this->properties2;
+            $this->dispatchBrowserEvent($this->updateMethod, [
+                'data' => $newData2,
+                'properties' => $properties2
+            ]);
+        }
+    }
+
+    public function generateData()
+    {
+        $this->filter();
     }
 
     public function mount()
     {
-        $doForLiving = SurveyThree::groupBy('do_for_living')->selectRaw('count(*) as total, do_for_living as label')->get();
-        $speciality = $this->getQueryRaw("speciality", 'ESTUDIA');
-        $longTakeJob = $this->getQueryRaw("long_take_job");
-
-        $counts = SurveyThree::selectRaw(
-            'SUM(competence1) as \'Competencias laborales\', 
-            SUM(competence2) as \'Título Profesional\',
-            SUM(competence3) as \'Examen de selección\',
-            SUM(competence4) as \'Idioma Extranjero\',
-            SUM(competence5) as \'Actitudes y habilidades\',
-            SUM(competence6) as Ninguno'
-        )->where('do_for_living', '=', 'ESTUDIA Y TRABAJA')
-            ->orWhere('do_for_living', '=', 'TRABAJA')
-            ->get()->toArray()[0];
-
-        $countArray = GlobalFunctions::generateArrayStats($counts);
-
-        $languageMostSpoken = SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
-            ->orWhere('do_for_living', 'TRABAJA')
-            ->join('languages', 'languages.id', 'survey_threes.language_id')
-            ->groupBy('language_id')->selectRaw("count(*) as total, languages.name as label")
-            ->get();
-        $seniority = $this->getQueryRaw("seniority");
-
-        $salary = $this->getQueryRaw("salary");
-        $year = $this->getQueryRaw("year");
-        $managementLevel = $this->getQueryRaw("management_level");
-        $jobCondition = $this->getQueryRaw("job_condition");
-        $jobRelationship = $this->getQueryRaw("job_relationship");
-        $businessStructure = $this->getQueryRaw("business_structure");
-        $companySize = $this->getQueryRaw("company_size");
-        $businessActivity =
-            SurveyThree::where('do_for_living', 'ESTUDIA Y TRABAJA')
-            ->orWhere('do_for_living', 'TRABAJA')
-            ->join('businesses', 'businesses.id', 'survey_threes.business_id')
-            ->groupBy('business_id')->selectRaw("count(*) as total, businesses.name as label")
-            ->get();
-
-        $this->chartState['doForLiving'] = $doForLiving;
-        $this->chartState['speciality'] = $speciality;
-        $this->chartState['longTakeJob'] = $longTakeJob;
-        $this->chartState['counts'] = $countArray;
-        $this->chartState['languageMostSpoken'] = $languageMostSpoken;
-        $this->chartState['seniority'] = $seniority;
-        $this->chartState['salary'] = $salary;
-        $this->chartState['managementLevel'] = $managementLevel;
-        $this->chartState['jobCondition'] = $jobCondition;
-        $this->chartState['jobRelationship'] = $jobRelationship;
-        $this->chartState['businessStructure'] = $businessStructure;
-        $this->chartState['companySize'] = $companySize;
-        $this->chartState['year'] = $year;
-        $this->chartState['businessActivity'] = $businessActivity;
-
-        $this->json = json_encode($this->chartState, JSON_UNESCAPED_UNICODE);
+        $survey = new $this->model();
+        $this->properties = $survey->getGraph();
+        $this->properties2 = $survey->getGraph2();
+        $now = Date('Y-m-d');
+        $date = strtotime("$now -6 year");
+        $this->dataFilterStart = Date('Y-m-d', $date);;
+        $this->dataFilterEnd = $now;
+        $this->careers = Career::all();
+        if (Auth::user()->role == Constants::ROLE['Committee']) {
+            $careerValue = Auth::user()->career_id;
+            $this->careerSelected[$careerValue] = $careerValue;
+        } else {
+            foreach ($this->careers as $career) {
+                $this->careerSelected[$career->id] = $career->id;
+            }
+        }
+        $this->generateData();
     }
+
+    public function changeChart()
+    {
+        $this->filter(true);
+    }
+
+    public function addCareer($value)
+    {
+        $idValidator = array_key_exists($value, $this->careerSelected);
+        if (!$idValidator) $this->careerSelected[$value] = $value;
+    }
+
+    public function removeCareer($value)
+    {
+        unset($this->careerSelected[$value]);
+    }
+
 }

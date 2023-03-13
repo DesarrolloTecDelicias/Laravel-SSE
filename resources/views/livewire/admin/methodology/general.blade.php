@@ -2,7 +2,7 @@
     <x-header title="Reporte de resultados generales cohorte" />
 
     <div class="py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="row d-flex justify-content-center">
                 <a target="_blank" href="{{ route('pdf') }}" class="btn bg-gradient-success mb-4">
                     Imprimir reporte

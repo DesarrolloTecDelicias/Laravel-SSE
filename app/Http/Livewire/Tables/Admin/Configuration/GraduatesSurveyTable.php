@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Tables\Admin\Configuration;
 
 use App\Models\Career;
 use App\Models\StudentSurvey;
+use App\Models\SurveyOne;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -50,6 +51,29 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
+            Column::callback(['users.id'],
+                function ($id) {
+                    $survey = SurveyOne::where('user_id', $id)->first();
+                    if ($survey) {
+                        return '<a href="tel:' . $survey->cellphone . '">'. $survey->cellphone.'</a>';
+                    } else {
+                        return 'No registrado';
+                    }
+                }
+            )
+            ->exportCallback([
+                'users.id',
+            ], function (
+                $id,
+            ) {
+                $survey = SurveyOne::where('user_id', $id)->first();
+                if ($survey) {
+                    return $survey->cellphone;
+                } else {
+                    return 'No registrado';
+                }
+            })->label('Teléfono'),
+
             Column::name('users.control_number')
                 ->label('Número de control')
                 ->hideable()
@@ -63,7 +87,7 @@ class GraduatesSurveyTable extends LivewireDatatable
             BooleanColumn::name("survey_one_done")
                 ->label('E1: Perfil del egresado')
                 ->hideable()
-                ->exportCallback( function ($survey_one_done) {
+                ->exportCallback(function ($survey_one_done) {
                     return $survey_one_done ? 'Completada' : 'Pendiente';
                 })
                 ->filterable(),
@@ -79,7 +103,7 @@ class GraduatesSurveyTable extends LivewireDatatable
             BooleanColumn::name("survey_three_done")
                 ->label('E3: Ubicación laboral')
                 ->hideable()
-                ->exportCallback( function ($survey_three_done) {
+                ->exportCallback(function ($survey_three_done) {
                     return $survey_three_done ? 'Completada' : 'Pendiente';
                 })
                 ->filterable(),
@@ -87,7 +111,7 @@ class GraduatesSurveyTable extends LivewireDatatable
             BooleanColumn::name("survey_four_done")
                 ->label('E4: Desempeño profesional')
                 ->hideable()
-                ->exportCallback( function ($survey_four_done) {
+                ->exportCallback(function ($survey_four_done) {
                     return $survey_four_done ? 'Completada' : 'Pendiente';
                 })
                 ->filterable(),
@@ -97,7 +121,7 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->exportCallback(function ($survey_five_done) {
                     return $survey_five_done ? 'Completada' : 'Pendiente';
-                })                
+                })
                 ->filterable(),
 
             BooleanColumn::name("survey_six_done")
@@ -105,7 +129,7 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->exportCallback(function ($survey_six_done) {
                     return $survey_six_done ? 'Completada' : 'Pendiente';
-                })                      
+                })
                 ->filterable(),
 
             BooleanColumn::name("survey_seven_done")
@@ -113,7 +137,7 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->exportCallback(function ($survey_seven_done) {
                     return $survey_seven_done ? 'Completada' : 'Pendiente';
-                })                     
+                })
                 ->filterable(),
 
             Column::callback([

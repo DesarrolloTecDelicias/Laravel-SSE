@@ -2,87 +2,91 @@
     <x-header title="Estadísticas Ubicación laboral de los egresados" />
 
     <div>
+        <x-filter-chart :careers="$careers" :selected="$careerSelected" />
+
         <div class="row">
-            <x-chart-component idChart="doForLivingChart" description="Actividad que se dedican actualmente los egresados"
+            <x-chart-component idChart="do_for_living" description="Actividad que se dedican actualmente los egresados"
                 title="que_hacen_actualmente_egresados" />
 
-            <x-chart-component idChart="specialityChart" description="Qué están estudiando los egresados"
-                title="estudios_egresados" lg="6" md="6" />
-
-            <x-chart-component idChart="longTakeJobChart" description="Tiempo transcurrido para obtener el primer empleo"
+            <x-chart-component idChart="long_take_job" description="Tiempo transcurrido para obtener el primer empleo"
                 title="tiempo_primer_empleo" lg="6" md="6" />
 
+            {{--
             <x-chart-component idChart="countsChart" description="Requisito de contratación"
-                title="requisito_contratacion" />                
+                title="requisito_contratacion" /> --}}
 
-            <x-chart-component idChart="languageMostSpokenChart" description="Idioma que utiliza en su trabajo actual"
-                title="idioma_mas_hablado" lg="6" md="6" />
+            {{--
+            <x-chart-component idChart="languages" description="Idioma que utiliza en su trabajo actual"
+                title="idioma_mas_hablado" lg="6" md="6" /> --}}
 
-            <x-chart-component idChart="seniorityChart" description="Antigüedad en el empleo actual"
+            <x-chart-component idChart="seniority" description="Antigüedad en el empleo actual"
                 title="antiguedad_empleo_actual" lg="6" md="6" />
 
-            <x-chart-component idChart="salaryChart" description="Ingreso (Salario minimo diario)"
-                title="ingreso" lg="6" md="6" />
+            <x-chart-component idChart="salary" description="Ingreso (Salario minimo diario)" title="ingreso" lg="6"
+                md="6" />
 
-            <x-chart-component idChart="managementLevelChart" description="Nivel jerárquico en el trabajo"
-                title="nivel_jerarquico" lg="6" md="6" />                
+            <x-chart-component idChart="management_level" description="Nivel jerárquico en el trabajo"
+                title="nivel_jerarquico" lg="6" md="6" />
 
-            <x-chart-component idChart="jobConditionChart" description="Condición de trabajo"
-                title="condicion_trabajo" lg="6" md="6" />
+            <x-chart-component idChart="job_condition" description="Condición de trabajo" title="condicion_trabajo"
+                lg="6" md="6" />
 
-            <x-chart-component idChart="jobRelationshipChart" description="Relación del trabajo con su área de formación"
-                title="relacion_trabajo_area_formacion" lg="6" md="6" />                
-                
-            <x-chart-component idChart="businessStructureChart" description="Su empresa u organismo es"
+            <x-chart-component idChart="job_relationship" description="Relación del trabajo con su área de formación"
+                title="relacion_trabajo_area_formacion" lg="6" md="6" />
+
+            <x-chart-component idChart="business_structure" description="Su empresa u organismo es"
                 title="estructura_empresa" lg="6" md="6" />
 
-            <x-chart-component idChart="companySizeChart" description="Tamaño de la empresa u organismo"
+            <x-chart-component idChart="company_size" description="Tamaño de la empresa u organismo"
                 title="tamanio_empresa" lg="6" md="6" />
+
+            <x-chart-component idChart="year" description="Año de ingreso al trabajo" title="anio_ingreso_trabajo" />
+
+            {{--
+            <x-chart-component idChart="businessActivityChart"
+                description="Actividad económica de la empresa u organismo" title="actividad_economica" /> --}}
+        </div>
+
+        @section('scripts')
+        <script type="module">
+            import ChartSSE from '/js/chart.js';    
+    
+            const arr = @php echo $query; @endphp;
+            const properties = @php echo json_encode($properties); @endphp;
+            for (let property of properties) {
+                const output = getObject(property, arr);
+                window[property+'Chart'] = new ChartSSE(property, 'pie', output);
+            }
             
-            <x-chart-component idChart="yearChart" description="Año de ingreso al trabajo"
-                title="anio_ingreso_trabajo" />
+            const arr2 = @php echo $query2; @endphp;
+            const properties2 = @php echo json_encode($properties2); @endphp;
+            for (let property2 of properties2) {
+                const output2 = getObject(property2, arr2);
+                window[property2+'Chart'] = new ChartSSE(property2, 'pie', output2);
+            }            
+        </script>
 
-            <x-chart-component idChart="businessActivityChart" description="Actividad económica de la empresa u organismo"
-                title="actividad_economica" />                            
+        <script type="text/javascript">
+            $(document.body).on("select2:selecting", "#careerSelected", (e) => {
+                    const career = e.params.args.data.id;
+                    Livewire.emit('addCareer', career)
+                });
+                        
+                $(document.body).on("select2:unselecting", "#careerSelected", (e) => {
+                    const career = e.params.args.data.id;
+                    Livewire.emit('removeCareer', career)
+                });
+    
+                $(document.body).on("select2:selecting", "#surveySelected", (e) => {
+                    const survey = e.params.args.data.id;
+                    Livewire.emit('addSurvey', survey)
+                });
+    
+                $(document.body).on("select2:unselecting", "#surveySelected", (e) => {
+                    const survey = e.params.args.data.id;
+                    Livewire.emit('removeSurvey', survey)
+                });
+        </script>
+        @endsection
+
     </div>
-
-    @section('scripts')
-    <script type="module">
-        import ChartSSE from '/js/chartOld.js';
-            const chartsData = @php echo $json; @endphp;
-            const { 
-                doForLiving,
-                speciality,
-                longTakeJob,
-                counts,
-                languageMostSpoken,
-                seniority,
-                salary,
-                managementLevel,
-                jobCondition,
-                jobRelationship,
-                businessStructure,
-                companySize,
-                year,
-                businessActivity
-            } = chartsData;
-
-            const doForLivingChart = new ChartSSE('doForLivingChart', 'pie', doForLiving);
-            const specialityChart = new ChartSSE('specialityChart', 'pie', speciality);
-            const longTakeJobChart = new ChartSSE('longTakeJobChart', 'pie', longTakeJob);
-            const countsChart = new ChartSSE('countsChart', 'bar', counts);
-            const languageMostSpokenChart = new ChartSSE('languageMostSpokenChart', 'pie', languageMostSpoken);
-            const seniorityChart = new ChartSSE('seniorityChart', 'pie', seniority);
-            const salaryChart = new ChartSSE('salaryChart', 'pie', salary);
-            const managementLevelChart = new ChartSSE('managementLevelChart', 'pie', managementLevel);
-            const jobConditionChart = new ChartSSE('jobConditionChart', 'pie', jobCondition);
-            const jobRelationshipChart = new ChartSSE('jobRelationshipChart', 'pie', jobRelationship); 
-            const businessStructureChart = new ChartSSE('businessStructureChart', 'pie', businessStructure);
-            const companySizeChart = new ChartSSE('companySizeChart', 'pie', companySize);
-            const yearChart = new ChartSSE('yearChart', 'bar', year);
-            const businessActivityChart = new ChartSSE('businessActivityChart', 'bar', businessActivity);
-    </script>
-
-    @endsection
-
-</div>

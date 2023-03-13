@@ -13,9 +13,6 @@
                 
             <x-chart-component idChart="usefulness_professional_residence" description="Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional"
                 title="utilidad_residencia" lg="4" md="6" sm="12" />                          
-                
-            {{-- <x-chart-component idChart="averagesArrayChart" description="Aspectos que valora la empresa u organismo para la contratación de egresados. Promedios"
-                title="promedios_aspectos" /> --}}
         </div>
 
         <div class="row w-100 alert alert-dark d-flex justify-content-center text-center">

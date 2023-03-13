@@ -7,6 +7,7 @@ use App\Models\Career;
 use App\Models\Language;
 use App\Models\Business;
 use App\Models\Specialty;
+use App\Constants\Constants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -19,6 +20,8 @@ abstract class SurveyBase extends Model
     public $total;
     protected $questions = [];
     protected $graph = [];
+    protected $graph2 = [];
+    protected $graph3 = [];
 
     public $external =  [
         'career_id',
@@ -48,10 +51,11 @@ abstract class SurveyBase extends Model
         }
 
         $a = self::join('users', 'users.id', "{$this->survey}.user_id")
-            ->where('users.role', 'graduate')
-            ->whereIn("users.career_id", $careersIn)
+            ->whereNotNull('users.income_year')
             ->whereBetween('users.income_year', [$yearStart, $yearEnd])
             ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
+            ->where('users.role', Constants::ROLE['Graduate'])
+            ->whereIn("users.career_id", $careersIn)
             ->get();
 
         foreach ($a as $key => $value) if ($value['income_year'] == $yearStart) {
@@ -105,11 +109,11 @@ abstract class SurveyBase extends Model
         }
 
         $a = self::join('users', 'users.id', "{$this->survey}.user_id")
-            ->where('users.role', 'graduate')
-            ->whereIn("users.career_id", $careersIn)
             ->whereNotNull('users.income_year')
             ->whereBetween('users.income_year', [$yearStart, $yearEnd])
             ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
+            ->where('users.role', Constants::ROLE['Graduate'])
+            ->whereIn("users.career_id", $careersIn)
             ->get();
 
         foreach ($a as $key => $value) if ($value['income_year'] == $yearStart) {
@@ -133,7 +137,7 @@ abstract class SurveyBase extends Model
         foreach ($this->properties as $key => $property) {
 
             $options = $a->pluck($key)->unique()->values()->all();
-            //ignore emptys or null values
+
             $options = array_filter($options, function ($value) {
                 return $value !== null && $value !== '';
             });
@@ -142,7 +146,7 @@ abstract class SurveyBase extends Model
             foreach ($options as $option) {
                 $optionCount = $a->where($key, $option)
                 ->whereNotNull($key)->count();
-                //check if key is in external array
+
                 if (in_array($key, $this->external)) {
                     $newOption = $this->getName($key, $option);
                     $values[$newOption]['quantity'] = $optionCount;
@@ -174,5 +178,13 @@ abstract class SurveyBase extends Model
 
     public function getGraph(){
         return $this->graph;
+    }
+
+    public function getGraph2(){
+        return $this->graph2;
+    }
+
+    public function getGraph3(){
+        return $this->graph3;
     }
 }

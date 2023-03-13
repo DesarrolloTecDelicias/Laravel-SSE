@@ -1,14 +1,8 @@
 <div>
-    <x-slot name="title">
-        Correo Aviso
-    </x-slot>
-
-    <x-slot name="header">
-        Administrar Correo Aviso
-    </x-slot>
+    <x-header title="Correo Aviso" header="Administrar Correo Aviso" />
 
     <div class="pb-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="d-flex flex-wrap">
                 <h5 class="w-100 text-center">Tags para poder emplearse en las plantillas, es importante que se abra con
                     dos caracteres <b> { </b> y cierre de igual forma con 2 caracteres <b> } </b></h5>

@@ -1,14 +1,8 @@
 <div>
-    <x-slot name="title">
-        Resultados Generales Corte Gráficas
-    </x-slot>
-
-    <x-slot name="header">
-        Reporte de resultados generales corte gráficas
-    </x-slot>
+    <x-header title="Resultados Generales Corte Gráficas" header="Reporte de resultados generales corte gráficas" />
 
     <div class="py-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="row d-flex justify-content-center">
                 <a target="_blank" href="{{ route('pdf') }}" class="btn bg-gradient-success mb-4">
                     Imprimir reporte

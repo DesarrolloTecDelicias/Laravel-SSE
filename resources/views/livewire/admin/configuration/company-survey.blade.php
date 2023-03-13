@@ -1,11 +1,5 @@
 <div>
-    <x-slot name="title">
-        Empresas Encuestas
-    </x-slot>
-
-    <x-slot name="header">
-        Empresas con encuestas completadas
-    </x-slot>
+    <x-header title="Empresas Encuestas" header="Empresas con encuestas completadas" />
 
     <div class="py-4 h-25">
         <livewire:tables.admin.configuration.companies-survey-table />

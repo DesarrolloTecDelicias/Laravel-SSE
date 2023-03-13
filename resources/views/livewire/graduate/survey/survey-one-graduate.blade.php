@@ -67,7 +67,7 @@
                         </option>
                         @foreach ($specialties as $specialty)
                         <option value="{{ $specialty->id }}">
-                            {{ $specialty->name }}
+                            {{ $specialty->name }}@if($specialty->reticle). Retícula: {{ $specialty->reticle }} @endif
                         </option>
                         @endforeach
                     </select>

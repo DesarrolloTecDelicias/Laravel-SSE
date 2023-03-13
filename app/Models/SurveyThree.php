@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\SurveyBase;
+use App\Constants\Constants;
 
 class SurveyThree extends SurveyBase
 {
+    use HasFactory;
     public function __construct()
     {
         $this->survey = 'survey_threes';
@@ -14,6 +16,7 @@ class SurveyThree extends SurveyBase
         $this->properties =
             [
                 'do_for_living' => 'ACTIVIDAD A LA QUE SE DEDICA ACTUALMENTE',
+                'speciality' => 'QUÉ ESTÁN ESTUDIANDO LOS EGRESADOS',
                 'long_take_job' => 'TIEMPO TRANSCURRIDO PARA OBTENER EL PRIMER EMPLEO',
                 'hear_about' => 'MEDIO PARA OBTENER EL EMPLEO',
                 'competence1' => 'COMPETENCIAS LABORALES',
@@ -22,7 +25,7 @@ class SurveyThree extends SurveyBase
                 'competence4' => 'IDIOMA EXTRANJERO',
                 'competence5' => 'ACTITUDES Y HABILIDADES SOCIO-COMUNICATIVAS (PRINCIPIOS Y VALORES)',
                 'competence6' => 'NINGUNO',
-                'language_id' => 'IDIOMA QUE UTILIZA EN SU TRABAJO ACTUAL', 
+                'language_id' => 'IDIOMA QUE UTILIZA EN SU TRABAJO ACTUAL',
                 'seniority' => 'ANTIGÜEDAD EN EL EMPLEO ACTUAL',
                 'year' => 'AÑO DE INGRESO',
                 'salary' => 'INGRESO (SALARIO MINIMO DIARIO)',
@@ -35,20 +38,22 @@ class SurveyThree extends SurveyBase
             ];
 
         $this->graph = [
-            'do_for_living',
-            'speciality',
             'long_take_job',
-            'study_area',
-            'title',
-            'experience',
-            'job_competence',
-            'positioning',
-            'languages',
-            'recommendations',
-            'personality',
-            'leadership',
-            'others'
-        ];            
+            //'language_id',
+            'seniority',
+            'year',
+            'salary',
+            'management_level',
+            'job_condition',
+            'job_relationship',
+            'business_structure',
+            'company_size',
+            //'business_id'
+        ];
+
+        $this->graph2 = ['do_for_living'];
+
+        $this->graph3 = ['speciality'];
     }
 
     protected $fillable = [
@@ -92,8 +97,6 @@ class SurveyThree extends SurveyBase
         'business_id',
     ];
 
-    use HasFactory;
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -107,5 +110,109 @@ class SurveyThree extends SurveyBase
     public function business()
     {
         return $this->belongsTo(Business::class);
+    }
+
+    public function getGeneralReportSurveyThreeWork($start, $end, $careers)
+    {
+        $yearStart = date('Y', strtotime($start));
+        $monthStart = date('m', strtotime($start));
+        $yearEnd = date('Y', strtotime($end));
+        $monthEnd = date('m', strtotime($end));
+        $careersIn = array();
+        foreach ($careers as $career) {
+            array_push($careersIn, $career);
+        }
+
+        $a = self::join('users', 'users.id', "{$this->survey}.user_id")
+            ->whereNotNull('users.income_year')
+            ->whereNotNull('survey_threes.long_take_job')
+            ->whereBetween('users.income_year', [$yearStart, $yearEnd])
+            ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
+            ->where([
+                ['users.role', Constants::ROLE['Graduate']]
+            ])
+
+            ->whereIn("users.career_id", $careersIn)
+            ->get();
+
+
+        foreach ($a as $key => $value) {
+           if ($key === 'do_for_living' && $value == Constants::DO_FOR_LIVING[1]) {
+                $a->forget($key);
+            }
+            if ($key === 'do_for_living' && $value == Constants::DO_FOR_LIVING[3]) {
+                $a->forget($key);
+            } 
+            if ($value['income_year'] == $yearStart) {
+                if ($monthStart > 6) {
+                    if ($value['income_month'] == 'ENERO-JUNIO') {
+                        $a->forget($key);
+                    }
+                }
+            }
+        }
+
+        foreach ($a as $key => $value) {
+            if ($key === 'do_for_living' && $value == Constants::DO_FOR_LIVING[1]) {
+                $a->forget($key);
+            }
+            if ($key === 'do_for_living' && $value == Constants::DO_FOR_LIVING[3]) {
+                $a->forget($key);
+            } 
+            if ($value['year_graduated'] == $yearEnd) {
+                if ($monthEnd <= 6) {
+                    if ($value['month_graduated'] == 'AGOSTO-DICIEMBRE') {
+                        $a->forget($key);
+                    }
+                }
+            }
+        }
+
+        return $a;
+    }
+
+    public function getGeneralReportSurveyThreeSchool($start, $end, $careers)
+    {
+        $yearStart = date('Y', strtotime($start));
+        $monthStart = date('m', strtotime($start));
+        $yearEnd = date('Y', strtotime($end));
+        $monthEnd = date('m', strtotime($end));
+        $careersIn = array();
+        foreach ($careers as $career) {
+            array_push($careersIn, $career);
+        }
+
+        $a = self::join('users', 'users.id', "{$this->survey}.user_id")
+            ->where('users.role', Constants::ROLE['Graduate'])
+            ->whereNotNull('users.income_year')
+            ->whereBetween('users.income_year', [$yearStart, $yearEnd])
+            ->whereBetween('users.year_graduated', [$yearStart, $yearEnd])
+            ->orWhere('survey_threes.do_for_living', Constants::DO_FOR_LIVING[2])
+            ->orWhere('survey_threes.do_for_living', Constants::DO_FOR_LIVING[1])
+            ->whereIn("users.career_id", $careersIn)
+            ->get();
+
+
+        foreach ($a as $key => $value) {
+            if ($value['income_year'] == $yearStart) {
+                if ($monthStart > 6) {
+                    if ($value['income_month'] == 'ENERO-JUNIO') {
+                        $a->forget($key);
+                    }
+                }
+            }
+        }
+
+        foreach ($a as $key => $value) {
+            if ($value['year_graduated'] == $yearEnd) {
+                if ($monthEnd <= 6) {
+                    if ($value['month_graduated'] == 'AGOSTO-DICIEMBRE') {
+                        $a->forget($key);
+                    }
+                }
+            }
+        }
+
+        return $a;
     }
 }

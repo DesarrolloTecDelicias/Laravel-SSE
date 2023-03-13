@@ -2,7 +2,7 @@
     <x-header title="Carreras" header="Administrar carreras" />
 
     <div class="pb-4">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <x-add-button model="carrera" />
 
             <div class="pb-4">
