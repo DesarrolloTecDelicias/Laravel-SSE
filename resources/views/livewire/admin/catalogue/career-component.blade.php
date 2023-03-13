@@ -3,7 +3,9 @@
 
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
-            <x-add-button model="carrera" />
+            @if(auth()->user()->role == 'admin')
+            <x-add-button model="carrera"/>
+            @endif
 
             <div class="pb-4">
                 <livewire:tables.admin.catalogue.careers-table />

@@ -1,9 +1,11 @@
 <div>
-    <x-header title="Egresados" header="Administrar Egresados" />    
+    <x-header title="Egresados" header="Administrar Egresados" />
 
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
+            @if(auth()->user()->role == 'admin')
             <x-add-button model="Egresado" lastVowal="o" />
+            @endif
 
             <div class="pb-4">
                 <livewire:tables.admin.configuration.graduates-table />
@@ -33,8 +35,8 @@
                             <div class="form-group">
                                 <label for="fathers_surname">Apellido Paterno</label>
                                 <input wire:model.defer="state.fathers_surname" type="text" autocomplete="off"
-                                    class="form-control @error('fathers_surname') is-invalid @enderror" id="fathers_surname"
-                                    placeholder="Apellido Paterno">
+                                    class="form-control @error('fathers_surname') is-invalid @enderror"
+                                    id="fathers_surname" placeholder="Apellido Paterno">
                                 @error('fathers_surname')
                                 <div class="text-danger">
                                     {{ $message }}
@@ -45,8 +47,8 @@
                             <div class="form-group">
                                 <label for="mothers_surname">Apellido Materno</label>
                                 <input wire:model.defer="state.mothers_surname" type="text" autocomplete="off"
-                                    class="form-control @error('mothers_surname') is-invalid @enderror" id="mothers_surname"
-                                    placeholder="Apellido Materno">
+                                    class="form-control @error('mothers_surname') is-invalid @enderror"
+                                    id="mothers_surname" placeholder="Apellido Materno">
                                 @error('mothers_surname')
                                 <div class="text-danger">
                                     {{ $message }}
@@ -186,7 +188,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <x-modal-footer model="Egresado" :stateid="isset($state['id'])" />
                     </div>
                 </div>

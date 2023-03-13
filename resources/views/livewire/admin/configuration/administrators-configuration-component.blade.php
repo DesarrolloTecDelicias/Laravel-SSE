@@ -1,9 +1,11 @@
 <div>
-    <x-header title="Administradores" header="Administrar Administradores" />    
+    <x-header title="Administradores" header="Administrar Administradores" />
 
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
+            @if(auth()->user()->role == 'admin')
             <x-add-button model="Administrador" lastVowal="o" />
+            @endif
 
             <div class="pb-4">
                 <livewire:tables.admin.configuration.administrators-table />
@@ -16,7 +18,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <x-modal-header model="Administrador" :stateid="isset($state['id'])" />
-                        
+
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="name">Nombre del Administrador</label>
@@ -73,7 +75,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <x-modal-footer model="Convenio" :stateid="isset($state['id'])" />
                     </div>
                 </div>

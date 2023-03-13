@@ -3,7 +3,9 @@
 
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
+            @if(auth()->user()->role == 'admin')
             <x-add-button model="Empresa" />
+            @endif
 
             <div class="pb-4">
                 <livewire:tables.admin.configuration.companies-table />

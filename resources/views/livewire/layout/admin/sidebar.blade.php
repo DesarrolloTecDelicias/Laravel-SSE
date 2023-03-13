@@ -47,6 +47,7 @@
                     </ul>
                 </li>
 
+                @if (Auth::user()->role == 'admin')
                 <li class="nav-item {!! $this->openMenu('administrador/correo') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'correo' ? 'active' : '' !!}">
                         <i class="nav-icon fas fa-envelope"></i>
@@ -60,7 +61,7 @@
                         <x-nav-item route='email.advice.company' :routename="$routeName" title="Aviso empresas" />
                     </ul>
                 </li>
-
+                @endif
 
                 <li class="nav-item {!! $this->openMenu('administrador/egresados') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'egresados' ? 'active' : '' !!}">

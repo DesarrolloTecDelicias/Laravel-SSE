@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Tables\Admin\Configuration;
 use App\Models\Career;
 use App\Models\StudentSurvey;
 use App\Models\SurveyOne;
+use App\Constants\Constants;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -78,6 +79,26 @@ class GraduatesSurveyTable extends LivewireDatatable
                 ->label('Número de control')
                 ->hideable()
                 ->filterable(),
+
+            NumberColumn::name('users.income_year')
+            ->label('Año de Ingreso')
+            ->hideable()
+                ->filterable(),
+
+            Column::name('users.income_month')
+            ->label('Período de Ingreso')
+            ->hideable()
+                ->filterable(Constants::MONTH),
+
+            NumberColumn::name('users.year_graduated')
+            ->label('Año de egreso')
+            ->hideable()
+                ->filterable(),
+
+            Column::name('users.month_graduated')
+            ->label('Período de Egreso')
+            ->hideable()
+                ->filterable(Constants::MONTH),
 
             Column::name('careers.name')
                 ->label('Carrera')
