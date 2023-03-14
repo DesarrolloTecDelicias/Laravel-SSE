@@ -20,6 +20,7 @@ class RouteController extends Controller
         $routes = [
             Constants::ROLE['Administrator'] => 'admin.dashboard',
             Constants::ROLE['Committee'] => 'admin.dashboard',
+            Constants::ROLE['Support'] => 'admin.dashboard',
             Constants::ROLE['Graduate'] => 'graduate.dashboard',
             Constants::ROLE['Company'] => 'company.dashboard',
         ];

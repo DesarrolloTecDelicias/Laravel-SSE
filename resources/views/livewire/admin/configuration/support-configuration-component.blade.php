@@ -4,11 +4,11 @@
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
             @if(auth()->user()->role == 'admin')
-            <x-add-button model="Administrador" lastVowal="o" />
+            <x-add-button model="Soporte" lastVowal="o" />
             @endif
 
             <div class="pb-4">
-                <livewire:tables.admin.configuration.administrators-table />
+                <livewire:tables.admin.configuration.support-table />
             </div>
 
             <!-- Modal -->
@@ -17,14 +17,14 @@
                 style="@if($modal)display: block; padding-right: 16px; @else display: none; @endif ">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <x-modal-header model="Administrador" :stateid="isset($state['id'])" />
+                        <x-modal-header model="Soporte" :stateid="isset($state['id'])" />
 
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="name">Nombre del Administrador</label>
+                                <label for="name">Nombre del Soporte</label>
                                 <input wire:model.defer="state.name" type="text" autocomplete="off"
                                     class="form-control @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Nombre administrador">
+                                    placeholder="Nombre soporte">
                                 @error('name')
                                 <div class="text-danger">
                                     {{ $message }}
@@ -55,28 +55,9 @@
                                 </div>
                                 @enderror
                             </div>
-
-                            <div class="form-group">
-                                <label for="career_id">Carrera</label>
-                                <div class="controls">
-                                    <select id="career_id" wire:model.defer="state.career_id"
-                                        class="form-control @error('career_id') is-invalid @enderror"
-                                        title="Mencione la carrera">
-                                        <option value='' selected disabled="">Selecciona una opción</option>
-                                        @foreach ($careers as $career)
-                                        <option value="{{ $career->id }}">{{ $career->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('career_id')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
                         </div>
 
-                        <x-modal-footer model="Administrador" :stateid="isset($state['id'])" />
+                        <x-modal-footer model="Soporte" :stateid="isset($state['id'])" />
                     </div>
                 </div>
             </div>

@@ -18,7 +18,8 @@ class Constants
         'Administrator' => "admin",
         'Graduate' => "graduate",
         'Company' => "company",
-        'Committee' => "committee"
+        'Committee' => "committee",
+        'Support' => "support",
     ];
 
     const STATUS = [

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin\Configuration;
 
 use App\Models\User;
-use App\Models\Career;
 use Livewire\Component;
 use App\Constants\Constants;
 use App\Helpers\ModelHelper;
@@ -11,21 +10,16 @@ use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AdministratorsConfigurationComponent extends Component
+class SupportConfigurationComponent extends Component
 {
     protected $listeners = ['editAdministrator', 'deleteAdministrator', 'callConfirmationAdministrator'];
     public $modal = false;
-    public $state = ['career_id' => ''];
+    public $state = [];
     public $careers = [];
 
     public function render()
     {
-        return view('livewire.admin.configuration.administrators-configuration-component');
-    }
-
-    public function mount()
-    {
-        $this->careers = Career::all();
+        return view('livewire.admin.configuration.support-configuration-component');
     }
 
     public function save()
@@ -40,12 +34,12 @@ class AdministratorsConfigurationComponent extends Component
 
         $validateData['name'] = mb_strtoupper($validateData['name'], 'UTF-8');
         $validateData['password'] = Hash::make($validateData['password']);
-        $validateData['role'] = Constants::ROLE['Committee'];
+        $validateData['role'] = Constants::ROLE['Support'];
         User::updateOrCreate(['id' => $idValidator], $validateData);
 
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizado' : 'creado');
-        $this->state = ['career_id' => ''];
+        $this->state = [];
     }
 
     public function editAdministrator(int $id)
@@ -87,7 +81,7 @@ class AdministratorsConfigurationComponent extends Component
     public function sendMessage(string $message)
     {
         $this->dispatchBrowserEvent('message', [
-            'message' => "Administrador {$message} correctamente",
+            'message' => "Soporte {$message} correctamente",
             'type' => 'success'
         ]);
 
@@ -103,7 +97,6 @@ class AdministratorsConfigurationComponent extends Component
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $idValidator,
             'password' => 'required',
-            'career_id' => 'required',
         ];
     }
 
@@ -114,7 +107,6 @@ class AdministratorsConfigurationComponent extends Component
             'email.required' => GlobalFunctions::requiredMessage('email'),
             'email.unique' => GlobalFunctions::uniqueMessage('email'),
             'password.required' => GlobalFunctions::requiredMessage('contraseña'),
-            'career_id.required' => GlobalFunctions::requiredMessage('carrera'),
         ];
     }
 }

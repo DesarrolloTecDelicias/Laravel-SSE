@@ -105,6 +105,7 @@
 
         @case('admin') @livewire('layout.admin.sidebar') @break
         @case('committee') @livewire('layout.admin.sidebar') @break
+        @case('support') @livewire('layout.admin.sidebar') @break
         @case('graduate') @livewire('layout.graduate.sidebar') @break
         @case('company') @livewire('layout.company.sidebar') @break
         @default

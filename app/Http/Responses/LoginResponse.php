@@ -27,6 +27,8 @@ class LoginResponse implements LoginResponseContract
                 return redirect()->route('admin.dashboard');
             case Constants::ROLE['Committee']:
                 return redirect()->route('admin.dashboard');
+            case Constants::ROLE['Support']:
+                return redirect()->route('admin.dashboard');
             case Constants::ROLE['Graduate']:
                 return redirect()->route('graduate.dashboard');
             case Constants::ROLE['Company']:

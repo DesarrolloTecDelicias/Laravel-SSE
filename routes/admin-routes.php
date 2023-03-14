@@ -24,6 +24,7 @@ use App\Http\Livewire\Admin\Configuration\GraduatesSurvey;
 use App\Http\Livewire\Admin\Configuration\GraduatesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\CompaniesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\AdministratorsConfigurationComponent;
+use App\Http\Livewire\Admin\Configuration\SupportConfigurationComponent;
 
 //Report components
 use App\Http\Livewire\Admin\Report\Graduate\SurveyOneGraduateReport;
@@ -94,6 +95,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
         /***************** Configuration ******************/
         Route::prefix('configuracion')->group(function () {
             Route::get('/administradores', AdministratorsConfigurationComponent::class)->name('configuration.administrators');
+            Route::get('/soportes', SupportConfigurationComponent::class)->name('configuration.supports');
         });
 
         /***************** Report ******************/

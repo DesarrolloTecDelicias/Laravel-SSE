@@ -31,6 +31,7 @@
                     </a>
                 </li>
 
+                @if (Auth::user()->role != "support")
                 <li class="nav-item {!! $this->openMenu('administrador/catalogo') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'catalogo' ? 'active' : '' !!}">
                         <i class="nav-icon fas fa-book-open"></i>
@@ -106,6 +107,7 @@
                     <ul class="nav nav-treeview">
                         <x-nav-item route='configuration.administrators' :routename="$routeName"
                             title="Administradores" />
+                        <x-nav-item route='configuration.supports' :routename="$routeName" title="Soportes" />
                     </ul>
                 </li>
                 @endif
@@ -230,8 +232,6 @@
                         </li>
                     </ul>
                 </li>
-
-
 
                 <li class="nav-item {!! $this->openMenu('administrador/estadistica') !!}">
                     <a href="#" class="nav-link {!! $segments[1] == 'estadistica' ? 'active' : '' !!}">
@@ -359,6 +359,7 @@
                         <x-nav-item route='methodology.options' :routename="$routeName" title="Por opciones" />
                     </ul>
                 </li>
+                @endif
 
                 <li class="nav-item">
                     <a href="{{ route('admin.profile') }}"

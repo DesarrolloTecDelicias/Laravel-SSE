@@ -19,7 +19,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         $role = Auth::user()->role;
-        if ($role == Constants::ROLE['Administrator'] || $role == Constants::ROLE['Committee']) {
+        if ($role == Constants::ROLE['Administrator'] || $role == Constants::ROLE['Committee'] || $role == Constants::ROLE['Support']) {
             return  $next($request);
         } else {
             return

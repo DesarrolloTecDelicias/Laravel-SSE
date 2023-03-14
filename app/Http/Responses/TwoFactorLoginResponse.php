@@ -26,7 +26,9 @@ class TwoFactorLoginResponse implements TwoFactorLoginResponseContract
             case Constants::ROLE['Administrator']:
                 return redirect()->route('admin.dashboard');
             case Constants::ROLE['Committee']:
-                return redirect()->route('admin.dashboard');                
+                return redirect()->route('admin.dashboard');
+            case Constants::ROLE['Support']:
+                return redirect()->route('admin.dashboard');
             case Constants::ROLE['Graduate']:
                 return redirect()->route('graduate.dashboard');
             case Constants::ROLE['Company']:
