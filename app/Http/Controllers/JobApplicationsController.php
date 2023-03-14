@@ -76,6 +76,13 @@ class JobApplicationsController extends Controller
             $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])->first();
             $jobApplication['informacion_empresa'] = $companyInformation;
             unset($jobApplication['user_id']);
+            unset($companyInformation['id']);
+            unset($companyInformation['email']);
+            unset($companyInformation['business_structure']);
+            unset($companyInformation['company_size']);
+            unset($companyInformation['business_id']);
+            unset($companyInformation['created_at']);
+            unset($companyInformation['updated_at']);
             $jobApplication['photo_path'] = asset('storage/job_aplications/' . $jobApplication['photo_path']);
             return $jobApplication;
         } else {
@@ -149,6 +156,13 @@ class JobApplicationsController extends Controller
             $jobApplications = JobApplication::where('career_id', $id)->get();
             foreach ($jobApplications as $jobApplication) {
                 $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])->first();
+                unset($companyInformation['id']);
+                unset($companyInformation['email']);
+                unset($companyInformation['business_structure']);
+                unset($companyInformation['company_size']);
+                unset($companyInformation['business_id']);
+                unset($companyInformation['created_at']);
+                unset($companyInformation['updated_at']);
                 $jobApplication['informacion_empresa'] = $companyInformation;
                 $jobApplication['photo_path'] = asset('storage/job_aplications/' . $jobApplication['photo_path']);
                 unset($jobApplication['user_id']);
