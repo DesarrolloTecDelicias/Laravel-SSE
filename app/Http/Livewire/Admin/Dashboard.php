@@ -25,6 +25,57 @@ class Dashboard extends Component
 
     public function mount()
     {
+        $survey3 = SurveyThree::where('do_for_living', 'TRABAJA')
+        ->whereNull('long_take_job')
+        ->get();
+
+        foreach ($survey3 as $survey) {
+            $survey->do_for_living = 'NO ESTUDIA NI TRABAJA';
+            $survey->competence1 = null;
+            $survey->competence2 = null;
+            $survey->competence3 = null;
+            $survey->competence4 = null;
+            $survey->competence5 = null;
+            $survey->competence6 = null;
+
+            $survey->speak_percent = null;
+            $survey->write_percent = null;
+            $survey->read_percent = null;
+            $survey->listen_percent = null;
+            $survey->job_relationship = null;
+            $survey->fax = null;
+            $survey->web_page = null;
+            $survey->boss_email = null;
+            
+            $survey->save();
+        }
+
+        $survey4 = SurveyThree::where('do_for_living', 'ESTUDIA')
+        ->whereNull('speciality')
+        ->get();
+
+        foreach ($survey4 as $survey) {
+            $survey->do_for_living = 'NO ESTUDIA NI TRABAJA';
+            $survey->speciality = null;
+            $survey->school = null;
+            $survey->competence1 = null;
+            $survey->competence2 = null;
+            $survey->competence3 = null;
+            $survey->competence4 = null;
+            $survey->competence5 = null;
+            $survey->competence6 = null;
+
+            $survey->speak_percent = null;
+            $survey->write_percent = null;
+            $survey->read_percent = null;
+            $survey->listen_percent = null;
+            $survey->job_relationship = null;
+            $survey->fax = null;
+            $survey->web_page = null;
+            $survey->boss_email = null;
+
+            $survey->save();
+        }
         $this->boxesInfo();
         $this->getChartInfo();
     }
