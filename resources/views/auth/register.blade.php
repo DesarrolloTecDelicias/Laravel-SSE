@@ -91,8 +91,9 @@
                         Selecciona tu carrera
                     </option>
                     @foreach ($careers as $career)
-                    <option value="{{ $career->id }}" @if (old('career_id')==$career->name)
-                        {{ 'selected' }} @endif>{{ $career->name }}</option>
+                    <option value="{{ $career->id }}" @if (old('career_id')==$career->id) selected @endif>
+                        {{ $career->name }}
+                    </option>
                     @endforeach
                 </select>
             </div>

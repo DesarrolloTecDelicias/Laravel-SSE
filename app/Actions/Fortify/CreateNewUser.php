@@ -36,7 +36,15 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => ['required', 'string', 'max:255'],
                 'fathers_surname' => $input['role'] == 15 ?  ['required', 'string', 'max:100'] : '',
                 'mothers_surname' => $input['role'] == 15 ?  ['required', 'string', 'max:100'] : '',
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users',
+                //add rule to validate email not allowed domains delicias.tecnm.mx and itmexicali.edu.mx only for role == 15
+                $input['role'] == 15 ? function ($attribute, $value, $fail) {
+                    if (in_array(explode('@', $value)[1], Constants::DOMAINS_NOT_ALLOWED)) {
+                        $fail('El dominio de correo electrónico no está permitido. Por favor, use un correo electrónico personal no institucional.');
+                    }
+                } : ''
+                
+            ],
                 'career_id' => $input['role'] == 15 ? 'required' : '',
                 'control_number' => $input['role'] == 15 ? ['required', 'unique:users', 'regex:/^[C]?[B]?[0-9]{8,10}$/'] : '',
                 'income_year' => $input['role'] == 15 ? 'required|digits:4' : '',

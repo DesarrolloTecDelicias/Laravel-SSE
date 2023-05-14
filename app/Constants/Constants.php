@@ -13,6 +13,12 @@ trait ConstantExport
 
 class Constants
 {
+    public const DOMAINS_NOT_ALLOWED = [
+        'delicias.tecnm.mx',
+        'itmexicali.edu.mx',
+        'itcdcuauhtemoc.edu.mx'
+    ];
+    
     public const ROLE =
     [
         'Administrator' => "admin",
