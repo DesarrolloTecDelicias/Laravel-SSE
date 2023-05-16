@@ -136,21 +136,22 @@ class SurveyOneTable extends LivewireDatatable
                 ->filterable(Career::pluck('name')),
 
             Column::callback(['specialty_id'], function ($specialty_id) {
+                if ($specialty_id == null) {
+                    return '';
+                }
                 $specialty = Specialty::find($specialty_id);
                 return $specialty == null ? '' : strval($specialty->name);
             })
                 ->label('Especialidad')
                 ->hideable()
                 ->exportCallback(function ($specialty_id) {
-                $specialty = Specialty::find($specialty_id);
+                    if ($specialty_id == null) {
+                        return '';
+                    }
+                    $specialty = Specialty::find($specialty_id);
                     return $specialty == null ? '' : strval($specialty->name);
                 })
                 ->filterable(),
-
-            Column::name('specialties.name')
-                ->label('Especialidad')
-                ->hideable()
-                ->filterable(Specialty::pluck('name')),
 
             Column::name('income_month')
                 ->label('Período de ingreso')
