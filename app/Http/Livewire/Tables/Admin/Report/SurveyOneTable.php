@@ -26,7 +26,6 @@ class SurveyOneTable extends LivewireDatatable
             return SurveyOne::query()
                 ->join('users', 'users.id', 'survey_ones.user_id')
                 ->join('careers', 'careers.id', 'survey_ones.career_id')
-                ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
                 ->join('languages', 'languages.id', 'survey_ones.language_id')
                 ->where('survey_ones.career_id', $career)
                 ->whereNotNull('users.income_year');
@@ -34,7 +33,6 @@ class SurveyOneTable extends LivewireDatatable
             return SurveyOne::query()
                 ->join('users', 'users.id', 'survey_ones.user_id')
                 ->join('careers', 'careers.id', 'survey_ones.career_id')
-                ->join('specialties', 'specialties.id', 'survey_ones.specialty_id')
                 ->join('languages', 'languages.id', 'survey_ones.language_id')
                 ->whereNotNull('users.income_year');
         }
@@ -136,6 +134,18 @@ class SurveyOneTable extends LivewireDatatable
                 ->label('Carrera')
                 ->hideable()
                 ->filterable(Career::pluck('name')),
+
+            Column::callback(['specialty_id'], function ($specialty_id) {
+                $specialty = Specialty::find($specialty_id);
+                return $specialty == null ? '' : strval($specialty->name);
+            })
+                ->label('Especialidad')
+                ->hideable()
+                ->exportCallback(function ($specialty_id) {
+                $specialty = Specialty::find($specialty_id);
+                    return $specialty == null ? '' : strval($specialty->name);
+                })
+                ->filterable(),
 
             Column::name('specialties.name')
                 ->label('Especialidad')
