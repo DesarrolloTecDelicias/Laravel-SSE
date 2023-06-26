@@ -18,6 +18,7 @@ class AgreementComponent extends CatalogueBase
         $this->lastVowal = 'o';
         $this->model = Agreement::class;
         $this->state['user_id'] = '';
+        $this->state['type'] = '';
     }
 
     public function render()
@@ -44,6 +45,10 @@ class AgreementComponent extends CatalogueBase
         $this->launchModal();
         $this->sendMessage($idValidator ? 'actualizada' : 'creada');
         $this->clear();
+        $this->state = [
+            'user_id' => '',
+            'type' => '',
+        ];
     }
 
     public function delete(int $id)

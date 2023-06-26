@@ -17,6 +17,7 @@ class CreateSpecialtiesTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->foreignId('career_id')->references('id')->on('careers')->onDelete('cascade');
+            $table->string('reticle', 10 )->nullable();
             $table->timestamps();
         });
     }

@@ -88,6 +88,7 @@ class JobApplicationsComponent extends Component
 
 
         $validateData['user_id'] = $user->id;
+        $validateData['status'] = 1;
 
         JobApplication::updateOrCreate(['id' => $idValidator], $validateData);
 

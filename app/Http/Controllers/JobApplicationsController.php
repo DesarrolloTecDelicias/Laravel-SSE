@@ -30,7 +30,7 @@ class JobApplicationsController extends Controller
         }
 
         if ($user->role == Constants::ROLE['Support'] || $user->role == Constants::ROLE['Administrator']) {
-            $jobApplications = JobApplication::all();
+            $jobApplications = JobApplication::where('status', 1)->get();
             foreach ($jobApplications as $jobApplication) {
                 $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])
                     ->first();
@@ -72,7 +72,7 @@ class JobApplicationsController extends Controller
         }
 
         if ($user->role == Constants::ROLE['Support'] || $user->role == Constants::ROLE['Administrator']) {
-            $jobApplication = JobApplication::findOrFail($id);
+            $jobApplication = JobApplication::where('id', $id)->first();
             $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])->first();
             $jobApplication['informacion_empresa'] = $companyInformation;
             unset($jobApplication['user_id']);
@@ -111,7 +111,10 @@ class JobApplicationsController extends Controller
         }
 
         if ($user->role == Constants::ROLE['Support'] || $user->role == Constants::ROLE['Administrator']) {
-            $jobApplications = JobApplication::where('user_id', $id)->get();
+            $jobApplications = JobApplication::where([
+                ['user_id', $id],
+                ['status', 1]
+            ])->get();
             foreach ($jobApplications as $jobApplication) {
                 $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])
                     ->first();
@@ -153,7 +156,10 @@ class JobApplicationsController extends Controller
         }
 
         if ($user->role == Constants::ROLE['Support'] || $user->role == Constants::ROLE['Administrator']) {
-            $jobApplications = JobApplication::where('career_id', $id)->get();
+            $jobApplications = JobApplication::where([
+                ['career_id', $id],
+                ['status', 1]
+            ])->get();
             foreach ($jobApplications as $jobApplication) {
                 $companyInformation = CompanySurveyOne::where('user_id', $jobApplication['user_id'])->first();
                 unset($companyInformation['id']);

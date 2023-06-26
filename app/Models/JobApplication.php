@@ -27,6 +27,7 @@ class JobApplication extends Model
         'contact_name',
         'contact_phone',
         'contact_email',
+        'status'
     ];
     use HasFactory;
 

@@ -30,7 +30,8 @@ class Constants
 
     const STATUS = [
         'Inactive' => 0,
-        'Active' => 1
+        'Active' => 1,
+        'Deleted' => 2,
     ];
 
     const SURVEY_STATUS = [

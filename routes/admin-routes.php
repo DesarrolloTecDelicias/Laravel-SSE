@@ -21,10 +21,11 @@ use App\Http\Livewire\Admin\Catalogue\AgreementComponent;
 //Configuration components
 use App\Http\Livewire\Admin\Configuration\CompanySurvey;
 use App\Http\Livewire\Admin\Configuration\GraduatesSurvey;
+use App\Http\Livewire\Admin\Configuration\CompaniesJobApplications;
+use App\Http\Livewire\Admin\Configuration\SupportConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\GraduatesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\CompaniesConfigurationComponent;
 use App\Http\Livewire\Admin\Configuration\AdministratorsConfigurationComponent;
-use App\Http\Livewire\Admin\Configuration\SupportConfigurationComponent;
 
 //Report components
 use App\Http\Livewire\Admin\Report\Graduate\SurveyOneGraduateReport;
@@ -90,6 +91,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])
             Route::get('/', CompaniesConfigurationComponent::class)->name('company.companies');
             Route::get('/encuestas', CompanySurvey::class)->name('company.company.surveys');
             Route::get('/convenios', AgreementComponent::class)->name('company.agreements');
+            Route::get('/empleos', CompaniesJobApplications ::class)->name('company.jobs.applications');
         });
 
         /***************** Configuration ******************/

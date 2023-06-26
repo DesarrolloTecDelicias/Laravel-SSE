@@ -22,9 +22,11 @@ class JobApplicationsView extends Component
     public function delete(int $id)
     {
         $model = JobApplication::findOrFail($id);
-        $destinationPath = public_path();
-        File::delete($destinationPath . '/storage/job_aplications/' . $model['photo_path']);
-        $model->delete();
+        // $destinationPath = public_path();
+        // File::delete($destinationPath . '/storage/job_aplications/' . $model['photo_path']);
+        // $model->delete();
+        $model['status'] = 2;
+        $model->save();
         $this->sendMessage("eliminada");
     }
 

@@ -40,16 +40,39 @@ class CompaniesSurveyTable extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::callback(['id'], function ($id) {
-                $agreement = Agreement::where('user_id', $id)->first();
+            Column::callback(['user_id', 'id'], function ($user_id, $id) {
+                $agreement = Agreement::where('user_id', $user_id)->first();
                 return $agreement == null ? 'No' : 'Sí';
             })
                 ->label('¿Tiene convenio con el tecnológico?')
                 ->unsortable()
                 ->hideable()
-                ->exportCallback(function ($id) {
-                    $agreement = Agreement::where('user_id', $id)->first();
+                ->exportCallback(function ($user_id, $id) {
+                    $agreement = Agreement::where('user_id', $user_id)->first();
                     return $agreement == null ? 'No' : 'Sí';
+                }),
+
+            Column::callback(['user_id'], function ($user_id) {
+                $types = Agreement::where('user_id', $user_id);
+
+                $types = $types->get()->map(function ($type) {
+                    return $type->type;
+                })->toArray();
+
+                return implode(', ', $types);
+                
+            })
+                ->label('Tipo de convenios')
+                ->unsortable()
+                ->hideable()
+                ->exportCallback(function ($user_id) {
+                $types = Agreement::where('user_id', $user_id);
+
+                $types = $types->get()->map(function ($type) {
+                    return $type->type;
+                })->toArray();
+
+                return implode(', ', $types);
                 }),
 
             BooleanColumn::name("survey_one_company_done")
