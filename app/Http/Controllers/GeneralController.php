@@ -16,6 +16,7 @@ class GeneralController extends Controller
         Constants::ROLE['Graduate'] => 'graduate.index',
         Constants::ROLE['Company'] => 'company.index',
     ];
+    
     public function password()
     {
         return view('auth.forgot-password');
