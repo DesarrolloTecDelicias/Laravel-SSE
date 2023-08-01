@@ -1,5 +1,5 @@
 <div>
-    <x-header title="Empleos publicados" header="Administrar empelos publicados" />
+    <x-header title="Empleos publicados" header="Administrar empleos publicados" />
 
     <div class="pb-4">
         <div class="mx-auto sm:px-6 lg:px-8">
