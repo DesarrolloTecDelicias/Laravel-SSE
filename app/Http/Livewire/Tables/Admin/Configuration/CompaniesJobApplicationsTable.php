@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Tables\Company;
+namespace App\Http\Livewire\Tables\Admin\Configuration;
 
 use App\Models\JobApplication;
-use Illuminate\Support\Facades\Auth;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
+use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
-class JobApplicatons extends LivewireDatatable
+class CompaniesJobApplicationsTable extends LivewireDatatable
 {
     public $model = JobApplication::class;
     public $hideable = "select";
@@ -17,16 +17,41 @@ class JobApplicatons extends LivewireDatatable
     public function builder()
     {
         return JobApplication::query()
-            ->where([
-                ['user_id', Auth::user()->id],
-                ['status', 1]
-            ])
+            ->join('users', 'users.id', 'job_applications.user_id')
             ->join('careers', 'careers.id', 'job_applications.career_id');
     }
 
     public function columns()
     {
         return [
+            NumberColumn::name('id')
+                ->label('ID')
+                ->hideable()
+                ->defaultSort('asc'),
+
+            Column::name('users.name')
+                ->label('Empresa')
+                ->hideable()
+                ->filterable(),
+
+            Column::name('careers.name')
+                ->label('Carrera')
+                ->hideable()
+                ->filterable(),
+
+            Column::callback(['status'], function ($status) {
+                $value = $status == 1 ? "<span class=\"text-success\">Activa</span>"
+                    : ($status == 2 ? "<span class=\"text-danger\">Eliminada por la empresa</span>" : "<span class=\"text-warning\">Inactiva</span>");
+                return $value;
+            })
+                ->label('Estatus de la publicación')
+                ->hideable()
+                ->unsortable()
+                ->exportCallback(['status'], function ($status) {
+                    $value = $status == 1 ? "Activa" : ($status == 2 ? "Eliminada por la empresa" : "Inactiva");
+                    return $value;
+                }),
+
             Column::callback(['type'], function ($type) {
                 $value = $type == 1 ? "Residencia" : "Trabajo";
                 return $value;
@@ -38,6 +63,7 @@ class JobApplicatons extends LivewireDatatable
                     $value = $type == 1 ? "Residencia" : "Trabajo";
                     return $value;
                 }),
+
             Column::callback(['photo_path'], function ($photo_path) {
                 return view('table-actions.image', [
                     'photo' => 'storage/job_aplications/' . $photo_path,
@@ -48,10 +74,6 @@ class JobApplicatons extends LivewireDatatable
                 ->unsortable()
                 ->hideable()
                 ->excludeFromExport(),
-            Column::name('careers.name')
-                ->label('Perfil Requerido')
-                ->hideable()
-                ->filterable(),
 
             Column::name('vacancies')
                 ->label('Número de vacantes')
@@ -129,7 +151,7 @@ class JobApplicatons extends LivewireDatatable
                 ->filterable(),
 
             DateColumn::name('created_at')
-                ->label('Creada')
+                ->label('Creado')
                 ->hideable()
                 ->filterable(),
 
@@ -138,16 +160,18 @@ class JobApplicatons extends LivewireDatatable
                 ->hideable()
                 ->filterable(),
 
-            Column::callback(['id'], function ($id) {
-                return view('table-actions.actions-with-route', [
+            Column::callback(['id', 'status'], function ($id, $status) {
+                return view('table-actions.delete', [
                     'id' => $id,
-                    'route' => route('company.application.edit', $id),
+                    'status' => $status,
+                    'active' => 'active',
+                    'inactive' => 'inactive',
                     'delete' => 'callConfirmation'
                 ]);
             })
                 ->label('Acciones')
-                ->hideable()
                 ->unsortable()
+                ->hideable()
                 ->excludeFromExport(),
         ];
     }
@@ -157,9 +181,9 @@ class JobApplicatons extends LivewireDatatable
         return [
             Action::groupBy('Opciones a Exportar', function () {
                 return [
-                    Action::value('csv')->label('Exportar CSV')->export('Carreras.csv'),
-                    Action::value('html')->label('Exportar HTML')->export('Carreras.html'),
-                    Action::value('xls')->label('Exportar XLS')->export('Carreras.xls')
+                    Action::value('csv')->label('Exportar CSV')->export('Empleos_por_empresas.csv'),
+                    Action::value('html')->label('Exportar HTML')->export('Empleos_por_empresas.html'),
+                    Action::value('xls')->label('Exportar XLS')->export('Empleos_por_empresas.xls')
                 ];
             }),
         ];

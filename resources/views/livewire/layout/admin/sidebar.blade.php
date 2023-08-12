@@ -92,6 +92,7 @@
                         <x-nav-item route='company.company.surveys' :routename="$routeName"
                             title="Empresas Encuestas" />
                         <x-nav-item route='company.agreements' :routename="$routeName" title="Convenios" />
+                        <x-nav-item route='company.jobs.applications' :routename="$routeName" title="Empleos publicados" />
                     </ul>
                 </li>
 

@@ -34,6 +34,7 @@ class CreateJobApplicationsTable extends Migration
             $table->string('contact_name');
             $table->string('contact_phone');
             $table->string('contact_email');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
