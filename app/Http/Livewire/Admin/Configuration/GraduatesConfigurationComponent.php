@@ -47,6 +47,7 @@ class GraduatesConfigurationComponent extends Component
         $validateData['fathers_surname'] = mb_strtoupper($validateData['fathers_surname'], 'UTF-8');
         $validateData['mothers_surname'] = mb_strtoupper($validateData['mothers_surname'], 'UTF-8');
         $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['role'] = Constants::ROLE['Graduate'];
         User::updateOrCreate(['id' => $idValidator], $validateData);
 
         $this->launchModal();
