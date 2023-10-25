@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Configuration;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Constants\Constants;
 use App\Helpers\ModelHelper;
 use App\Helpers\GlobalFunctions;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,7 @@ class CompaniesConfigurationComponent extends Component
 
         $validateData['name'] = mb_strtoupper($validateData['name'], 'UTF-8');
         $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['role'] = Constants::ROLE['Company'];
         User::updateOrCreate(['id' => $idValidator], $validateData);
 
         $this->launchModal();
